@@ -1,8 +1,9 @@
 const express = require('express');
+const { sendMessage } = require('fast-two-sms');
 const { signup, signIn, signOut, current } = require('../controller/user');
-
+// const fast2sms = require('fast-two-sms');
 const { validationSignup, validationSignIn } = require('../middleware/userValidation');
-const  authorize  = require('@careerconnect/common').authorize;
+const authorize = require('@careerconnect/common').authorize;
 
 const router = express.Router();
 
@@ -11,33 +12,69 @@ router.post('/api/v1/auth/signup', validationSignup, signup);
 router.post('/api/v1/auth/signin', validationSignIn, signIn);
 router.get('/api/v1/auth/current', authorize, current);
 router.post('/api/v1/auth/signout', signOut);
-////////////////////////////////////////
 
 
 
+const otplib = require('otplib');
+const fast2sms = require('fast-two-sms');
 
-
-
-
-
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-    apiKey: "AIzaSyAWZKUB8F_MRWtwcg1WD8vjOzRaGMPmTL4",
-    authDomain: "tactical-grid-365718.firebaseapp.com",
-    projectId: "tactical-grid-365718",
-    storageBucket: "tactical-grid-365718.appspot.com",
-    messagingSenderId: "755270109611",
-    appId: "1:755270109611:web:3fa0e009d48fed6c06aaee",
-    measurementId: "G-BN7RCX48GZ"
-};
-
-
+// Generate a secret key for the OTP
+const secret = otplib.authenticator.generateSecret();
 
 router.post('/api/v1/auth/otplogin', (req, res) => {
-    const {phone} = req.body
+
+    // Generate an OTP
+    const token = otplib.authenticator.generate(secret);
+
+    const options = {
+        authorization: 'O4W3RRwLlcOUBPnmivMhQC3EgrfQyDeDvAjtpID2XeIOwNbwUg5z73rHudnT',
+        // sender_id: 'YOUR_SENDER_ID',
+        message: `Your OTP verification code is ${token}`,
+        numbers: ['9446655316']
+    };
+    console.log(options);
+
+    fast2sms.sendMessage(options)
+        .then(response => {
+            console.log(response)
+            res.status(200).send(response)
+        })
+        .catch(error => {
+            console.log(error)
+            res.status(500).send(error)
+        });
 
 
 });
+
+
+
+
+
+
+router.post('/api/v1/auth/verifyotp', (req, res) => {
+    const otp = req.body.otp //otp that you entered in the page
+
+    if (newOtp == otp) { //checking the otp's
+
+        res.send("Verified") // if the otp matches sending data
+
+    } else {
+
+        res.render("otp", { message: "you have enterd the wrong otp" }) //if the otp doesnt match sending message
+
+    }
+
+
+});
+
+
+
+
+
+
+
+
 
 
 
