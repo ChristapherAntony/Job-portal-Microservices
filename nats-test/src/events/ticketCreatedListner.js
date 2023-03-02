@@ -1,9 +1,9 @@
 const Listener =require('./baseListiner')
-
+const Subjects = require('./subjects');
  class TicketCreatedListener extends Listener {
     constructor(client) {
       super(client);
-      this.subject = 'ticket:created';
+      this.subject = Subjects.TicketCreated;
       this.queueGroupName = 'payments-service';
     }
   
