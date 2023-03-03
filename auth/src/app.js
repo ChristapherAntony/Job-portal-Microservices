@@ -1,9 +1,10 @@
 const express = require('express');
 const cookieSession = require('cookie-session')
 const { connectDB } = require('./config/db-connection');
-
+const { natsWrapper } = require('./nats-wapper')
 
 const authenticationRoutes = require('./routes/authentication');
+const { connectNATS } = require('./config/nats-connection');
 
 
 const app = express();
@@ -11,7 +12,7 @@ app.set('trust proxy', true);  //https
 
 
 app.use(express.json());
-app.use(cookieSession({signed:false,secure:true})) 
+app.use(cookieSession({ signed: false, secure: true }))
 
 
 // Register routes
@@ -41,9 +42,7 @@ app.use((err, req, res, next) => {
 // Start server
 const start = async () => {
   connectDB();
-  app.listen(3000, () => {
-    console.log('Auth service listening on port 3000...');
-  });
+  connectNATS();
+  app.listen(3000, () => {console.log('Auth service listening on port 3000...')});
 };
-
 start();

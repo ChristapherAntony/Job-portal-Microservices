@@ -11,9 +11,11 @@
   "license": "ISC",
   "dependencies": {
     "@careerconnect/common": "^1.0.2",
+    "@cygnetops/common": "^1.0.30",
     "express": "^4.18.2",
     "express-validator": "^6.15.0",
     "mongoose": "^7.0.0",
+    "node-nats-streaming": "^0.3.2",
     "nodemon": "^2.0.20"
   }
 }

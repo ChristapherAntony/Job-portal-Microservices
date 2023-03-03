@@ -1,6 +1,10 @@
 const express = require('express');
 
 const { connectDB } = require('./config/db-connection');
+const { connectNATS } = require('./config/nats-connection');
+const TicketCreatedListener = require('./events/listeners/user-created-listener');
+// const { UserCreatedListener } = require('./events/listeners/user-created-listener');
+const { natsWrapper } = require('./nats-wapper');
 
 
 const candidateRoutes = require('./routes/candidate');
@@ -47,9 +51,15 @@ app.use((err, req, res, next) => {
 
 // Start server
 const start = async () => {
+
   connectDB();
+  connectNATS();
+  
+  
+   
+
   app.listen(3000, () => {
-    console.log('profile service listening on port 3000...');
+    console.log('Profile service listening on port 3000...');
   });
 };
 

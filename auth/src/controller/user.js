@@ -3,6 +3,9 @@ const { User } = require('../models/user');
 const express = require('express');
 const { validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken')
+const {UserCreatedPublisher}=require('../events/publisher/user-created-publisher')
+const {natsWrapper} =require('../nats-wapper');
+const { LoginPublisher } = require('../events/publisher/signed-in-publisher');
 module.exports = {
     signup: async (req, res) => {
         try {
@@ -18,6 +21,9 @@ module.exports = {
             // Hash password and create candidate
             req.body.password = await bcrypt.hash(req.body.password, 10);
             const response = await User.create(req.body)
+
+            //publish this event
+            await new UserCreatedPublisher(natsWrapper.client).publish(response)
 
             res.status(201).json(response)
         } catch (error) {
@@ -49,6 +55,8 @@ module.exports = {
             req.session = {
                 jwt: userJwt,
             };
+            //publish this event
+            await new LoginPublisher(natsWrapper.client).publish(existingUser)
 
             res.status(200).send(existingUser);
 
