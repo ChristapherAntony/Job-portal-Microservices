@@ -1,4 +1,4 @@
-const { natsWrapper } = require('../nats-wapper');
+const { natsWrapper } = require('../nats-wrapper');
 const UserCreatedListener = require('../events/listeners/user-created-listener');
 const connectNATS = async () => {
   try {
@@ -17,7 +17,7 @@ const connectNATS = async () => {
   } catch (error) {
     console.log(error.message);
 
-  }
+  }  
 };
 
 module.exports = { connectNATS };

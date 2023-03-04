@@ -11,7 +11,7 @@ build:
     - image: christapherantony/auth
       context: auth
       docker:
-        dockerfile: Dockerfile
+        dockerfile: Dockerfile 
       sync:
         manual:
           - src: "src/**/*.js" 
@@ -24,5 +24,12 @@ build:
         manual:
           - src: "src/**/*.js" 
             dest: .  
-
+    - image: christapherantony/admin
+      context: admin
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.js" 
+            dest: .  
      

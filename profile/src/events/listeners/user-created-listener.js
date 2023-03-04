@@ -1,3 +1,5 @@
+
+const { Recruiter } = require('../../models/recruiter-profile');
 const { queueGroupName } = require('./queue-group-name');
 const { Listener } = require('@careerconnect/common').Listener
 
@@ -8,9 +10,18 @@ class UserCreatedListener extends Listener {
     this.queueGroupName = queueGroupName;
   }
 
-  onMessage(data, msg) {
-    console.log('Event data! user created ', data);
-    msg.ack();
+  async onMessage(data, msg) {
+
+    try {
+      if(data.role==='recruiter'){
+        await Recruiter.create(data)
+      }
+      msg.ack();
+    } catch (error) {
+      console.log(error);
+    }
+
   }
 }
 module.exports = UserCreatedListener;
+

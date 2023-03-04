@@ -10,6 +10,13 @@ spec:
     - host: careerconnect.dev
       http:
         paths:
+          - path: /api/v1/admin/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: admin-srv
+                port:
+                  number: 3000
           - path: /api/v1/auth/?(.*)
             pathType: Prefix
             backend:
@@ -24,6 +31,7 @@ spec:
                 name: profile-srv
                 port:
                   number: 3000
+
 
 
 

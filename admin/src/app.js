@@ -1,21 +1,28 @@
 const express = require('express');
 const cookieSession = require('cookie-session')
 const { connectDB } = require('./config/db-connection');
-const { natsWrapper } = require('./nats-wrapper')
-const authenticationRoutes = require('./routes/authentication');
 const { connectNATS } = require('./config/nats-connection');
 
 
+
 const app = express();
-app.set('trust proxy', true);  //https 
-
-
 app.use(express.json());
+app.set('trust proxy', true);  
 app.use(cookieSession({ signed: false, secure: true }))
 
 
+
 // Register routes
-app.use(authenticationRoutes);
+app.get('/api/v1/admin',(req,res)=>{
+  console.log('api call admim');
+  res.send("admin root")
+});
+
+
+
+
+
+
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -33,16 +40,21 @@ app.use((err, req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  console.error(err.stack);
+  
+
   res.status(500).send({ message: 'Internal server error.' });
 });
-
+ 
 
 // Start server
 const start = async () => {
+  
   connectDB();
   connectNATS();
-  app.listen(3000, () => {console.log('Auth service listening on port 3000...')});
+
+  app.listen(3000, () => {
+    console.log('Profile service listening on port 3000...');
+  });
 };
 
 start();

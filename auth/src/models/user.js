@@ -23,10 +23,15 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: true,
             enum: ['admin', 'candidate', 'recruiter'],
+        },
+        is_blocked: {
+            type: Boolean,
+            default: false
         }
     },
     { timestamps: true } 
 );
+
 
 userSchema.set('toJSON', {
     transform: function (doc, ret) {

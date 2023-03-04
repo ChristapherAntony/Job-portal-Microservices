@@ -1,10 +1,10 @@
 const express = require('express');
-
+const cookieSession = require('cookie-session')
 const { connectDB } = require('./config/db-connection');
 const { connectNATS } = require('./config/nats-connection');
 const TicketCreatedListener = require('./events/listeners/user-created-listener');
 // const { UserCreatedListener } = require('./events/listeners/user-created-listener');
-const { natsWrapper } = require('./nats-wapper');
+const { natsWrapper } = require('./nats-wrapper');
 
 
 const candidateRoutes = require('./routes/candidate');
@@ -17,6 +17,7 @@ app.set('trust proxy', true);  //https
 app.use(express.json());
 
 
+app.use(cookieSession({ signed: false, secure: true }))
 
 // Register routes
 app.use(candidateRoutes);
@@ -47,7 +48,7 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send({ message: 'Internal server error.' });
 });
-
+ 
 
 // Start server
 const start = async () => {
