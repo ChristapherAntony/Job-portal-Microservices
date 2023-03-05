@@ -1,5 +1,6 @@
 const express = require('express');
 const cookieSession = require('cookie-session')
+const { sanitizeBody } = require('express-validator');
 const { connectDB } = require('./config/db-connection');
 const { connectNATS } = require('./config/nats-connection');
 
@@ -9,7 +10,7 @@ const app = express();
 app.use(express.json());
 app.set('trust proxy', true);  
 app.use(cookieSession({ signed: false, secure: true }))
-
+app.use(sanitizeBody('*').trim().escape());
 
 
 // Register routes

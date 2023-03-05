@@ -3,14 +3,14 @@ const { sendMessage } = require('fast-two-sms');
 const { signup, signIn, signOut, current } = require('../controller/user');
 // const fast2sms = require('fast-two-sms');
 const { validationSignup, validationSignIn } = require('../middleware/userValidation');
-const authorize = require('@careerconnect/common').authorize;
+
 
 const router = express.Router();
 
 
 router.post('/api/v1/auth/signup', validationSignup, signup);
 router.post('/api/v1/auth/signin', validationSignIn, signIn);
-router.get('/api/v1/auth/current', authorize, current);
+router.get('/api/v1/auth/current', current);
 router.post('/api/v1/auth/signout', signOut);
 
 

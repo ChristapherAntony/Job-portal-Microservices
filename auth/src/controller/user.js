@@ -15,7 +15,7 @@ module.exports = {
 
             // Check if email already exists
             const user = await User.findOne({ email: req.body.email });
-            if (user) return res.status(422).json({ errors: [{ msg: 'Email already exists' }] });
+            // if (user) return res.status(422).json({ errors: [{ msg: 'Email already exists' }] });
 
 
             // Hash password and create candidate
@@ -39,8 +39,9 @@ module.exports = {
                 const errors = Object.values(error.errors).map((err) => err.message);
                 return res.status(422).json({ errors });
             } else if (error.code === 11000) {
-                // Handle duplication errors
-                return res.status(422).json({ errors: [{ msg: 'Email already exists' }] });
+                const keyValueFields = Object.keys(error.keyValue);
+                const errorMessage = keyValueFields.map(field => `${field} ${error.keyValue[field]} already exists`).join(', ');
+                return res.status(422).json({ errors: [{ msg: errorMessage }] });
             } else {
                 // Handle other errors
                 console.error(error);
@@ -49,14 +50,16 @@ module.exports = {
         }
     },
 
+
+
+
+
     signIn: async (req, res) => {
         try {
             const { email, password } = req.body;
             // Check for validation errors
             const errors = validationResult(req);
             if (!errors.isEmpty()) return res.status(422).json(errors);
-
-
             // find user by email
             const existingUser = await User.findOne({ email });
             if (!existingUser) return res.status(404).json({ errors: [{ msg: 'Invalid credentials' }] });
@@ -67,16 +70,16 @@ module.exports = {
 
             // Generate JWT
             const userJwt = jwt.sign(
-                { id: existingUser.id, email: existingUser.email, role: existingUser.role },
+                { id: existingUser._id, email: existingUser.email, role: existingUser.role },
                 process.env.JWT_KEY,
                 { expiresIn: '1h' }
             );
-
-
             // Store it on session object
             req.session = {
                 jwt: userJwt,
             };
+            const payload = jwt.verify(req.session.jwt, process.env.JWT_KEY)
+            console.log(payload);
             res.status(200).send(existingUser);
 
         } catch (error) {

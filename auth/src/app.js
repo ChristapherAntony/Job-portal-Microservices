@@ -1,10 +1,11 @@
 const express = require('express');
 const cookieSession = require('cookie-session')
+const { sanitizeBody } = require('express-validator');
 const { connectDB } = require('./config/db-connection');
 const { natsWrapper } = require('./nats-wrapper')
 const authenticationRoutes = require('./routes/authentication');
 const { connectNATS } = require('./config/nats-connection');
-
+const authorize = require('@careerconnect/common').authorize;
 
 const app = express();
 app.set('trust proxy', true);  //https 
@@ -12,8 +13,9 @@ app.set('trust proxy', true);  //https
 
 app.use(express.json());
 app.use(cookieSession({ signed: false, secure: true }))
+app.use(sanitizeBody('*').trim().escape());
 
-
+app.use(authorize); // jwt verifying middleware
 // Register routes
 app.use(authenticationRoutes);
 

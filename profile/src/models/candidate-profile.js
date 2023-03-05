@@ -1,10 +1,10 @@
 
 const mongoose = require('mongoose');
 
-const userSchema = new mongoose.Schema({
+const candidateSchema = new mongoose.Schema({
     user_name: {
         type: String,
-        required: true,
+        required: true
     },
     email: {
         type: String,
@@ -12,26 +12,198 @@ const userSchema = new mongoose.Schema({
         unique: true,
     },
     phone_number: {
-        type: String,
+        type: Number,
         required: true,
-
-    },
-    password: {
-        type: String,
-        required: true,
-
+        unique: true,
     },
     role: {
         type: String,
         required: true,
-        enum: ['admin', 'candidate', 'recruiter']
-    }
+        enum: ['admin', 'candidate', 'recruiter'],
+    },
+    is_blocked: {
+        type: Boolean,
+        required: true,
+    },
+    about: {
+        type: String
+    },
+    bio: {
+        type: String
+    },
+    date_of_birth: {
+        type: Date
+    },
+    gender: {
+        type: String,
+        enum: ['male', 'female', 'other']
+    },
+    current_location: {
+        type: String
+    },
+    address: {
+        house_no: {
+            type: String,
+        },
+        street: {
+            type: String,
+        },
+        city: {
+            type: String,
+        },
+        state: {
+            type: String,
+        },
+        country: {
+            type: String,
+        },
+        pin_code: {
+            type: Number,
+        }
+    },
+    key_skills: {
+        type: String
+    },
+    profile_image: {
+        type: String
+    },
+    curriculum_vitae: {
+        type: String
+    },
+    marital_status: {
+        type: String
+    },
+    Language: [{
+        Language: {
+            type: String,
+            required: true
+        },
+        proficiency: {
+            type: String,
+            required: true,
+            enum: ['proficient', 'expert', 'bigener'],
+        },
+        read: {
+            type: Boolean,
+            required: true
+        },
+        write: {
+            type: Boolean,
+            required: true
+        },
+        speak: {
+            type: Boolean,
+            required: true
+        }
+    }],
+    social_links: [{
+        instagram: {
+            type: String,
+            required: true
+        },
+        facebook: {
+            type: String,
+            required: true
+        },
+        twitter: {
+            type: String,
+            required: true
+        },
+        linkedIn: {
+            type: String,
+            required: true
+        },
+        gitHub: {
+            type: String,
+            required: true
+        }
+    }],
+    work_experience: [{
+        _id: {
+            type: mongoose.Schema.Types.ObjectId,
+            default: mongoose.Types.ObjectId
+        },
+        designation: {
+            type: String,
+            required: true
+        },
+        company_name: {
+            type: String,
+            required: true
+        },
+        current_status: {
+            type: Boolean,
+            required: true,
+        },
+        start_date: {
+            type: Date,
+            required: true,
+        },
+        end_date: {
+            type: Date,
+            required: function () {
+                return !this.current_status; // end_date is required if current_status is false
+            },
+        },
+        notice_period: {
+            type: String,
+            enum: ['Serving Notice Period', 'Immediately available', '15 Days', '30 days', '45 days', 'Above 60 days'],
+            required: function () {
+                return this.current_status; // notice_period is required if current_status is true
+            },
+        },
+        annual_salary: {
+            type: Number,
+            required: true
+        },
+        job_description: {
+            type: String,
+            required: true
+        }
+    }],
+    education: [{
+        qualification: {
+            type: String,
+            required: true
+        },
+        specialization: {
+            type: String,
+            required: true
+        },
+        institute: {
+            type: String,
+            required: true
+        }
+    }],
+    courseAnd_certification: [{
+        certificate: {
+            type: String,
+            required: true
+        },
+        issued_by: {
+            type: String,
+            required: true
+        }
+    }],
+    projects: [{
+        titile: {
+            type: String,
+            required: true
+        },
+        project_status: {
+            type: String,
+            required: true
+        },
+        description: {
+            type: String,
+            required: true
+        }
+    }]
 });
 
 
-userSchema.set('toJSON', {
+candidateSchema.set('toJSON', {
     transform: function (doc, ret) {
-        delete ret.password;
         delete ret.__v;
     }
 });
@@ -39,6 +211,6 @@ userSchema.set('toJSON', {
 
 
 
-const User = mongoose.model('User', userSchema);
+const Candidate = mongoose.model('Candidate', candidateSchema);
 
-module.exports = { User };
+module.exports = { Candidate };

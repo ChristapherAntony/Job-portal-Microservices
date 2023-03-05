@@ -6,16 +6,9 @@ const { natsWrapper } = require("../nats-wrapper");
 module.exports = {
     viewProfile: async (req, res) => {
         try {
-
-            //check for user authorized  and role
-            if (!req.currentUser || req.currentUser.role !== 'recruiter') {
-                return res.status(404).json({ errors: [{ msg: 'not authorized' }] })
-            }
+            // NOTE---checked for user authorized status and role in router level---middleware
             //check block status of user before updating user profile
-            console.log(req.currentUser);
             const user = await Recruiter.findOne({ _id: req.currentUser.id })
-            console.log(user);
-            console.log(user.is_blocked);
             if (user.is_blocked === true) {
                 return res.status(404).json({ errors: [{ msg: 'user blocked unable to perform this action' }] })
             }
@@ -35,10 +28,7 @@ module.exports = {
             const errors = validationResult(req);
             if (!errors.isEmpty()) return res.status(422).json(errors);
 
-            //check for user authorized  and role
-            if (!req.currentUser || req.currentUser.role !== 'recruiter') {
-                return res.status(404).json({ errors: [{ msg: 'not authorized' }] })
-            }
+            // NOTE---checked for user authorized status and role in router level---middleware
             //check block status of user before updating user profile
             const user = await Recruiter.findOne({ _id: req.currentUser.id })
             if (user.is_blocked === true) {
@@ -61,13 +51,15 @@ module.exports = {
                 company_description: req.body.company_description
             });
             await user.save()
-            res.status(200).json({ user })
-            //publish an event for user updated
-
             //publish this event
             await new UserUpdatedPublisher(natsWrapper.client).publish(
                 user
             )
+
+            res.status(200).json({ message: 'User updated successfully', user: user });
+            //publish an event for user updated
+
+
 
 
         } catch (error) {
@@ -76,8 +68,9 @@ module.exports = {
                 const errors = Object.values(error.errors).map((err) => err.message);
                 return res.status(422).json({ errors });
             } else if (error.code === 11000) {
-                // Handle duplication errors
-                return res.status(422).json({ errors: [{ msg: 'Email already exists' }] });
+                const keyValueFields = Object.keys(error.keyValue);
+                const errorMessage = keyValueFields.map(field => `${field} ${error.keyValue[field]} already exists`).join(', ');
+                return res.status(422).json({ errors: [{ msg: errorMessage }] });
             } else {
                 // Handle other errors
                 console.error(error);

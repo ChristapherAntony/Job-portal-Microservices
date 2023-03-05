@@ -18,8 +18,9 @@ const recruiterSchema = new mongoose.Schema(
             unique: true,
         },
         phone_number: {
-            type: String,
+            type: Number,
             required: true,
+            unique: true,
         },
         role: {
             type: String,
