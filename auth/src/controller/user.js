@@ -9,9 +9,9 @@ const { natsWrapper } = require('../nats-wrapper');
 module.exports = {
     signup: async (req, res) => {
         try {
-            // Check for validation errors
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) return res.status(422).json(errors);
+            // // Check for validation errors
+            // const errors = validationResult(req);
+            // if (!errors.isEmpty()) return res.status(422).json(errors);
 
             // Check if email already exists
             const user = await User.findOne({ email: req.body.email });
@@ -57,12 +57,14 @@ module.exports = {
     signIn: async (req, res) => {
         try {
             const { email, password } = req.body;
-            // Check for validation errors
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) return res.status(422).json(errors);
+            // // Check for validation errors
+            // const errors = validationResult(req);
+            // if (!errors.isEmpty()) return res.status(422).json(errors);
             // find user by email
             const existingUser = await User.findOne({ email });
             if (!existingUser) return res.status(404).json({ errors: [{ msg: 'Invalid credentials' }] });
+            console.log(existingUser);
+            if (existingUser.is_blocked ===true) return res.status(404).json({ errors: [{ msg: 'Unable to signin user is blocked ' }] });
 
             // password check
             const isPasswordValid = await bcrypt.compare(password, existingUser.password);

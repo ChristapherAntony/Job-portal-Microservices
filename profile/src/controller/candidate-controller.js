@@ -9,6 +9,8 @@ const ObjectId = mongoose.Types.ObjectId;
 
 module.exports = {
     viewProfile: async (req, res) => {
+        console.log("api call profile view");
+        console.log((req.currentUser));
         try {
             // NOTE---checked for user authorized , role  status in router level---middleware
             //check block status of user before updating user profile
@@ -247,6 +249,107 @@ module.exports = {
             res.status(500).json({ errors: [{ msg: 'Server error' }] });
         }
     },
+    updateSocialLinks: async (req, res) => {
+        try {
+            // NOTE---checked for user authorized , role  status in router level---middleware
+            //check block status of user before updating user profile
+            const user = await Candidate.findOne({ _id: req.currentUser.id });
+            if (user.is_blocked === true) {
+                return res.status(404).json({ errors: [{ msg: 'user blocked unable to perform this action' }] });
+            }
+            // update updateSocialLinks
+            const { platform } = req.params;
+            const { link } = req.body;
+            // Check if the platform key exists in the social_links object
+            if (!user.social_links.hasOwnProperty(platform)) {
+                return res.status(400).json({ errors: [{ msg: `Invalid social media platform: ${platform} , valid are - gitHub, linkedIn, twitter, facebook, instagram ` }] });
+            }
+
+            // Update the social link for the specified platform
+            user.social_links[platform] = link;
+
+            await user.save();
+            res.status(200).json({ message: `${platform} link updated successfully`, newLink: link });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ errors: [{ msg: 'Server error' }] });
+        }
+    },
+    deleteSocialLink: async (req, res) => {
+        try {
+            // NOTE---checked for user authorized, role, status in router level---middleware
+            // check block status of user before updating user profile
+            const user = await Candidate.findOne({ _id: req.currentUser.id });
+            if (user.is_blocked === true) {
+                return res.status(404).json({ errors: [{ msg: 'user blocked unable to perform this action' }] });
+            }
+            // get the platform to delete
+            const { platform } = req.params;
+            // delete the social link for the specified platform
+            user.social_links[platform] = null;
+
+            await user.save();
+            res.status(200).json({ message: `${platform} link deleted successfully` });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ errors: [{ msg: 'Server error' }] });
+        }
+    },
+    addLanguage: async (req, res) => {
+        try {
+            // NOTE---checked for user authorized , role  status in router level---middleware
+            //check block status of user before updating user profile
+            const user = await Candidate.findOne({ _id: req.currentUser.id })
+            if (user.is_blocked === true) {
+                return res.status(404).json({ errors: [{ msg: 'user blocked unable to perform this action' }] })
+            }
+            const newLanguage = {
+                _id: new mongoose.Types.ObjectId(), // generate a new ObjectId
+                designation: req.body.designation,
+                company_name: req.body.company_name,
+            };
+            // Push the newLanguage object to the Language array using the $push operator
+            const updatedUser = await Candidate.findByIdAndUpdate(
+                req.currentUser.id,
+                { $push: { Language: newLanguage } },
+                { new: true }
+            );
+            console.log(user);
+            res.status(200).json({ message: ' new language added successfully', user: updatedUser });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ errors: [{ msg: 'Server error' }] });
+        }
+    },
+    deleteLanguage: async (req, res) => {
+        try {
+            // Check if user is authorized and not blocked before updating profile
+            const user = await Candidate.findOne({ _id: req.currentUser.id });
+            if (user.is_blocked) {
+                return res.status(404).json({ errors: [{ msg: 'User is blocked and unable to perform this action' }] });
+            }
+
+            const languageId = req.params.id;
+            let response = await Candidate.updateOne(
+                { _id: req.currentUser.id },
+                { $pull: { Language: { _id: languageId } } }
+            )
+            if (response.modifiedCount === 0) {
+                return res.status(200).json({ errors: [{ msg: 'requited language  already deleted or not found' }] });
+            }
+
+            return res.status(200).json({ message: 'language deleted successfully' });
+
+        } catch (error) {
+            console.log(error);
+            if (error instanceof mongoose.Error.CastError) {
+                return res.status(500).json({ errors: [{ msg: 'Invalid  language id' }] });
+            }
+            return res.status(500).json({ errors: [{ msg: 'Server error' }] });
+        }
+    },
+
+
 
 
 

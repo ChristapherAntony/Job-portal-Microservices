@@ -1,5 +1,7 @@
 const { natsWrapper } = require('../nats-wrapper');
 const UserCreatedListener = require('../events/listeners/user-created-listener');
+const verifiedStatusUpdatedListener = require('../events/listeners/verified-status-updated-listener');
+const blockStatusUpdatedListener = require('../events/listeners/block-status-updated-listener');
 const connectNATS = async () => {
   try {
     await natsWrapper.connect(process.env.NATS_CLUSTER_ID, process.env.NATS_CLIENT_ID, process.env.NATS_URL);
@@ -14,6 +16,8 @@ const connectNATS = async () => {
 
 
     new UserCreatedListener(natsWrapper.client).listen();
+    new verifiedStatusUpdatedListener(natsWrapper.client).listen();
+    new blockStatusUpdatedListener(natsWrapper.client).listen();
   } catch (error) {
     console.log(error.message);
 

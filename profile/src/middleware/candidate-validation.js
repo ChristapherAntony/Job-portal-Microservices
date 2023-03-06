@@ -93,5 +93,40 @@ const validateEducation = [
     }
 ];
 
+const validateCourse = [
+    sanitizeBody('*').trim().escape(),
+    body('certificate')
+        .notEmpty().withMessage('Qualification is required'),
+    body('issued_by')
+        .notEmpty().withMessage('Specialization is required'),
 
-module.exports = { validateProfileQuickUpdate, validatePersonalInfo,validateExperience,validateEducation };
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ errors: errors.array() });
+        }
+        next();
+    }
+];
+const validateLanguage = [  // sanitize and trim request data  
+    body('Language').trim().escape(),
+    body('proficiency').trim().escape(),
+    body('Language').notEmpty().withMessage('Language is required'),
+    body('proficiency').notEmpty().withMessage('Proficiency level is required'),
+    body('proficiency').isIn(['proficient', 'expert', 'bigener']).withMessage('Invalid proficiency level'),
+    body('read').isBoolean().withMessage('Read must be a boolean value'),
+    body('write').isBoolean().withMessage('Write must be a boolean value'),
+    body('speak').isBoolean().withMessage('Speak must be a boolean value'),
+    (req, res, next) => {
+        // check for validation errors
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        // if no errors, continue to next middleware
+        next();
+    }
+];
+
+
+module.exports = { validateProfileQuickUpdate, validatePersonalInfo, validateExperience, validateEducation, validateCourse, validateLanguage };

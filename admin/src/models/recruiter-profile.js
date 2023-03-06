@@ -25,7 +25,7 @@ const recruiterSchema = new mongoose.Schema(
         role: {
             type: String,
             required: true,
-            enum: ['admin', 'candidate', 'recruiter'],
+            enum: ['recruiter'],
         },
         is_blocked: {
             type: Boolean,
@@ -60,7 +60,6 @@ const recruiterSchema = new mongoose.Schema(
         },
         company_description: {
             type: String,
-            default: false
         },
         is_verified: {
             type: Boolean,
@@ -72,7 +71,13 @@ const recruiterSchema = new mongoose.Schema(
         },
         premium_validity: {
             type: String
+        },
+        application_status: {
+            type: String,
+            enum: ['pending', 'accepted', 'rejected'],
+            default: 'pending'
         }
+
     },
     {
         timestamps: true

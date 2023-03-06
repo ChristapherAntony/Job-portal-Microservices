@@ -24,6 +24,8 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: true,
             enum: ['admin', 'candidate', 'recruiter'],
+            sparse: true, // allow multiple documents without `role` field being set
+            index: { unique: true, sparse: true, partialFilterExpression: { role: 'admin' } } // unique index for `admin` role only
         },
         is_blocked: {
             type: Boolean,

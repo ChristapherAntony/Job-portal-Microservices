@@ -1,8 +1,8 @@
-const { body } = require('express-validator');
+const { body, validationResult, sanitizeBody } = require('express-validator');
 
 // Define validation rules for the signup endpoint
 const validationSignup = [
-
+    sanitizeBody('*').trim().escape(),
     body('user_name')
         .notEmpty()
         .withMessage('Name is required')
@@ -38,10 +38,19 @@ const validationSignup = [
         .trim()
         .escape(),
 
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ errors: errors.array() });
+        }
+        next();
+    }
+
 ];
 
 // Define validation and sanitization rules for the signin endpoint
 const validationSignIn = [
+    sanitizeBody('*').trim().escape(),
     body('email')
         .isEmail()
         .withMessage('Email is not valid')
@@ -51,6 +60,13 @@ const validationSignIn = [
         .withMessage('Password must be at least 4 characters long')
         .trim()
         .escape(),
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ errors: errors.array() });
+        }
+        next();
+    }
 ];
 
 

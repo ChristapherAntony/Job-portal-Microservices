@@ -1,14 +1,15 @@
 const express = require('express');
 const { addEducation, updateEducation, deleteEducation } = require('../controller/candidate-education');
-const { viewProfile, updateProfile, updatePersonalInfo,updateProfilePicture,deleteProfilePicture, updateCV, deleteCV,updateBio } = require('../controller/candidate-controller');
+const { viewProfile, updateProfile, updatePersonalInfo, updateProfilePicture, deleteProfilePicture, updateCV, deleteCV, updateBio, updateSocialLinks, deleteSocialLink, addLanguage, deleteLanguage } = require('../controller/candidate-controller');
 const { addWorkExperience, deleteWorkExperience, updateWorkExperience } = require('../controller/candidate-experience');
-const { validateProfileQuickUpdate, validatePersonalInfo ,validateEducation,validateExperience} = require('../middleware/candidate-validation');
+const { validateProfileQuickUpdate, validatePersonalInfo, validateEducation, validateExperience, validateCourse, validateLanguage } = require('../middleware/candidate-validation');
 const { checkAuthorization } = require('../middleware/check-authorization');
+const { updateCourseAndCertification, deleteCourseAndCertification, addCourseAndCertification } = require('../controller/candidate-CourseAndCertification');
 const router = express.Router();
 
 
 //routes
-router.get('/api/v1/profile/candidate', checkAuthorization('candidate'), viewProfile);
+router.get('/api/v1/profile/candidate', viewProfile);
 router.patch('/api/v1/profile/candidate/quick-update', checkAuthorization('candidate'), validateProfileQuickUpdate, updateProfile)
 router.patch('/api/v1/profile/candidate/personal-info', checkAuthorization('candidate'), validatePersonalInfo, updatePersonalInfo)
 
@@ -27,7 +28,7 @@ router.patch('/api/v1/profile/candidate/profile-picture', checkAuthorization('ca
 router.delete('/api/v1/profile/candidate/profile-picture', checkAuthorization('candidate'), deleteProfilePicture)
 
 
-//not-tested bellow
+
 
 //update and delete cv
 router.patch('/api/v1/profile/candidate/curriculum-vitae', checkAuthorization('candidate'), updateCV)
@@ -37,12 +38,18 @@ router.delete('/api/v1/profile/candidate/curriculum-vitae', checkAuthorization('
 router.patch('/api/v1/profile/candidate/bio', checkAuthorization('candidate'), updateBio)
 
 //route related to social_links
+router.put('/api/v1/profile/candidate/social-links/:platform', checkAuthorization('candidate'), updateSocialLinks)
+router.delete('/api/v1/profile/candidate/social-links/:platform', checkAuthorization('candidate'), deleteSocialLink)
 
 //route related to courseAnd_certification
+router.post('/api/v1/profile/candidate/course-certification', checkAuthorization('candidate'), validateCourse, addCourseAndCertification)
+router.put('/api/v1/profile/candidate/course-certification/:id', checkAuthorization('candidate'), validateCourse, updateCourseAndCertification)
+router.delete('/api/v1/profile/candidate/course-certification/:id', checkAuthorization('candidate'), deleteCourseAndCertification)
 
 //route related to projects
 
 //route related to language known
-
+router.post('/api/v1/profile/candidate/language', checkAuthorization('candidate'), validateLanguage, addLanguage)
+router.delete('/api/v1/profile/candidate/language/:id', checkAuthorization('candidate'), validateLanguage, deleteLanguage)
 
 module.exports = router;

@@ -96,28 +96,28 @@ const candidateSchema = new mongoose.Schema({
             required: true
         }
     }],
-    social_links: [{
+    social_links: {
         instagram: {
             type: String,
-            required: true
+            default:null
         },
         facebook: {
             type: String,
-            required: true
+            default:null
         },
         twitter: {
             type: String,
-            required: true
+            default:null
         },
         linkedIn: {
             type: String,
-            required: true
+            default:null
         },
         gitHub: {
             type: String,
-            required: true
+            default:null
         }
-    }],
+    },
     work_experience: [{
         _id: {
             type: mongoose.Schema.Types.ObjectId,
@@ -186,7 +186,7 @@ const candidateSchema = new mongoose.Schema({
         }
     }],
     projects: [{
-        titile: {
+        title: {
             type: String,
             required: true
         },

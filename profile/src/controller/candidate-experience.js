@@ -108,7 +108,7 @@ module.exports = {
                 },
                 { new: true }
             );
-
+            if(!workExperience) res.status(201).json({ message: 'workExperience details did not found try another id' }); 
             // return res.status(200).json({ work_experience: workExperience.work_experience });
             return res.status(200).json({ message: 'work experience updated successfully', work_experience: workExperience.work_experience });
         } catch (error) {

@@ -1,3 +1,5 @@
+const UserCreatedListener = require('../events/listeners/user-created-listener');
+const UserUpdatedListener = require('../events/listeners/user-updated-listener');
 const { natsWrapper } = require('../nats-wrapper');
 const connectNATS = async () => {
   try {
@@ -11,8 +13,8 @@ const connectNATS = async () => {
     process.on('SIGINT', () => natsWrapper.client.close());
     process.on('SIGTERM', () => natsWrapper.client.close());
 
-
-    
+    new UserCreatedListener(natsWrapper.client).listen();
+    new UserUpdatedListener(natsWrapper.client).listen();
   } catch (error) {
     console.log(error.message);
 

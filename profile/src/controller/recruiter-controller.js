@@ -46,8 +46,8 @@ module.exports = {
                 company_website: req.body.company_website,
                 company_email: req.body.company_email,
                 company_location: req.body.company_location,
-                company_State: req.body.company_State,
-                company_Country: req.body.company_Country,
+                company_state: req.body.company_state,
+                company_country: req.body.company_country,
                 company_description: req.body.company_description
             });
             await user.save()
