@@ -7,11 +7,13 @@ const { natsWrapper } = require("../nats-wrapper");
 module.exports = {
     getJobs: async (req, res) => {
         try {
-            const jobs = await Job.find();
+            const jobs = await Job.find({})
+                .populate({
+                    path: 'recruiter_id',
+                    select: '-_id user_name email phone_number current_position company_name company_logo company_website company_email company_address company_description'
+                });
             res.status(200).json(jobs);
 
-
-            res.status(200).json(jobs)
         } catch (error) {
             console.error(error);
             res.status(500).json({ errors: [{ msg: 'Server error' }] });
@@ -29,7 +31,7 @@ module.exports = {
             }
 
             const jobData = {
-                recruiter_id: req.currentUser.id,
+                recruiter: req.currentUser.id,
                 job_title: req.body.job_title,
                 available_positions: req.body.available_positions,
                 job_description: req.body.job_description,
@@ -67,7 +69,7 @@ module.exports = {
 
             // Update the job and return the updated document
             const updatedJob = await Job.findOneAndUpdate(
-                { _id: req.params.id, recruiter_id: req.currentUser.id },
+                { _id: req.params.id, recruiter: req.currentUser.id },
                 {
                     $set: {
                         job_title: req.body.job_title,

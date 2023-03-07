@@ -2,8 +2,9 @@
 const mongoose = require('mongoose');
 
 const jobSchema = new mongoose.Schema({
-    recruiter_id: {
+    recruiter: {
         type: mongoose.Schema.Types.ObjectId,
+        ref: 'Recruiter',
         required: true
     },
     job_title: {
@@ -60,6 +61,10 @@ const jobSchema = new mongoose.Schema({
 // jobSchema.set('toJSON', {
 //     transform: function (doc, ret) {
 //         delete ret.__v;
+//         delete ret.is_blocked;
+//         delete ret.is_verified;
+//         delete ret.updatedAt;
+//         delete ret.createdAt;
 //     }
 // });
 

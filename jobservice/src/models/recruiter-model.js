@@ -11,7 +11,7 @@ const recruiterSchema = new mongoose.Schema({
     is_verified: {
         type: Boolean
     },
-    full_name: {
+    user_name: {
         type: String
     },
     email: {
