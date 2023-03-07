@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jobservice-mongo-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jobservice-mongo
+  template:
+    metadata:
+      labels:
+        app: jobservice-mongo
+    spec:
+      containers:
+        - name: jobservice-mongo
+          image: mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jobservice-mongo-srv
+spec:
+  selector: 
+    app: jobservice-mongo
+  ports:
+    - name: db
+      protocol: TCP
+      port: 27017
+      targetPort: 27017

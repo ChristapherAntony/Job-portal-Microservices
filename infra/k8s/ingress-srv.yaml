@@ -24,6 +24,13 @@ spec:
                 name: auth-srv
                 port:
                   number: 3000
+          - path: /api/v1/jobs/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: jobservice-srv
+                port:
+                  number: 3000
           - path: /api/v1/profile/?(.*)
             pathType: Prefix
             backend:
@@ -31,7 +38,3 @@ spec:
                 name: profile-srv
                 port:
                   number: 3000
-
-
-
-

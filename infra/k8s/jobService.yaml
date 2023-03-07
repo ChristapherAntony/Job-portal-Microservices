@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jobservice-depl
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jobservice
+  template:
+    metadata:
+      labels:
+        app: jobservice
+    spec:
+      containers:
+        - name: jobservice
+          image: christapherantony/jobservice
+          env:
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_URL
+              value: 'http://nats-srv:4222'
+            - name: NATS_CLUSTER_ID
+              value: careerconnect
+            - name: MONGO_URI
+              value: 'mongodb://jobservice-mongo-srv:27017'
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+# jwt environment from kubernetees secret obj
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jobservice-srv
+spec:
+  selector:
+    app: jobservice
+  ports:
+    - name: jobservice
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

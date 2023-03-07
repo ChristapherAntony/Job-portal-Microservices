@@ -1,29 +1,46 @@
-const { body, sanitizeBody } = require('express-validator');
+const { body } = require('express-validator');
 
 // Define validation and sanitization rules for the recruiter profile
 const validate = [
-    sanitizeBody('*').trim().escape(),
-    body('user_name', 'Full name is required.').notEmpty(),
-    body('email', 'Invalid email.').isEmail().normalizeEmail(),
-    body('phone_number', 'Invalid phone number.').isNumeric(),
-    body('profile_image', 'Profile image is required.').notEmpty(),
-    body('current_position', 'Current position is required.').notEmpty(),
-    body('company_name', 'Company name is required.').notEmpty(),
-    body('company_logo', 'Company logo is required.').notEmpty(),
-    body('company_website', 'Company website is required.').notEmpty(),
-    body('company_email', 'Invalid company email.').isEmail().normalizeEmail(),
-    body('company_location', 'Company location is required.').notEmpty(),
-    body('company_state', 'State is required.').notEmpty(),
-    body('company_county', 'Registered county is required.').notEmpty(),
-    body('company_description', 'Company description is required.').notEmpty(),
+  body('*').trim().escape(),
 
-    (req, res, next) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(422).json({ errors: errors.array() });
-        }
-        next();
+  body('user_name').notEmpty().withMessage('Full name is required.'),
+  
+  body('email')
+    .isEmail().withMessage('Invalid email.')
+    .normalizeEmail(),
+  
+  body('phone_number').isNumeric().withMessage('Invalid phone number.'),
+  
+  body('profile_image').notEmpty().withMessage('Profile image is required.'),
+  
+  body('current_position').notEmpty().withMessage('Current position is required.'),
+  
+  body('company_name').notEmpty().withMessage('Company name is required.'),
+  
+  body('company_logo').notEmpty().withMessage('Company logo is required.'),
+  
+  body('company_website').notEmpty().withMessage('Company website is required.'),
+  
+  body('company_email')
+    .isEmail().withMessage('Invalid company email.')
+    .normalizeEmail(),
+  
+  body('company_location').notEmpty().withMessage('Company location is required.'),
+  
+  body('company_state').notEmpty().withMessage('State is required.'),
+  
+  body('company_county').notEmpty().withMessage('Registered county is required.'),
+  
+  body('company_description').notEmpty().withMessage('Company description is required.'),
+  
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
     }
+    next();
+  }
 ];
 
 module.exports = { validate };

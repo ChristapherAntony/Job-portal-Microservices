@@ -1,4 +1,4 @@
-const { body, validationResult, sanitizeBody } = require('express-validator');
+const { check, body, validationResult } = require('express-validator');
 
 const validateProfileQuickUpdate = [
     body('user_name').notEmpty().withMessage('Username is required.').trim().escape(),
@@ -20,19 +20,19 @@ const validateProfileQuickUpdate = [
 ];
 
 const validatePersonalInfo = [
-    body('user_name').trim().isLength({ min: 1 }).withMessage('User name is required'),
+    body('user_name').trim().notEmpty().withMessage('User name is required'),
     body('email').trim().isEmail().withMessage('Invalid email'),
     body('phone_number').trim().isLength({ min: 10, max: 10 }).withMessage('Phone number must be 10 digits'),
     body('date_of_birth').optional({ checkFalsy: true }).isISO8601().toDate(),
-    body('gender').optional({ checkFalsy: true }).isIn(['male', 'female', 'other']).withMessage('Invalid gender , should be male, female, other'),
+    body('gender').optional({ checkFalsy: true }).isIn(['male', 'female', 'other']).withMessage('Invalid gender, should be male, female, or other'),
     body('current_location').optional({ checkFalsy: true }).trim(),
-    body('house_no').trim().isLength({ min: 1 }).withMessage('House no is required'),
-    body('street').trim().isLength({ min: 1 }).withMessage('Street is required'),
-    body('city').trim().isLength({ min: 1 }).withMessage('City is required'),
-    body('state').trim().isLength({ min: 1 }).withMessage('State is required'),
-    body('country').trim().isLength({ min: 1 }).withMessage('Country is required'),
-    body('pin_code').trim().isLength({ min: 1 }).withMessage('Pin code is required').isNumeric().withMessage('Pin code must be numeric'),
-    sanitizeBody('*').trim().escape(),
+    body('house_no').trim().notEmpty().withMessage('House no is required'),
+    body('street').trim().notEmpty().withMessage('Street is required'),
+    body('city').trim().notEmpty().withMessage('City is required'),
+    body('state').trim().notEmpty().withMessage('State is required'),
+    body('country').trim().notEmpty().withMessage('Country is required'),
+    body('pin_code').trim().notEmpty().withMessage('Pin code is required').isNumeric().withMessage('Pin code must be numeric'),
+    check('*').trim().escape(),
 
     (req, res, next) => {
         const errors = validationResult(req);
@@ -44,7 +44,7 @@ const validatePersonalInfo = [
 ];
 
 const validateExperience = [
-    sanitizeBody('*').trim().escape(),
+    check('*').trim().escape(),
     body('designation')
         .notEmpty().withMessage('Designation is required'),
     body('company_name')
@@ -57,8 +57,7 @@ const validateExperience = [
     body('end_date')
         .optional({ nullable: true })
         .isISO8601().withMessage('Invalid end date format'),
-    body('notice_period')
-        .optional({ nullable: true }),
+    body('notice_period'),
 
     body('annual_salary')
         .notEmpty().withMessage('Annual salary is required')
@@ -76,7 +75,6 @@ const validateExperience = [
 ];
 
 const validateEducation = [
-    // sanitizeBody('*').trim().escape(),
     body('qualification')
         .notEmpty().withMessage('Qualification is required'),
     body('specialization')
@@ -94,11 +92,13 @@ const validateEducation = [
 ];
 
 const validateCourse = [
-    sanitizeBody('*').trim().escape(),
+    body('*').trim().escape(),
     body('certificate')
-        .notEmpty().withMessage('Qualification is required'),
+        .notEmpty()
+        .withMessage('Qualification is required'),
     body('issued_by')
-        .notEmpty().withMessage('Specialization is required'),
+        .notEmpty()
+        .withMessage('Specialization is required'),
 
     (req, res, next) => {
         const errors = validationResult(req);
@@ -106,14 +106,18 @@ const validateCourse = [
             return res.status(422).json({ errors: errors.array() });
         }
         next();
-    }
+    },
 ];
-const validateLanguage = [  // sanitize and trim request data  
+
+const validateLanguage = [
+    // sanitize and trim request data
     body('Language').trim().escape(),
     body('proficiency').trim().escape(),
     body('Language').notEmpty().withMessage('Language is required'),
     body('proficiency').notEmpty().withMessage('Proficiency level is required'),
-    body('proficiency').isIn(['proficient', 'expert', 'bigener']).withMessage('Invalid proficiency level'),
+    body('proficiency')
+        .isIn(['proficient', 'expert', 'beginner'])
+        .withMessage('Invalid proficiency level'),
     body('read').isBoolean().withMessage('Read must be a boolean value'),
     body('write').isBoolean().withMessage('Write must be a boolean value'),
     body('speak').isBoolean().withMessage('Speak must be a boolean value'),
@@ -125,7 +129,7 @@ const validateLanguage = [  // sanitize and trim request data
         }
         // if no errors, continue to next middleware
         next();
-    }
+    },
 ];
 
 

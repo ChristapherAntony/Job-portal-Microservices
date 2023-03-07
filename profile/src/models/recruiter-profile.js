@@ -60,7 +60,6 @@ const recruiterSchema = new mongoose.Schema(
         },
         company_description: {
             type: String,
-            default: false
         },
         is_verified: {
             type: Boolean,
