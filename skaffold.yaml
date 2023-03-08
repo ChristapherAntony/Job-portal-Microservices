@@ -40,4 +40,12 @@ build:
         manual:
           - src: "src/**/*.js" 
             dest: .  
+    - image: christapherantony/client-app
+      context: client-app
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.js" 
+            dest: .  
      

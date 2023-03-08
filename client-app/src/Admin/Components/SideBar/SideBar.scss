@@ -1,0 +1,77 @@
+@import '../../variables';
+
+
+.sidebar {
+    flex: 1;
+    border-right: 0.5px solid rgb(230, 227, 227);
+    min-height: 100vh;
+    background-color: $bg-secondary;
+
+    .top {
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: $bg-primary;
+            border: #333;
+            background-color: $bg-logo;
+            padding-left: .5rem;
+            padding-right: .5rem;
+        }
+    }
+
+    hr {
+        height: 0;
+        border: 0.5px solid rgb(230, 227, 227);
+    }
+
+    .center {
+        padding-left: 10px;
+
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            .title {
+                font-size: px;
+                font-weight: bold;
+                color: $text-secondary;
+                margin-top: 15px;
+                margin-bottom: 5px;
+            }
+
+            li {
+                display: flex;
+                align-items: center;
+                padding: 5px;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $bg-primary;
+                }
+
+                .icon {
+                    font-size: 25px;
+                    color: $bg-logo;
+                }
+
+                span {
+                    font-size: 20px;
+                    font-weight: 600;
+                    color: $text-secondary;
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
+
+    .div-bottom{
+        position: absolute;
+        bottom: 0;
+    }
+}
