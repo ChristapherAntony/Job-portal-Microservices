@@ -17,6 +17,7 @@ const Home = () => {
       <div className="homeContainer">
         <NavBar />
         <Heading text={"Over View"} />
+        
         <div className="widgets">
           <Widget type="candidates" />
           <Widget type="recruiters" />

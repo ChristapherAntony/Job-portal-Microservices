@@ -1,17 +1,16 @@
 import "./Widget.scss";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import PendingActionsOutlinedIcon from '@mui/icons-material/PendingActionsOutlined';
 import HailOutlinedIcon from '@mui/icons-material/HailOutlined';
 import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlined';
+
+
+
 const Widget = ({ type }) => {
   let data;
 
   //temporary
   const amount = 100;
-  const diff = 20;
 
   switch (type) {
     case "candidates":
@@ -83,16 +82,12 @@ const Widget = ({ type }) => {
     <div className="widget">
       <div className="left">
         <span className="title">{data.title}</span>
-        <span className="counter">
+        <span className="counter" >
           {amount}
         </span>
         <span className="link">{data.link}</span>
       </div>
       <div className="right">
-        {/* <div className="percentage positive">
-          <KeyboardArrowUpIcon />
-          {diff} %
-        </div> */}
         {data.icon}
       </div>
     </div>

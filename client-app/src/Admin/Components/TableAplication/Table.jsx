@@ -49,7 +49,7 @@ const Datatable = () => {
   }
 
   const viewDetails=(id)=>{
-    navigate(`/application/${id}`);    
+    navigate(`/admin/application/${id}`);    
   }
   
   const userColumns = [
