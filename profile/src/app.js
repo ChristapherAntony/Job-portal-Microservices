@@ -2,21 +2,20 @@ const express = require('express');
 const cookieSession = require('cookie-session')
 const { connectDB } = require('./config/db-connection');
 const { connectNATS } = require('./config/nats-connection');
-const TicketCreatedListener = require('./events/listeners/user-created-listener');
-// const { UserCreatedListener } = require('./events/listeners/user-created-listener');
-const { natsWrapper } = require('./nats-wrapper');
 const authorize  = require('@careerconnect/common').authorize;
+const xss = require('xss-clean'); 
+const cors=require('cors')
 
 const candidateRoutes = require('./routes/candidate');
 const recruiterRoutes = require('./routes/recruiter');
 
 const app = express();
 
-
+app.use(cors());
 app.set('trust proxy', true);  //https 
 app.use(express.json());
 app.use(cookieSession({ signed: false, secure: true }))
-
+app.use(xss()); //  xss-clean 
 
 app.use(authorize);
 app.use(candidateRoutes);

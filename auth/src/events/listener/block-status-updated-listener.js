@@ -1,7 +1,8 @@
 
 const { User } = require('../../models/user');
 const { queueGroupName } = require('./queue-group-name');
-const { Listener } = require('@careerconnect/common');
+const  {Listener}  = require('../base')
+
 class blockStatusUpdatedListener extends Listener {
     constructor(client) {
         super(client);

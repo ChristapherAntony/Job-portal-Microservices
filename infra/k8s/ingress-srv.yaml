@@ -45,3 +45,4 @@ spec:
                 name: client-app-srv
                 port:
                   number: 3000
+

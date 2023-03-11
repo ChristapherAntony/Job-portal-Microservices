@@ -1,7 +1,7 @@
 const { Candidate } = require('../../models/candidate-profile');
 const { Recruiter } = require('../../models/recruiter-profile');
 const { queueGroupName } = require('./queue-group-name');
-const { Listener } = require('@careerconnect/common').Listener;
+const  {Listener}  = require('../base')
 
 class UserUpdatedListener extends Listener {
   constructor(client) {
@@ -15,7 +15,8 @@ class UserUpdatedListener extends Listener {
     try {
       if (data.role === 'recruiter') {
         const { _id } = data;
-        const response = await Recruiter.updateOne({ _id }, data);
+        const newData = { ...data, application_status: 'pending' }; // add the new field
+        const response = await Recruiter.updateOne({ _id }, newData);
       } else if (data.role === 'candidate') {
         const { _id } = data;
         const response = await Candidate.updateOne({ _id }, data);

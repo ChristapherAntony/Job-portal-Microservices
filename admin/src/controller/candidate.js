@@ -8,7 +8,8 @@ module.exports = {
         try {
             // Fetch all candidates from the database
             const candidates = await Candidate.find({});
-            res.status(200).json(candidates);
+            console.log(candidates);
+            res.status(200).json({ message: 'Candidates fetched successfully', candidates: candidates });
         } catch (err) {
             console.error(err);
             res.status(500).json({ errors: [{ msg: 'Internal server error' }] });

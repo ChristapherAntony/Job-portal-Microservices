@@ -1,0 +1,63 @@
+.cellWithStatus {
+  padding: 5px 8px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+  border: none;
+  // background-color: transparent;
+  // border: 1px solid transparent;
+
+  &.true {
+    border-color: crimson;
+    color: crimson;
+  }
+
+  &.false {
+    border-color: green;
+    color: rgb(6, 100, 6);
+  }
+}
+
+.button {
+  display: inline-block;
+  background-color: #008CBA;
+  color: #fff;
+  padding: 5px 8px;
+  font-size: 12px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #006D87;
+}
+
+
+.datatable {
+  height: 600px;
+  padding: 20px;
+  position: relative;
+
+  .datatable-header {
+    // position: absolute;
+    // top: 0;
+    // right: 0;
+
+    margin-bottom: 10px;
+
+    select {
+      font-size: 16px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      background-color: #f5f5f5;
+      color: #333;
+      outline: none;
+    }
+  }
+
+
+}

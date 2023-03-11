@@ -1,4 +1,4 @@
-const { Publisher } = require('@careerconnect/common').Publisher;
+const { Publisher } = require('../base');
 
 class UserCreatedPublisher extends Publisher {
     constructor(client) {

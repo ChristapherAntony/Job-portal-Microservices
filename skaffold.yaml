@@ -1,51 +1,50 @@
 apiVersion: skaffold/v2alpha3
-kind: Config 
-deploy: 
-  kubectl:  
-    manifests: 
-      - ./infra/k8s/* 
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
 build:
   local:
     push: false
-  artifacts:    
-    - image: christapherantony/auth
-      context: auth
-      docker:
-        dockerfile: Dockerfile 
-      sync:
-        manual:
-          - src: "src/**/*.js" 
-            dest: .  
-    - image: christapherantony/profile
-      context: profile
-      docker:
-        dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: "src/**/*.js" 
-            dest: .  
-    - image: christapherantony/admin
-      context: admin
-      docker:
-        dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: "src/**/*.js" 
-            dest: .  
-    - image: christapherantony/jobservice
-      context: jobservice
-      docker:
-        dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: "src/**/*.js" 
-            dest: .  
+  artifacts:
     - image: christapherantony/client-app
       context: client-app
       docker:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: "src/**/*.js" 
-            dest: .  
-     
+          - src: "src/**/*.jsx"
+            dest: .
+    - image: christapherantony/auth
+      context: auth
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.js"
+            dest: .
+    - image: christapherantony/profile
+      context: profile
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.js"
+            dest: .
+    - image: christapherantony/admin
+      context: admin
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.js"
+            dest: .
+    - image: christapherantony/jobservice
+      context: jobservice
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.js"
+            dest: .

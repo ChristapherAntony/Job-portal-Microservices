@@ -1,6 +1,6 @@
 
 const { queueGroupName } = require('./queue-group-name');
-const { Listener } = require('@careerconnect/common');
+const  {Listener}  = require('../base')
 const { User } = require('../../models/user');
 
 class UserUpdatedListener extends Listener {

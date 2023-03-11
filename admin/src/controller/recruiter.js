@@ -1,6 +1,6 @@
 
 const mongoose = require('mongoose');
-const {natsWrapper} = require('../nats-wrapper');
+const { natsWrapper } = require('../nats-wrapper');
 const { VerifiedStatusUpdatedPublisher } = require('../events/publisher/verified-status-updated');
 const { Recruiter } = require('../models/recruiter-profile');
 const { BlockStatusUpdatedPublisher } = require('../events/publisher/block-status-updated');
@@ -16,7 +16,24 @@ module.exports = {
             res.status(500).json({ errors: [{ msg: 'Internal server error' }] });
         }
     },
+    viewApplicationByStatus: async (req, res) => {
+        try {
+            // Fetch all recruiters based on application status
+            const status = req.params.status; // status are-- pending or accepted or rejected
+            if(status !== 'pending' && status !== 'accepted' && status !== 'rejected' && status !== 'notUpdated'){
+                return res.status(400).json({ errors: [{ msg: 'Invalid application status' }] });
+            }
+            
+    
+            const recruiters = await Recruiter.find({ application_status: status });
+            res.status(200).json({ message: `Recruiters with application status ${status} retrieved successfully`, data: recruiters });
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ errors: [{ msg: 'Internal server error' }] });
+        }
+    },
     blockRecruiter: async (req, res) => {
+        console.log("block user");
         try {
             const recruiterId = req.params.id;
             const recruiter = await Recruiter.findById(recruiterId);

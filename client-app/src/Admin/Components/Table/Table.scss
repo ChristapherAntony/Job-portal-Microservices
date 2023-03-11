@@ -1,79 +1,78 @@
+
+.cellWithStatus {
+  padding: 5px 8px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+  border: none;
+  // background-color: transparent;
+  // border: 1px solid transparent;
+
+  &.true {
+    border-color: crimson;
+    color: crimson;
+  }
+  &.false {
+    border-color: green;
+    color: rgb(6, 100, 6);
+  }
+}
+
+.button {
+  display: inline-block;
+  background-color: #008CBA;
+  color: #fff;
+  padding: 5px 8px;
+  font-size: 12px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #006D87;
+}
+
+
 .datatable {
-    height: 600px;
-    padding: 20px;
-    
-    .datatableTitle{
-      width: 100%;
-      font-size: 24px;
-      color: gray;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+  height: 600px;
+  padding: 20px;
+
   
-      .link{
-        text-decoration: none;
-        color: green;
-        font-size: 16px;
-        font-weight: 400;
-        border: 1px solid green;
-        padding: 5px;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-    }
-  
-    .cellWithImg {
-      display: flex;
-      align-items: center;
-  
-      .cellImg {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        object-fit: cover;
-        margin-right: 20px;
-      }
-    }
-  
-    .cellWithStatus {
+  .datatableTitle {
+    width: 100%;
+    font-size: 24px;
+    color: gray;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .link {
+      text-decoration: none;
+      color: green;
+      font-size: 16px;
+      font-weight: 400;
+      border: 1px solid green;
       padding: 5px;
       border-radius: 5px;
-  
-      &.active {
-        background-color: rgba(0, 128, 0, 0.05);
-        color: green;
-      }
-      &.pending {
-        background-color: rgba(255, 217, 0, 0.05);
-        color: goldenrod;
-      }
-      &.passive {
-        background-color: rgba(255, 0, 0, 0.05);
-        color: crimson;
-      }
-    }
-  
-    .cellAction {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-  
-      .viewButton {
-        padding: 2px 5px;
-        border-radius: 5px;
-        color: darkblue;
-        border: 1px dotted rgba(0, 0, 139, 0.596);
-        cursor: pointer;
-      }
-      
-      .deleteButton {
-        padding: 2px 5px;
-        border-radius: 5px;
-        color: crimson;
-        border: 1px dotted rgba(220, 20, 60, 0.6);
-        cursor: pointer;
-      }
+      cursor: pointer;
     }
   }
-  
+
+  // .cellWithStatus {
+  //   padding: 5px;
+  //   border-radius: 5px;
+
+  //   &.true {
+  //     background-color: rgba(255, 0, 0, 0.05);
+  //     color: crimson;
+  //   }
+  //   &.false {
+  //     background-color: rgba(0, 128, 0, 0.05);
+  //     color: rgba(0, 128, 0, 0.263);
+  //   }
+  // }
+}

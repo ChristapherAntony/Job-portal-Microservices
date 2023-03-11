@@ -1,4 +1,5 @@
 import "./SideBar.scss";
+import Axios from 'axios';
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
@@ -10,9 +11,36 @@ import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
 import { Link } from "react-router-dom";
 // import { DarkModeContext } from "../../context/darkModeContext";
 // import { useContext } from "react";
-
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { signOut } from "../../../utils/Constants";
 const SideBar = () => {
+    const navigate = useNavigate();
     //   const { dispatch } = useContext(DarkModeContext);
+
+    const logout = () => {
+        console.log("btn clicked");
+        Swal.fire({
+            title: 'Logout?',
+            text: "You won't be able to revert this!",
+
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Logout'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Axios.post(signOut).then(res=>{
+                    navigate('/admin')
+                  }).catch(err=>{
+                    console.log(err.response.data.errors[0].msg);
+                  })
+                
+               
+            }
+        })
+
+    };
     return (
         <div className="sidebar">
             <div className="top">
@@ -24,7 +52,7 @@ const SideBar = () => {
             <div className="center">
                 <ul>
                     <p className="title">MAIN</p>
-                    <Link to='/admin/home'>
+                    <Link to='/admin/home' style={{ textDecoration: "none" }}>
                         <li>
                             <DashboardIcon className="icon" />
                             <span>Dashboard</span>
@@ -38,7 +66,7 @@ const SideBar = () => {
                             <span>Candidates</span>
                         </li>
                     </Link>
-                    <Link to="/products" style={{ textDecoration: "none" }}>
+                    <Link to="/admin/applications" style={{ textDecoration: "none" }}>
                         <li>
                             <CreditScoreOutlinedIcon className="icon" />
                             <span>Applications</span>
@@ -65,7 +93,7 @@ const SideBar = () => {
                         </li>
                         <li>
                             <ExitToAppIcon className="icon" />
-                            <span>Logout</span>
+                            <span onClick={logout} >Logout</span>
                         </li>
                     </div>
 

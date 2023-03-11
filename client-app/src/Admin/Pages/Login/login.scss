@@ -1,3 +1,83 @@
-.home{
+@import '../../variables';
+
+
+
+/* For screens smaller than 600px */
+@media screen and (max-width: 600px) {
+    .outer {
+      display: flex;
+      flex-direction: column-reverse;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .left, .right {
+      width: 100%;
+      margin: 0;
+      text-align: center;
+    }
+    
+    .left img {
+      width: 80%;
+      margin-bottom: 1rem;
+    }
+  }
   
-}
+  /* For screens larger than 600px */
+  @media screen and (min-width: 601px) {
+    .outer {
+      overflow: hidden;
+    }
+    
+    .left {
+      float: left;
+      width: 50%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .left img {
+      width: 80%;
+    }
+    
+    .right {
+      float: right;
+      width: 50%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  
+  /* Common styles */
+  .outer {
+    position: relative;
+  }
+  
+  .right {
+    padding: 2rem;
+  }
+  
+  @media screen and (min-width: 601px) {
+    .right {
+      padding: 0 2rem;
+    }
+  }
+  
+  @media screen and (max-width: 600px) {
+    .right {
+      padding: 2rem 1rem;
+    }
+  }
+  
+  @media screen and (max-width: 320px) {
+    .right {
+      padding: 2rem 0.5rem;
+    }
+  }
+  
+  /* Add more media queries as needed */
+  

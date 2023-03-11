@@ -2,7 +2,7 @@
 const { Candidate } = require('../../models/candidate-profile');
 const { Recruiter } = require('../../models/recruiter-profile');
 const { queueGroupName } = require('./queue-group-name');
-const { Listener } = require('@careerconnect/common').Listener
+const  {Listener}  = require('../base')
 
 class verifiedStatusUpdatedListener extends Listener {
     constructor(client) {

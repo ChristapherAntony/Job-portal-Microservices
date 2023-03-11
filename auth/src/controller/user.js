@@ -55,6 +55,7 @@ module.exports = {
 
 
     signIn: async (req, res) => {
+        console.log("cal");
         try {
             const { email, password } = req.body;
             // // Check for validation errors
@@ -68,7 +69,7 @@ module.exports = {
 
             // password check
             const isPasswordValid = await bcrypt.compare(password, existingUser.password);
-            if (!isPasswordValid) return res.status(404).json({ errors: [{ msg: 'Password not match' }] });
+            if (!isPasswordValid) return res.status(401).json({ errors: [{ msg: 'Password not match' }] });
 
             // Generate JWT
             const userJwt = jwt.sign(

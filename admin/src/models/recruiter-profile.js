@@ -74,8 +74,8 @@ const recruiterSchema = new mongoose.Schema(
         },
         application_status: {
             type: String,
-            enum: ['pending', 'accepted', 'rejected'],
-            default: 'pending'
+            enum: ['notUpdated','pending', 'accepted', 'rejected'],
+            default: 'notUpdated'
         }
 
     },

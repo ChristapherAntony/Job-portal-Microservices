@@ -2,15 +2,18 @@ const express = require('express');
 const cookieSession = require('cookie-session')
 const { connectDB } = require('./config/db-connection');
 const { connectNATS } = require('./config/nats-connection');
+const xss = require('xss-clean'); 
+const cors=require('cors')
 const adminRoutes = require('./routes/admin-routes');
 const authorize = require('@careerconnect/common').authorize;
  
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.set('trust proxy', true);  
 app.use(cookieSession({ signed: false, secure: true }))
-
+app.use(xss()); //  xss-clean 
 app.use(authorize); // jwt verifying middleware
 
 

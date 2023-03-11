@@ -1,7 +1,7 @@
 const express = require('express');
 const { dashDetails } = require('../controller/admin');
 const { blockCandidate, unBlockCandidate, viewAllCandidates } = require('../controller/candidate');
-const { viewAllRecruiters, blockRecruiter, unBlockRecruiter, viewProfile, applicationDetails, viewAllApplications, acceptApplication } = require('../controller/recruiter');
+const { viewAllRecruiters, blockRecruiter, unBlockRecruiter, viewProfile, applicationDetails, viewAllApplications, acceptApplication, viewApplicationByStatus } = require('../controller/recruiter');
 
 const { checkAuthorization } = require('../middleware/check-authorization');
 
@@ -22,6 +22,7 @@ router.post('/api/v1/admin/candidate-unblock/:id', checkAuthorization('admin'), 
 //recruiter registration application
 router.get('/api/v1/admin/recruiter-applications', checkAuthorization('admin'), viewAllApplications);
 router.get('/api/v1/admin/recruiter-applications/:id', checkAuthorization('admin'), applicationDetails);
+router.get('/api/v1/admin/recruiter-applications-by-status/:status', checkAuthorization('admin'), viewApplicationByStatus);
 router.post('/api/v1/admin/recruiter-verify/:id/:status', checkAuthorization('admin'), acceptApplication);
 
 
