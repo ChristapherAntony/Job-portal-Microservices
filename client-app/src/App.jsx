@@ -4,6 +4,7 @@ import Candidates from './Admin/Pages/Candidtes/Candidates';
 import Home from "./Admin/Pages/Home/Home";
 import Login from './Admin/Pages/Login/Login';
 import RecruiterApplication from './Admin/Pages/RecruiterApplication/RecruiterApplication';
+import Recruiters from './Admin/Pages/Recruiters/Recruiters';
 import Landing from './Candidate/Landing/Landing';
 
 
@@ -20,6 +21,7 @@ function App() {
               <Route index element={<Login/>}/>
               <Route path='home' element={<Home />} />
               <Route path='candidates' element={<Candidates />} />
+              <Route path='recruiters' element={< Recruiters/>} />
               <Route path='applications' element={<RecruiterApplication />} />
               <Route path='application/:id' element={<ApplicationDetails />} />
             </Route >

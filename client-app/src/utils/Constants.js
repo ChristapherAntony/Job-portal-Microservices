@@ -12,6 +12,12 @@ export const getUsers = '/api/v1/admin/candidates';
 export const blockCandidate = '/api/v1/admin/candidate-block';
 export const unblockCandidate = '/api/v1/admin/candidate-unblock';
 
+export const getRecruiters = '/api/v1/admin/recruiters';
+export const blockRecruiters = (id) => `/api/v1/admin/recruiter-block/${id}`
+export const unblockRecruiters = (id) => `/api/v1/admin/recruiter-unblock/${id}`
+
+
+
 
 export const viewApplicationByStatus = '/api/v1/admin/recruiter-applications-by-status'//status;
 export const applicationDetails = (id) => `/api/v1/admin/recruiter-applications/${id}`;

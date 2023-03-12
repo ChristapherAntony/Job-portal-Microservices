@@ -33,7 +33,7 @@ module.exports = {
         }
     },
     blockRecruiter: async (req, res) => {
-        console.log("block user");
+        console.log("block re");
         try {
             const recruiterId = req.params.id;
             const recruiter = await Recruiter.findById(recruiterId);
@@ -64,6 +64,7 @@ module.exports = {
         }
     },
     unBlockRecruiter: async (req, res) => {
+        console.log("un re");
         try {
             const recruiterId = req.params.id;
             const recruiter = await Recruiter.findById(recruiterId);

@@ -30,6 +30,7 @@ router.post('/api/v1/admin/recruiter-verify/:id/:status', checkAuthorization('ad
 router.get('/api/v1/admin/recruiters', checkAuthorization('admin'), viewAllRecruiters);
 router.post('/api/v1/admin/recruiter-block/:id', checkAuthorization('admin'), blockRecruiter);
 router.post('/api/v1/admin/recruiter-unblock/:id', checkAuthorization('admin'), unBlockRecruiter);
+
 router.get('/api/v1/admin/recruiter/profile/:id', checkAuthorization('admin'), viewProfile);//--------------------------pending  needed job posted related data
 
 

@@ -30,13 +30,13 @@ const SideBar = () => {
             confirmButtonText: 'Logout'
         }).then((result) => {
             if (result.isConfirmed) {
-                Axios.post(signOut).then(res=>{
+                Axios.post(signOut).then(res => {
                     navigate('/admin')
-                  }).catch(err=>{
+                }).catch(err => {
                     console.log(err.response.data.errors[0].msg);
-                  })
-                
-               
+                })
+
+
             }
         })
 
@@ -72,10 +72,13 @@ const SideBar = () => {
                             <span>Applications</span>
                         </li>
                     </Link>
-                    <li>
-                        <HailOutlinedIcon className="icon" />
-                        <span>Recruiters</span>
-                    </li>
+                    <Link to="/admin/recruiters" style={{ textDecoration: "none" }}>
+                        <li>
+                            <HailOutlinedIcon className="icon" />
+                            <span>Recruiters</span>
+                        </li>
+                    </Link>
+
                     <li>
                         <WorkspacePremiumOutlinedIcon className="icon" />
                         <span>Premium</span>

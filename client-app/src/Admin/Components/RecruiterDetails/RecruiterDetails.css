@@ -1,0 +1,372 @@
+.rootRootRootRoot {
+    position: relative;
+    gap: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    box-sizing: border-box;
+  }
+  .group {
+    width: 99.04%;
+    gap: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    box-sizing: border-box;
+  }
+  .group11 {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-self: stretch;
+    align-items: flex-start;
+    box-sizing: border-box;
+  }
+  .text10 {
+    width: 234px;
+    height: 36px;
+    left: 0px;
+    top: 8px;
+    position: absolute;
+    font-size: 30px;
+    font-weight: 600;
+    font-family: Inter;
+    box-sizing: border-box;
+  }
+  .text9 {
+    position: relative;
+    align-self: flex-end;
+    margin: 8px 0px 0px 0px;
+    font-size: 30px;
+    font-weight: 600;
+    font-family: Inter;
+    box-sizing: border-box;
+  }
+  .blueRectangle1 {
+    width: 6.31%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 0px 0px 13px 0px;
+    padding: 2px 12px 5px 12px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    background-color: #1877f2;
+  }
+  .text11 {
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: Inter;
+    box-sizing: border-box;
+  }
+  .whiteRectangle1 {
+    width: 98.71%;
+    gap: 38px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 19px 35px 19px 39px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+  }
+  .group5 {
+    width: 8.54%;
+    gap: 11px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 12px 0px 72px 0px;
+    box-sizing: border-box;
+  }
+  .text13 {
+    align-self: stretch;
+    margin: 0px 0px 1px 0px;
+    font-size: 20px;
+    font-family: Inter;
+    box-sizing: border-box;
+  }
+  .text18 {
+    margin: 0px 0px 9px 1px;
+    font-size: 20px;
+    font-family: Inter;
+    box-sizing: border-box;
+  }
+  .text16 {
+    margin: 0px 0px 0px 2px;
+    font-size: 20px;
+    font-family: Inter;
+    box-sizing: border-box;
+  }
+  .group10 {
+    width: 18.49%;
+    gap: 9px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 12px 80px 39px 0px;
+    box-sizing: border-box;
+  }
+  .text20 {
+    margin: 0px 0px 2px 0px;
+    font-size: 20px;
+    font-family: Inter;
+    box-sizing: border-box;
+  }
+  .text19 {
+    color: #007bff;
+    font-size: 20px;
+    font-family: Inter;
+    box-sizing: border-box;
+  }
+  .text12 {
+    margin: 0px 0px 7px 0px;
+    font-size: 20px;
+    font-family: Inter;
+    box-sizing: border-box;
+  }
+  .text17 {
+    align-self: stretch;
+    margin: 0px 0px 7px 0px;
+    font-size: 20px;
+    font-family: Inter;
+    box-sizing: border-box;
+  }
+  .paragraph {
+    margin: 12px 400px 123px 0px;
+    font-size: 20px;
+    font-family: Inter;
+    box-sizing: border-box;
+  }
+  .pro {
+    min-width: 0px;
+    min-height: 0px;
+    margin: 0px 0px 161px 0px;
+    box-sizing: border-box;
+  }
+  .group1 {
+    width: 99.04%;
+    gap: 11px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 0px 0px 2px 0px;
+    box-sizing: border-box;
+  }
+  .text26 {
+    font-size: 20px;
+    font-weight: 500;
+    font-family: Inter;
+    box-sizing: border-box;
+  }
+  .whiteRectangle2 {
+    width: 98.71%;
+    gap: 93px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-self: flex-end;
+    align-items: flex-start;
+    padding: 19px 32px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+  }
+  .group6 {
+    width: 26.88%;
+    gap: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 0px 0px 1px 0px;
+    box-sizing: border-box;
+  }
+  .group8 {
+    gap: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 0px 0px 8px 0px;
+    box-sizing: border-box;
+  }
+  .image1 {
+    min-width: 0px;
+    min-height: 0px;
+    box-sizing: border-box;
+  }
+  .text25 {
+    align-self: flex-end;
+    margin: 17px 0px 14px 0px;
+    font-size: 20px;
+    font-family: Inter;
+    box-sizing: border-box;
+  }
+  .text22 {
+    margin: 0px 0px 0px 10px;
+    font-size: 20px;
+    font-family: Inter;
+    box-sizing: border-box;
+  }
+  .text21 {
+    margin: 0px 0px 4px 10px;
+    font-size: 20px;
+    font-family: Inter;
+    box-sizing: border-box;
+  }
+  .text23 {
+    margin: 0px 0px 2px 13px;
+    font-size: 20px;
+    font-family: Inter;
+    box-sizing: border-box;
+  }
+  .timberwolfRectangle4 {
+    width: 97.32%;
+    height: 80px;
+    flex-shrink: 0;
+    align-self: flex-end;
+    box-sizing: border-box;
+    background-color: #d9d9d9;
+  }
+  .group7 {
+    width: 80.12%;
+    gap: 33px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-self: flex-end;
+    align-items: flex-start;
+    margin: 36px 0px 1px 0px;
+    box-sizing: border-box;
+  }
+  .text24 {
+    margin: 0px 0px 0px 29px;
+    font-size: 20px;
+    font-family: Inter;
+    box-sizing: border-box;
+  }
+  .timberwolfRectangle5 {
+    width: 100%;
+    height: 184px;
+    flex-shrink: 0;
+    align-self: stretch;
+    box-sizing: border-box;
+    background-color: rgba(217, 217, 217, 0.5);
+  }
+  .group3 {
+    width: 99.04%;
+    gap: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    box-sizing: border-box;
+  }
+  .text8 {
+    font-size: 25px;
+    font-family: Inter;
+    box-sizing: border-box;
+  }
+  .group9 {
+    width: 98.79%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-self: flex-end;
+    padding: 0px 0px 645px 0px;
+    box-sizing: border-box;
+  }
+  .whiteRectangle {
+    width: 1221px;
+    height: 699px;
+    left: 1px;
+    top: 0px;
+    position: absolute;
+    gap: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 13px 37px 320px 37px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+  }
+  .text7 {
+    margin: 0px 0px 32px 489px;
+    font-size: 23px;
+    font-weight: 500;
+    font-family: Ubuntu;
+    box-sizing: border-box;
+  }
+  .blueRectangle {
+    width: 100%;
+    position: relative;
+    gap: 81px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 11px 38px;
+    box-sizing: border-box;
+    background-color: rgba(24, 119, 242, 0.24);
+  }
+  .text6 {
+    margin: 3px 0px;
+    font-size: 23px;
+    font-weight: 500;
+    font-family: Ubuntu;
+    box-sizing: border-box;
+  }
+  .text1 {
+    margin: 3px 5px 3px 0px;
+    font-size: 23px;
+    font-weight: 500;
+    font-family: Ubuntu;
+    box-sizing: border-box;
+  }
+  .text2 {
+    align-self: flex-start;
+    margin: 2px 173px 4px 0px;
+    font-size: 23px;
+    font-weight: 500;
+    font-family: Ubuntu;
+    box-sizing: border-box;
+  }
+  .text3 {
+    margin: 3px 40px 3px 0px;
+    font-size: 23px;
+    font-weight: 500;
+    font-family: Ubuntu;
+    box-sizing: border-box;
+  }
+  .text4 {
+    align-self: flex-start;
+    margin: 2px 29px 4px 0px;
+    font-size: 23px;
+    font-weight: 500;
+    font-family: Ubuntu;
+    box-sizing: border-box;
+  }
+  .text5 {
+    align-self: flex-end;
+    margin: 6px 0px 0px 0px;
+    font-size: 23px;
+    font-weight: 500;
+    font-family: Ubuntu;
+    box-sizing: border-box;
+  }
+  

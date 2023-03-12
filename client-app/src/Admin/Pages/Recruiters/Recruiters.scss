@@ -1,7 +1,11 @@
+@import '../../variables';
+
+
 .list {
     display: flex;
+    background-color: $bg-primary;
     width: 100%;
-    overflow: hidden;
+
     .listContainer {
       flex: 6;
     }

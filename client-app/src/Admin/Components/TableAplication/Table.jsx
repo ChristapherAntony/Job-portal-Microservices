@@ -65,12 +65,12 @@ const Datatable = () => {
     {
       field: "user_name",
       headerName: "User",
-      width: 230,
+      width: 150,
     },
     {
       field: "email",
       headerName: "Email",
-      width: 230,
+      width: 120,
     },
     {
       field: "company_name",
@@ -83,9 +83,31 @@ const Datatable = () => {
       width: 150,
     },
     {
+      field: "application_status",
+      headerName: "Application Status",
+      width: 150,
+    },
+    {
+      field: "details",
+      headerName: "Details",
+      width: 150,
+      renderCell: (params) => {
+        return (
+          <div>
+            <button
+              className="button"
+              onClick={() => viewDetails(params.row._id)}
+            >
+              View Details
+            </button>
+          </div>
+        );
+      },
+    },
+    {
       field: "actions",
       headerName: "Actions",
-      width: 300,
+      width: 180,
       renderCell: (params) => {
         return (
           <div>
@@ -97,7 +119,7 @@ const Datatable = () => {
                 >
                   Approve
                 </button>
-
+  
                 <button
                   className="button"
                   onClick={() => rejectUser(params.row._id)}
@@ -117,7 +139,6 @@ const Datatable = () => {
 
 
 
-
   return (
     <div className="datatable">
       <div className="datatable-header"> <span>Application Status </span>
@@ -128,7 +149,7 @@ const Datatable = () => {
         </select>
       </div>
       <DataGrid
-        onCellClick={(params)=>viewDetails(params.row._id)}
+        
         className="datagrid"
         rows={users}
         columns={userColumns}

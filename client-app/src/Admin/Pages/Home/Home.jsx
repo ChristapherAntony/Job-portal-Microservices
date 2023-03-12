@@ -18,12 +18,12 @@ const Home = () => {
         <NavBar />
         <Heading text={"Over View"} />
         
-        <div className="widgets">
+        {/* <div className="widgets">
           <Widget type="candidates" />
           <Widget type="recruiters" />
           <Widget type="jobs" />
           <Widget type="applications" />
-        </div>
+        </div> */}
 
       </div>
     </div>
