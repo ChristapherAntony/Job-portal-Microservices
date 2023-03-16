@@ -8,7 +8,7 @@ const createAdmin = async () => {
         const adminUser = await User.findOne({ user_name: 'admin' });
         if (!adminUser) {
             // Create admin user if it does not exist
-            const password=await bcrypt.hash('1234', 10);
+            const password=await bcrypt.hash(process.env.ADMIN_PASSWORD, 10);
             const admin = new User({
                 user_name: 'admin',
                 email: 'admin@admin.com',

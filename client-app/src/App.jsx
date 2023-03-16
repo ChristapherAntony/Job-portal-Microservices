@@ -1,11 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom'
-import ApplicationDetails from './Admin/Pages/ApplicationDetails/ApplicationDetails';
-import Candidates from './Admin/Pages/Candidtes/Candidates';
-import Home from "./Admin/Pages/Home/Home";
-import Login from './Admin/Pages/Login/Login';
-import RecruiterApplication from './Admin/Pages/RecruiterApplication/RecruiterApplication';
-import Recruiters from './Admin/Pages/Recruiters/Recruiters';
-import Landing from './Candidate/Landing/Landing';
+import {ApplicationDetails,Home,Candidates,Login,RecruiterApplication,Recruiters} from './Admin/Pages/index'
+import EmailVerfication from './Candidate/Pages/EmailVerfication/EmailVerfication';
+import {LandingPage ,HomePage,SignInPage,SignUpPage} from './Candidate/Pages/index';
+import OtpVerify from './Candidate/Pages/OtpVerify/OtpVerify';
 
 
 function App() {
@@ -14,8 +11,17 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/'>
-            <Route index element={<Landing />} />
-    
+            <Route index element={<LandingPage />} />
+
+             {/* candidate routes  */}
+            <Route path='candidate'>
+              <Route index element={<HomePage/>}/>
+              <Route path='signup' element={<SignUpPage/>}/>
+              <Route path='signin' element={<SignInPage/>}/>
+              <Route path='email-verification' element={<EmailVerfication/>}/>
+              <Route path='otp/:email' element={<OtpVerify/>}/>
+            </Route>
+
             {/* admin routes  */}
             <Route path='admin'>
               <Route index element={<Login/>}/>

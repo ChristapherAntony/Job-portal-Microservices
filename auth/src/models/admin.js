@@ -3,20 +3,15 @@ const adminSchema = new mongoose.Schema(
     {
         user_name: {
             type: String,         
-            default: 'admin'
         },
         email: {
-            type: String,
-            default: 'admin@admin.com'
-
+            type: String,   
         },
         password: {
-            type: String,
-            default: '1234'
+            type: String,  
         },
         role: {
             type: String,
-            default: 'admin'
         }
     }
 );

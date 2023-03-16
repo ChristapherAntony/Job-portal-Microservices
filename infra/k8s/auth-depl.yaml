@@ -29,8 +29,18 @@ spec:
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
-                  name: jwt-secret
+                  name: careerconnect-jwt-secret
                   key: JWT_KEY
+            - name: GMAIL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: careerconnect-gmail-secret
+                  key: GMAIL_PASSWORD
+            - name: ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: careerconnect-admin-secret
+                  key: ADMIN_PASSWORD
 # jwt environment from kubernetees secret obj
 ---
 apiVersion: v1

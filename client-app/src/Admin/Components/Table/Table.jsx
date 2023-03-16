@@ -23,12 +23,10 @@ const Datatable = () => {
   }
 
   const blockUser = (id) => {
-    // make an API call to block the user
     console.log(blockCandidate);
     axios.post(`${blockCandidate}/${id}`).then((response) => {
-
-      console.log(response)
       console.log(`Blocked user with id ${id}`);
+      getUsersList()
     }).catch((error) => {
       console.log(error);
     })
@@ -36,11 +34,8 @@ const Datatable = () => {
   }
 
   const unblockUser = (id) => {
-    console.log(unblockCandidate);
-
     axios.post(`${unblockCandidate}/${id}`).then((response) => {
-
-      console.log(response)
+      getUsersList()
       console.log(`Unblocked user with id ${id}`);
     }).catch((error) => {
       console.log(error);

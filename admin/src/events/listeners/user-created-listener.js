@@ -3,6 +3,8 @@ const { Candidate } = require('../../models/candidate-profile');
 const { Recruiter } = require('../../models/recruiter-profile');
 const { queueGroupName } = require('./queue-group-name');
 const  {Listener}  = require('../base')
+// const {Listener} =require('@careerconnect/common')
+
 
 class UserCreatedListener extends Listener {
   constructor(client) {

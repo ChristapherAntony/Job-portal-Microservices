@@ -26,6 +26,14 @@ const validationSignup = [
         .trim()
         .escape(),
 
+    body('confirm_password')
+        .custom((value, { req }) => {
+            if (value !== req.body.password) {
+                throw new Error('Confirm password does not match password');
+            }
+            return true;
+        }),
+
     body('role')
         .notEmpty()
         .withMessage('Role is required')
@@ -45,7 +53,6 @@ const validationSignup = [
         }
         next();
     }
-
 ];
 
 // Define validation and sanitization rules for the signin endpoint

@@ -1,6 +1,6 @@
 
 const { queueGroupName } = require('./queue-group-name');
-const  {Listener}  = require('../base')
+const { Listener } = require('../base')
 const { User } = require('../../models/user');
 
 class UserUpdatedListener extends Listener {
@@ -20,12 +20,11 @@ class UserUpdatedListener extends Listener {
 
       // save the updated user document to the database
       await user.save();
-
-
       msg.ack();
     } catch (error) {
       console.log(error);
     }
+    msg.ack();
 
   }
 }

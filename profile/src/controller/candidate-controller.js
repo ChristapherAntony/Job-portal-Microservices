@@ -9,8 +9,7 @@ const ObjectId = mongoose.Types.ObjectId;
 
 module.exports = {
     viewProfile: async (req, res) => {
-        console.log("api call profile view");
-        console.log((req.currentUser));
+      
         try {
             // NOTE---checked for user authorized , role  status in router level---middleware
             //check block status of user before updating user profile

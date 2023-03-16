@@ -10,7 +10,7 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import Avatar from '@mui/material/Avatar';
 import { Button } from "@mui/material";
 export const Details = () => {
-  const navigate=useNavigate()
+  const navigate = useNavigate()
   const [state, setState] = useState({})
   const { id } = useParams();
   useEffect(() => {
@@ -30,7 +30,7 @@ export const Details = () => {
     }).catch((error) => {
       console.log(error);
     })
-    
+
   }
 
   const rejectUser = (id) => {
@@ -45,8 +45,8 @@ export const Details = () => {
   return (
     <div>
       <div className='backbtn'>
-        <Link to={'/admin/applications'}> 
-        <SmallButton text={'Back'} onClick={() => navigate('/admin/applications')} />
+        <Link to={'/admin/applications'}>
+          <SmallButton text={'Back'} onClick={() => navigate('/admin/applications')} />
         </Link>
       </div>
       <div className="topdetail">
@@ -105,7 +105,7 @@ export const Details = () => {
               sx={{ width: 40, height: 40 }}
             />
           </div>
-          <b className="co-name">{state.company_name}werewrwe</b>
+          <b className="co-name">{state.company_name}</b>
           <table>
             <tr>
               <td><LanguageOutlinedIcon /></td><td>{state.company_website}</td>
@@ -134,15 +134,19 @@ export const Details = () => {
 
         </div>
       </div>
-      <div className="lastbtn">
-      <Button onClick={()=>acceptUser(state._id)}>
-        <SmallButton text={'Accept'} color="success"  />
-      </Button>
-       <Button onClick={()=>rejectUser(state._id)}>
-        <SmallButton text={'Reject'} />
-       </Button>
-        
-      </div>
+      {!state.is_verified && (
+        <div className="lastbtn">
+          <Button onClick={() => acceptUser(state._id)}>
+            <SmallButton text={'Accept'} color="success" />
+          </Button>
+          <Button onClick={() => rejectUser(state._id)}>
+            <SmallButton text={'Reject'} />
+          </Button>
+
+        </div>
+
+      )}
+
 
 
 

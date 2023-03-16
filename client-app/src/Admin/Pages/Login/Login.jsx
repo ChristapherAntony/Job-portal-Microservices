@@ -17,26 +17,31 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import './login.scss'
 import { useNavigate } from 'react-router-dom';
 import { signIn } from '../../../utils/Constants';
+import { useState } from 'react';
 const theme = createTheme();
 
 export default function Login() {
   const navigate = useNavigate();
+  const [error, setError] = useState(null)
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const email = data.get('email')
     const password = data.get('password')
-    // axios post rerquest with email and passord
+    setError(null); // clear any previous errors
 
 
-    Axios.post(signIn, {email,password}).then(res=>{
+    Axios.post(signIn, { email, password }).then(res => {
       console.log(res); // Handle successful response
       navigate('home'); // Navigate to home page
-    }).catch(err=>{
-      console.log("errr");
+    }).catch(err => {
       console.log(err.response.data.errors[0].msg);
+      setError(err.response.data.errors[0].msg); // Set the error state
+      setTimeout(() => {
+        setError(null);
+      }, 8000);
     })
-    
+
 
   };
 
@@ -53,7 +58,7 @@ export default function Login() {
             <CssBaseline />
             <Box
               sx={{
-                marginTop: 8,
+                marginTop: 2,
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
@@ -65,6 +70,7 @@ export default function Login() {
               <Typography component="h1" variant="h5">
                 Sign in
               </Typography>
+
               <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                 <TextField
                   margin="normal"
@@ -73,7 +79,7 @@ export default function Login() {
                   id="email"
                   label="Email Address"
                   name="email"
-                  value={'admin@admin.com'}
+
                   autoComplete="email"
                   autoFocus
                 />
@@ -84,7 +90,7 @@ export default function Login() {
                   name="password"
                   label="Password"
                   type="password"
-                  value={'1234'}
+
                   id="password"
                   autoComplete="current-password"
                 />
@@ -108,6 +114,11 @@ export default function Login() {
                   </Grid>
 
                 </Grid>
+                {error && (
+                <Typography component="p" variant="subtitle1" color="error">
+                  {error}
+                </Typography>
+              )}
               </Box>
             </Box>
 

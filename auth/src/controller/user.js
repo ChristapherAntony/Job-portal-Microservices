@@ -5,6 +5,9 @@ const { validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken')
 const { UserCreatedPublisher } = require('../events/publisher/user-created-publisher')
 const { natsWrapper } = require('../nats-wrapper');
+const { sendOTP } = require('../middleware/otp');
+const { OTP } = require("../models/otp");
+const { transporter } = require('../config/nodeMailer');
 
 module.exports = {
     signup: async (req, res) => {
@@ -20,6 +23,7 @@ module.exports = {
 
             // Hash password and create candidate
             req.body.password = await bcrypt.hash(req.body.password, 10);
+            delete req.body.confirm_password;
             const response = await User.create(req.body)
 
             //publish this event
@@ -40,7 +44,7 @@ module.exports = {
                 return res.status(422).json({ errors });
             } else if (error.code === 11000) {
                 const keyValueFields = Object.keys(error.keyValue);
-                const errorMessage = keyValueFields.map(field => `${field} ${error.keyValue[field]} already exists`).join(', ');
+                const errorMessage = keyValueFields.map(field => `phone number ${error.keyValue[field]} already exists`).join(', ');
                 return res.status(422).json({ errors: [{ msg: errorMessage }] });
             } else {
                 // Handle other errors
@@ -55,7 +59,7 @@ module.exports = {
 
 
     signIn: async (req, res) => {
-        console.log("cal");
+        
         try {
             const { email, password } = req.body;
             // // Check for validation errors
@@ -65,7 +69,7 @@ module.exports = {
             const existingUser = await User.findOne({ email });
             if (!existingUser) return res.status(404).json({ errors: [{ msg: 'Invalid credentials' }] });
             console.log(existingUser);
-            if (existingUser.is_blocked ===true) return res.status(404).json({ errors: [{ msg: 'Unable to signin user is blocked ' }] });
+            if (existingUser.is_blocked === true) return res.status(404).json({ errors: [{ msg: 'Unable to signin user is blocked ' }] });
 
             // password check
             const isPasswordValid = await bcrypt.compare(password, existingUser.password);
@@ -81,8 +85,7 @@ module.exports = {
             req.session = {
                 jwt: userJwt,
             };
-            const payload = jwt.verify(req.session.jwt, process.env.JWT_KEY)
-            console.log(payload);
+
             res.status(200).send(existingUser);
 
         } catch (error) {
@@ -114,13 +117,81 @@ module.exports = {
             console.error(error);
             res.status(500).json({ errors: [{ msg: 'Internal server error' }] });
         }
-    }
-    , updatePassword: async (req, res) => {
+    },
+    emailVerify: async (req, res) => {
         try {
+            const { email } = req.body;
+            const existingUser = await User.findOne({ email });
+            if (!existingUser) return res.status(404).json({ errors: [{ msg: 'Invalid email address! User not registered' }] });
+            if (existingUser.is_blocked === true) return res.status(404).json({ errors: [{ msg: 'Unable to signin user is blocked ' }] });
 
+            await OTP.deleteMany({ email: email }); // delete old old otp if any
+            ////
+            const otpGenerated = Math.floor(100000 + Math.random() * 900000);
+            // Hash the OTP with bcrypt
+            const otp = await bcrypt.hash(otpGenerated.toString(), 10);
+
+            const mailOptions = {
+                from: 'christapher316@gmail.com',
+                to: email,
+                subject: 'OTP for email verification',
+                html: `<p>Your OTP is ${otpGenerated}. Please enter this OTP to verify your email address.</p>`,
+            };
+
+            await transporter.sendMail(mailOptions);
+            const newOTP = new OTP({
+                email: email,
+                otp: otp,
+            });
+            await newOTP.save();
+
+            res.status(200).json({ message: 'OTP sent to your email address' });
         } catch (error) {
-
+            console.error(error);
+            res.status(500).json({ errors: [{ msg: 'Internal server error' }] });
         }
-    }
+    },
+    otpVerify: async (req, res) => {
+        try {
+            const { email, otp } = req.body;
+            const existingUser = await User.findOne({ email });
+            const all = await OTP.find()
 
+            console.log(all,"1111111111111111");
+            if (!existingUser) {
+                return res.status(404).json({ errors: [{ msg: 'Invalid email address! User not registered' }] });
+            }
+            if (existingUser.is_blocked === true) {
+                return res.status(404).json({ errors: [{ msg: 'Unable to signin user is blocked ' }] });
+            }
+
+            const otpDoc = await OTP.findOne({ email });
+
+            if (!otpDoc) {
+                return res.status(404).json({ errors: [{ msg: 'OTP expired or invalid' }] });
+            }
+
+            const isMatch = await bcrypt.compare(otp.toString(), otpDoc.otp);
+
+            if (!isMatch) {
+                return res.status(404).json({ errors: [{ msg: 'OTP expired or invalid' }] });
+            }
+
+            console.log(`OTP verified for ${email}: ${otp}`);
+            // Generate JWT
+            const userJwt = jwt.sign(
+                { id: existingUser._id, email: existingUser.email, role: existingUser.role },
+                process.env.JWT_KEY,
+                { expiresIn: '1h' }
+            );
+            // Store it on session object
+            req.session = {
+                jwt: userJwt,
+            };
+            res.status(200).send(existingUser);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ errors: [{ msg: 'Internal server error' }] });
+        }
+    },
 };
