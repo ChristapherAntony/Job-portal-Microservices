@@ -2,6 +2,7 @@ const { Recruiter } = require("../models/recruiter-profile");
 const { validationResult } = require('express-validator');
 const { UserUpdatedPublisher } = require("../events/publisher/user-updated-publisher");
 const { natsWrapper } = require("../nats-wrapper");
+const { cloudinary } = require("../config/cloudinary");
 
 module.exports = {
     viewProfile: async (req, res) => {
@@ -21,7 +22,7 @@ module.exports = {
     },
     updateProfile: async (req, res) => {
         console.log("addprofile call");
-        console.log(req.body);
+       
         try {
 
             // Check for validation errors
@@ -35,14 +36,19 @@ module.exports = {
                 return res.status(404).json({ errors: [{ msg: 'user blocked unable to perform this action' }] })
             }
 
+            const profileImagePath = req.files['profile_image'][0].path;
+            const logoImagePath = req.files['company_logo'][0].path;
+            console.log(profileImagePath, logoImagePath);
+
+
             user.set({
                 user_name: req.body.user_name,
                 email: req.body.email,
                 phone_number: req.body.phone_number,
-                profile_image: req.body.profile_image,
+                profile_image: profileImagePath,
                 current_position: req.body.current_position,
                 company_name: req.body.company_name,
-                company_logo: req.body.company_logo,
+                company_logo: logoImagePath,
                 company_website: req.body.company_website,
                 company_email: req.body.company_email,
                 company_location: req.body.company_location,

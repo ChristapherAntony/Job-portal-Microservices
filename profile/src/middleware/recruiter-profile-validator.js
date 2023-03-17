@@ -12,13 +12,13 @@ const validate = [
   
   body('phone_number').isNumeric().withMessage('Invalid phone number.'),
   
-  body('profile_image').notEmpty().withMessage('Profile image is required.'),
+  // body('profile_image').notEmpty().withMessage('Profile image is required.'),
   
   body('current_position').notEmpty().withMessage('Current position is required.'),
   
   body('company_name').notEmpty().withMessage('Company name is required.'),
   
-  body('company_logo').notEmpty().withMessage('Company logo is required.'),
+  // body('company_logo').notEmpty().withMessage('Company logo is required.'),
   
   body('company_website').notEmpty().withMessage('Company website is required.'),
   

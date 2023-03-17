@@ -1,20 +1,32 @@
 
-import React from 'react'
+import { Button, Container } from '@mui/material'
+import React, { useEffect } from 'react'
 import Footer from '../../Components/Footer/Footer'
 
 import NavBar from '../../Components/NavBar/NavBar'
-import './LandingPage.scss'
+// import './LandingPage.scss'
 
 function LandingPage() {
+  useEffect(()=>{
+    document.title ="Career connect-landing page"
+  },[])
   return (
     <div className='landing' >
-      <NavBar />
+      <Container 
+      maxWidth='xl'
+      >
+
+    <Button>test</Button>
+      </Container>
+
+
+      {/* <NavBar />
       
    
    
 
 
-      <Footer />
+      <Footer /> */}
 
     </div>
   )

@@ -29,7 +29,7 @@ spec:
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
-                  name: jwt-secret
+                  name: careerconnect-jwt-secret
                   key: JWT_KEY
 # jwt environment from kubernetees secret obj
 ---

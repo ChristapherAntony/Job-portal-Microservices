@@ -9,7 +9,7 @@ const ObjectId = mongoose.Types.ObjectId;
 
 module.exports = {
     viewProfile: async (req, res) => {
-      
+
         try {
             // NOTE---checked for user authorized , role  status in router level---middleware
             //check block status of user before updating user profile
@@ -33,6 +33,9 @@ module.exports = {
             if (user.is_blocked === true) {
                 return res.status(404).json({ errors: [{ msg: 'user blocked unable to perform this action' }] })
             }
+
+            const profileImagePath = req.files['profile_image'][0].path;
+
             // update the user profile
             const updatedUser = await Candidate.findByIdAndUpdate(
                 req.currentUser.id, // user ID to update
@@ -44,7 +47,7 @@ module.exports = {
                         about: req.body.about,
                         bio: req.body.bio,
                         key_skills: req.body.key_skills,
-                        profile_image: req.body.profile_image,
+                        profile_image: profileImagePath,
                         curriculum_vitae: req.body.curriculum_vitae,
                     }
                 },
@@ -129,6 +132,7 @@ module.exports = {
         }
     },
     updateProfilePicture: async (req, res) => {
+        console.log(req.body);
         try {
             // NOTE---checked for user authorized , role  status in router level---middleware
             //check block status of user before updating user profile
@@ -136,16 +140,21 @@ module.exports = {
             if (user.is_blocked === true) {
                 return res.status(404).json({ errors: [{ msg: 'user blocked unable to perform this action' }] })
             }
+
+            const profileImagePath = req.files['profile_image'][0].path;
+
+
             // update the  profile pic
             const updatedUser = await Candidate.findByIdAndUpdate(
                 req.currentUser.id,
                 {
                     $set: {
-                        profile_image: req.body.profile_image
+                        profile_image: profileImagePath
                     }
                 },
                 { new: true }
             );
+            console.log(updatedUser);
             res.status(200).json({ message: 'User profile picture  updated successfully', profile_image: updatedUser.profile_image });
         } catch (error) {
             console.log(error);

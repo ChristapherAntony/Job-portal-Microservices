@@ -5,12 +5,13 @@ const { addWorkExperience, deleteWorkExperience, updateWorkExperience } = requir
 const { validateProfileQuickUpdate, validatePersonalInfo, validateEducation, validateExperience, validateCourse, validateLanguage } = require('../middleware/candidate-validation');
 const { checkAuthorization } = require('../middleware/check-authorization');
 const { updateCourseAndCertification, deleteCourseAndCertification, addCourseAndCertification } = require('../controller/candidate-CourseAndCertification');
+const { upload } = require('../middleware/multer');
 const router = express.Router();
 
 
 //routes
 router.get('/api/v1/profile/candidate', viewProfile);
-router.patch('/api/v1/profile/candidate/quick-update', checkAuthorization('candidate'), validateProfileQuickUpdate, updateProfile)
+router.patch('/api/v1/profile/candidate/quick-update', checkAuthorization('candidate'), upload.fields([{ name: 'profile_image', maxCount: 1 }]),validateProfileQuickUpdate,  updateProfile)
 router.patch('/api/v1/profile/candidate/personal-info', checkAuthorization('candidate'), validatePersonalInfo, updatePersonalInfo)
 //route related to work experience
 router.post('/api/v1/profile/candidate/work-experience', checkAuthorization('candidate'), validateExperience, addWorkExperience)
@@ -21,7 +22,7 @@ router.post('/api/v1/profile/candidate/education', checkAuthorization('candidate
 router.put('/api/v1/profile/candidate/education/:id', checkAuthorization('candidate'), validateEducation, updateEducation)
 router.delete('/api/v1/profile/candidate/education/:id', checkAuthorization('candidate'), deleteEducation)
 //update and delete profile picture
-router.patch('/api/v1/profile/candidate/profile-picture', checkAuthorization('candidate'), updateProfilePicture)
+router.patch('/api/v1/profile/candidate/profile-picture', checkAuthorization('candidate'),  upload.fields([{ name: 'profile_image', maxCount: 1 }]),updateProfilePicture)
 router.delete('/api/v1/profile/candidate/profile-picture', checkAuthorization('candidate'), deleteProfilePicture)
 //update and delete cv
 router.patch('/api/v1/profile/candidate/curriculum-vitae', checkAuthorization('candidate'), updateCV)

@@ -7,7 +7,7 @@ const validateProfileQuickUpdate = [
     body('about').notEmpty().withMessage('About section is required.').trim().escape(),
     body('bio').notEmpty().withMessage('Bio section is required.').trim().escape(),
     body('key_skills').notEmpty().withMessage('Key skills must be required.').trim().escape(),
-    body('profile_image').notEmpty().withMessage('Profile image is required.'),
+    // body('profile_image').notEmpty().withMessage('Profile image is required.'),
     body('curriculum_vitae').notEmpty().withMessage('Curriculum vitae is required.'),
 
     (req, res, next) => {
