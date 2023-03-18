@@ -85,7 +85,7 @@ function QuickProfile() {
                     <p className="mt-3 text-xs text-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                 </div>
                 <div className="flex justify-end mt-6">
-                    <button className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
+                    <button style={{ cursor: 'pointer' }} onClick={() => navigate('/candidate/quick-experience')} className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
                         Next
                     </button>
                 </div>
