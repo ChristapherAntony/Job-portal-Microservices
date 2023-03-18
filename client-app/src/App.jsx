@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom'
 import {ApplicationDetails,Home,Candidates,Login,RecruiterApplication,Recruiters} from './Admin/Pages/index'
 import EmailVerfication from './Candidate/Pages/EmailVerfication/EmailVerfication';
-import {LandingPage ,HomePage,SignInPage,SignUpPage} from './Candidate/Pages/index';
+import {LandingPage ,HomePage,SignInPage,SignUpPage, ProfileQuickUpdate} from './Candidate/Pages/index';
 import OtpVerify from './Candidate/Pages/OtpVerify/OtpVerify';
 
 
@@ -18,6 +18,7 @@ function App() {
               <Route index element={<HomePage/>}/>
               <Route path='signup' element={<SignUpPage/>}/>
               <Route path='signin' element={<SignInPage/>}/>
+              <Route path='quick-profile' element={<ProfileQuickUpdate/>}/>
               <Route path='email-verification' element={<EmailVerfication/>}/>
               <Route path='otp/:email' element={<OtpVerify/>}/>
             </Route>

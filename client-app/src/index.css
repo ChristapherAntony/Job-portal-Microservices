@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Helvetica');
+body {
+  font-family: 'Helvetica', sans-serif;
+}
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+

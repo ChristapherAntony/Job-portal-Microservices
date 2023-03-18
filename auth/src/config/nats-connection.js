@@ -13,11 +13,13 @@ const connectNATS = async () => {
       console.log('NATS connection closed!');
       process.exit();
     });
+
     process.on('SIGINT', () => natsWrapper.client.close());
     process.on('SIGTERM', () => natsWrapper.client.close());
 
     new UserUpdatedListener(natsWrapper.client).listen();
     new blockStatusUpdatedListener(natsWrapper.client).listen();
+    
   } catch (error) {
     console.log(error.message);
 
