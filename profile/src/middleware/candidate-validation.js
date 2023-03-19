@@ -45,10 +45,13 @@ const validatePersonalInfo = [
 
 const validateExperience = [
     check('*').trim().escape(),
+    
     body('designation')
         .notEmpty().withMessage('Designation is required'),
     body('company_name')
         .notEmpty().withMessage('Company name is required'),
+        body('location')
+        .notEmpty().withMessage('Job location is required'),
     body('current_status')
         .notEmpty().withMessage('Current status is required'),
     body('start_date')

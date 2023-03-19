@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-rou
 import {ApplicationDetails,Home,Candidates,Login,RecruiterApplication,Recruiters} from './Admin/Pages/index'
 import AddWorkExp from './Candidate/Pages/AddWorkExp';
 import EmailVerfication from './Candidate/Pages/EmailVerfication/EmailVerfication';
-import {LandingPage ,HomePage,SignInPage,SignUpPage, ProfileQuickUpdate} from './Candidate/Pages/index';
+import {LandingPage ,HomePage,SignInPage,SignUpPage, ProfileQuickUpdate, Profile} from './Candidate/Pages/index';
 import OtpVerify from './Candidate/Pages/OtpVerify/OtpVerify';
 
 
@@ -23,6 +23,7 @@ function App() {
               <Route path='quick-experience' element={<AddWorkExp/>}/>
               <Route path='email-verification' element={<EmailVerfication/>}/>
               <Route path='otp/:email' element={<OtpVerify/>}/>
+              <Route path='profile/:id' element={<Profile/>}/>
             </Route>
 
             {/* admin routes  */}

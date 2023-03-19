@@ -20,11 +20,11 @@ module.exports = {
                 _id: new mongoose.Types.ObjectId(), // generate a new ObjectId
                 designation: req.body.designation,
                 company_name: req.body.company_name,
+                location: req.body.location,
                 current_status: req.body.current_status,
                 start_date: new Date(req.body.start_date),
                 end_date: req.body.end_date ? new Date(req.body.end_date) : null,
                 notice_period: req.body.notice_period ? req.body.notice_period : null,
-                annual_salary: req.body.annual_salary,
                 job_description: req.body.job_description
             };
 
@@ -98,11 +98,11 @@ module.exports = {
                     $set: {
                         'work_experience.$.designation': req.body?.designation,
                         'work_experience.$.company_name': req.body?.company_name,
+                        'work_experience.$.location': req.body?.location,
                         'work_experience.$.current_status': req.body?.current_status,
                         'work_experience.$.start_date': req.body?.start_date,
                         'work_experience.$.end_date': req.body?.end_date,
                         'work_experience.$.notice_period': req.body?.notice_period,
-                        'work_experience.$.annual_salary': req.body?.annual_salary,
                         'work_experience.$.job_description': req.body?.job_description
                     }
                 },

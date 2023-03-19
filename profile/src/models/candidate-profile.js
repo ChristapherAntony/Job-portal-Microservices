@@ -131,6 +131,10 @@ const candidateSchema = new mongoose.Schema({
             type: String,
             required: true
         },
+        location: {
+            type: String,
+            required: true
+        },
         current_status: {
             type: Boolean,
             required: true,
@@ -151,10 +155,6 @@ const candidateSchema = new mongoose.Schema({
             required: function () {
                 return this.current_status; // notice_period is required if current_status is true
             },
-        },
-        annual_salary: {
-            type: Number,
-            required: true
         },
         job_description: {
             type: String,

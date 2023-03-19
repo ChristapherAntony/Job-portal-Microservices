@@ -1,6 +1,8 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function QuickProfile() {
+    const navigate = useNavigate()
     return (
         <section className="max-w-4xl p-6 mx-auto bg-white rounded-xl shadow-md m-10">
             <h2 className="text-lg font-semibold text-gray-700 capitalize">
