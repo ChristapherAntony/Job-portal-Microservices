@@ -7,7 +7,7 @@ function Profile() {
   return (
     <div className='bg-lightBlue'>
         <NavBar/>
-        <div className='container w-4/5 m-5 mx-auto bg-red-200  grid grid-cols-1 md:grid-cols-12 gap-5'>
+        <div className='container w-4/5 m-5 mx-auto bg-lightBlue  grid grid-cols-1 md:grid-cols-12 gap-5'>
           
             <div className='bg-slate-400  md:col-span-4 '>
 
@@ -17,7 +17,7 @@ function Profile() {
               <SocialProfiles/>
 
             </div>
-            <div className='bg-green-400  md:col-span-8 '>
+            <div className='bg-lightBlue  md:col-span-8 grid gap-5 '>
 
               <Bio/>
               <Personal/>

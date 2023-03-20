@@ -81,7 +81,7 @@ const candidateSchema = new mongoose.Schema({
         proficiency: {
             type: String,
             required: true,
-            enum: ['proficient', 'expert', 'bigener'],
+            enum: ['Proficient', 'Expert', 'Beginner'],
         },
         read: {
             type: Boolean,

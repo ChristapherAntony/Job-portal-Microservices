@@ -119,7 +119,7 @@ const validateLanguage = [
     body('Language').notEmpty().withMessage('Language is required'),
     body('proficiency').notEmpty().withMessage('Proficiency level is required'),
     body('proficiency')
-        .isIn(['proficient', 'expert', 'beginner'])
+        .isIn(['Proficient', 'Expert', 'Beginner'])
         .withMessage('Invalid proficiency level'),
     body('read').isBoolean().withMessage('Read must be a boolean value'),
     body('write').isBoolean().withMessage('Write must be a boolean value'),
