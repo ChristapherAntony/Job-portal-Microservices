@@ -7,14 +7,14 @@ function Profile() {
   return (
     <div className='bg-lightBlue'>
         <NavBar/>
-        <div className='container w-4/5 m-5 mx-auto bg-lightBlue  grid grid-cols-1 md:grid-cols-12 gap-5'>
+        <div className='container w-4/5 m-5 mx-auto bg-lightBlue gap-2  grid grid-cols-1 md:grid-cols-12 '>
           
-            <div className='bg-slate-400  md:col-span-4 '>
+            <div className='bg-lightBlue  md:col-span-4 space-y-5 '>
 
               <ProfilePic/>
               <About/>
               <CV/>
-              <SocialProfiles/>
+              {/* <SocialProfiles/> */}
 
             </div>
             <div className='bg-lightBlue  md:col-span-8 grid gap-5 '>
@@ -24,7 +24,7 @@ function Profile() {
               <WorkExperience/>
               <Education/>
               <CourseAndCertification/>
-              <Language/>
+              {/* <Language/> */}
 
             </div>
 

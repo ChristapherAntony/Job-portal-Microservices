@@ -3,7 +3,7 @@ import './Logo.scss'
 
 function Logo() {
   return (
-    <div>
+    <div >
         <span className='logo'>careerconnect</span>
     </div>
   )

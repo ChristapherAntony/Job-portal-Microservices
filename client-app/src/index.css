@@ -9,4 +9,14 @@ body {
 @tailwind utilities;
 
 
+@layer components{
+  .pro-h-right{
+    @apply font-black text-base
+  }
+  .pro-text{
+    @apply text-myGray
+  }
+}
+
+
 

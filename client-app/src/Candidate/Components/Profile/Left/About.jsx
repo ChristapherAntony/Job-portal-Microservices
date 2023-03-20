@@ -8,7 +8,7 @@ function About() {
         <h1 className="mt-2 text-lg font-semibold text-gray-800 ">
           About
         </h1>
-        <p className="mt-2 text-sm text-gray-600 ">
+        <p className="mt-2 text-sm pro-text ">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio eligendi
           similique exercitationem optio libero vitae accusamus cupiditate laborum
           eos.
@@ -22,10 +22,27 @@ function About() {
         <h1 className="mt-2 col-span-4 text-lg font-semibold text-gray-800 ">
           Skills
         </h1>
+        <div className='grid grid-cols-4  container'>
+          <span className=" bg-lightBlue col-span-1 font-medium rounded-full text-sm my-1 text-center ">
+            Default
+          </span>
+          <span className=" bg-lightBlue col-span-1 font-medium rounded-full text-sm my-1 text-center ">
+            Default
+          </span>
+          <span className=" bg-lightBlue col-span-1 font-medium rounded-full text-sm my-1 text-center ">
+            Default
+          </span>
+          <span className=" bg-lightBlue col-span-1 font-medium rounded-full text-sm my-1 text-center ">
+            Default
+          </span>
+          <span className=" bg-lightBlue col-span-1 font-medium rounded-full text-sm my-1 text-center ">
+            Default
+          </span>
+          <span className=" bg-lightBlue col-span-1 font-medium rounded-full text-sm my-1 text-center ">
+            Default
+          </span>
+        </div>
 
-        <span className=" bg-lightBlue hover:bg-blue-800 focus:outline-none focus:ring-4 border-col focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-1 text-center ">
-          Default
-        </span>
 
 
 

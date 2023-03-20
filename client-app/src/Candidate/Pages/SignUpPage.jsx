@@ -19,7 +19,7 @@ function SignUpPage() {
           </div>
 
           <div className="md:w-1/2">
-            <Sign Up />
+            <SignUp />
           </div>
 
         </div>

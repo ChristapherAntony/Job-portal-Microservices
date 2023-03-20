@@ -2,9 +2,9 @@ import React from 'react'
 
 function WorkExperience() {
   return (
-    <div className='bg-white rounded-md'>
-      <h1>Work Experience</h1>
-      <hr className="h-px my-8 bg-gray-200 border-0" />
+    <div className='bg-white rounded-md px-5 py-5'>
+      <h1 className='pro-h-right'>Work Experience</h1>
+      <hr className="h-px my-4 bg-gray-200 border-0" />
 
 
       <div className='grid grid-cols-12'>
@@ -14,11 +14,11 @@ function WorkExperience() {
           </svg>
 
         </div>
-        <div className="details col-span-11 ">
-          <h1>Software developer</h1>
-          <span>Google</span> <span>Bangalore</span>
+        <div className="details col-span-11  pro-text space-y-2">
+          <h1 className='font-bold'>Software developer</h1>
+          <span>Google</span>  <span>Bangalore</span>
           <p>01 Jan, 2022 to present</p>
-          <p>Notice Period : Immediately available</p>
+          <p className='text-black'>Notice Period :<span className='text-myGray'>Immediately available</span> </p>
           <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequatur ullam earum maiores similique, commodi quia quam, maxime amet minus facere numquam ratione modi quasi! Facilis ut aut illo et quas.</p>
 
 

@@ -2,9 +2,9 @@ import React from 'react'
 
 function Education() {
   return (
-    <div className='bg-white rounded-md'>
-      <h1>Educational Details</h1>
-      <hr className="h-px my-8 bg-gray-200 border-0" />
+    <div className='bg-white rounded-md px-5 py-5'>
+      <h1 className='pro-h-right'>Educational Details</h1>
+      <hr className="h-px my-4 bg-gray-200 border-0" />
 
 
       <div className='grid grid-cols-12'>
@@ -15,7 +15,7 @@ function Education() {
 
 
         </div>
-        <div className="details col-span-11 ">
+        <div className="details col-span-11  pro-text">
           <h1>Bachelor's Degree</h1>
           <span>Computer Science</span>
           <p>ABC University</p>

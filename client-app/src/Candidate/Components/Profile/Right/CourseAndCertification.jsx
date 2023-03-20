@@ -2,9 +2,9 @@ import React from 'react'
 
 function CourseAndCertification() {
   return (
-    <div className='bg-white rounded-md'>
-      <h1>Courses & Certifications</h1>
-      <hr className="h-px my-8 bg-gray-200 border-0" />
+    <div className='bg-white rounded-md px-5 py-5'>
+      <h1 className='pro-h-right'>Courses & Certifications</h1>
+      <hr className="h-px my-4 bg-gray-200 border-0" />
 
 
       <div className='grid grid-cols-12'>
@@ -16,7 +16,7 @@ function CourseAndCertification() {
 
 
         </div>
-        <div className="details col-span-11 ">
+        <div className="details col-span-11 pro-text  ">
           <h1>Web Development Certification</h1>
           <span>OpenAI Academy</span>
 

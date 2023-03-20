@@ -2,14 +2,14 @@ import React from 'react'
 
 function Personal() {
     return (
-        <div className='bg-white rounded-md'>
-            <h1>Personal Information</h1>
-            <hr className="h-px my-8 bg-gray-200 border-0" />
+        <div className='bg-white rounded-md px-5 py-5'>
+            <h1 className='pro-h-right'>Personal Information</h1>
+            <hr className="h-px my-4 bg-gray-200 border-0" />
             <div>
                 <form>
 
 
-                    <div className="grid grid-cols-1 gap-y-1 gap-x-5 mt-4 sm:grid-cols-2 p-5">
+                    <div className="grid grid-cols-1 gap-y-1 gap-x-5 mt-4 sm:grid-cols-2 p-5 pro-text">
                         <div>
                             <label className="text-gray-700 text-sm" htmlFor="username">
                                 Full name
