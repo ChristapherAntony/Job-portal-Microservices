@@ -45,7 +45,8 @@ function SignUp() {
             }
             Axios.post(signUp, body).then(res => {
                 console.log(res); // Handle successful response
-                navigate('/candidate/signin');
+
+                navigate(`/candidate/quick-profile/${res._id}`);
 
             }).catch((err) => {
                 console.log(err.response.data.errors[0].msg);

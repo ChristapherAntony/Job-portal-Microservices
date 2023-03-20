@@ -54,7 +54,7 @@ const start = async () => {
   connectDB();
   connectNATS();
   app.listen(3000, () => {
-    console.log('Job service listening on port 3000...');
+    console.log('Job service listening on port 3000... ✅');
   });
 };
 

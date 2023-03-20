@@ -1,7 +1,7 @@
 import React from 'react'
 import Footer from '../Components/Footer/Footer'
 import NavBar from '../Components/NavBar/NavBar'
-import QuickProfile from '../Components/QuickProfile'
+import QuickProfile from '../Components/QuickProfile/QuickProfile'
 
 function ProfileQuickUpdate() {
     return (

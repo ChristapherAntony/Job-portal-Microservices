@@ -11,7 +11,10 @@ const router = express.Router();
 
 //routes
 router.get('/api/v1/profile/candidate', viewProfile);
-router.patch('/api/v1/profile/candidate/quick-update', checkAuthorization('candidate'), upload.fields([{ name: 'profile_image', maxCount: 1 }]),validateProfileQuickUpdate,  updateProfile)
+//router.patch('/api/v1/profile/candidate/quick-update/:id',   updateProfile)
+
+router.patch('/api/v1/profile/candidate/quick-update/:id', upload.fields([{ name: 'profile_image', maxCount: 1 }, { name: 'curriculum_vitae', maxCount: 1 }]),validateProfileQuickUpdate,  updateProfile)
+
 router.patch('/api/v1/profile/candidate/personal-info', checkAuthorization('candidate'), validatePersonalInfo, updatePersonalInfo)
 //route related to work experience
 router.post('/api/v1/profile/candidate/work-experience', checkAuthorization('candidate'), validateExperience, addWorkExperience)

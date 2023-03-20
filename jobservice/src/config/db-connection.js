@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI, { dbName: 'careerconnect-jobService' });
-    console.log(`Profile-db connected: ${conn.connection.host}`);
+    const conn = await mongoose.connect(process.env.MONGO_URI_ATLAS, { dbName: 'careerconnect-jobService' });
+    console.log(`JobService-db connected🍃`);
   } catch (error) {
     console.log(error.message);
     process.exit(1);

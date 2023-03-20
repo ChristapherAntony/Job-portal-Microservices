@@ -8,7 +8,7 @@ const connectNATS = async () => {
 
     //close the connection to the event bus when the server stops 
     natsWrapper.client.on('close', () => {
-      console.log('NATS connection closed!');
+      console.log('NATS connection closed! ❌');
       process.exit();
     });
     process.on('SIGINT', () => natsWrapper.client.close());
@@ -18,6 +18,7 @@ const connectNATS = async () => {
     new UserCreatedListener(natsWrapper.client).listen();
     new verifiedStatusUpdatedListener(natsWrapper.client).listen();
     new blockStatusUpdatedListener(natsWrapper.client).listen();
+    
   } catch (error) {
     console.log(error.message);
 

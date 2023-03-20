@@ -27,18 +27,20 @@ module.exports = {
     },
     updateProfile: async (req, res) => {
         try {
-            // NOTE---checked for user authorized , role  status in router level---middleware
-            //check block status of user before updating user profile
-            const user = await Candidate.findOne({ _id: req.currentUser.id })
+            const id = req.params.id
+            // console.log(req.currentUser.id);
+            console.log(id, "888888888");
+            console.log(typeof (id));
+            const user = await Candidate.findOne({ _id: id })
             if (user.is_blocked === true) {
                 return res.status(404).json({ errors: [{ msg: 'user blocked unable to perform this action' }] })
             }
 
             const profileImagePath = req.files['profile_image'][0].path;
-
+            const curriculum_vitaePath = req.files['curriculum_vitae'][0].path;
             // update the user profile
             const updatedUser = await Candidate.findByIdAndUpdate(
-                req.currentUser.id, // user ID to update
+                id, // user ID to update
                 {
                     $set: {
                         user_name: req.body.user_name,
@@ -48,7 +50,7 @@ module.exports = {
                         bio: req.body.bio,
                         key_skills: req.body.key_skills,
                         profile_image: profileImagePath,
-                        curriculum_vitae: req.body.curriculum_vitae,
+                        curriculum_vitae: curriculum_vitaePath,
                     }
                 },
                 { new: true } // return the updated document

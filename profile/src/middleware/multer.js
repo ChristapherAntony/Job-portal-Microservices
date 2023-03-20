@@ -12,7 +12,7 @@ const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
         folder: 'Recruiter',
-        format: async (req, file) => 'jpg',
+        // format: async (req, file) => 'jpg',
         public_id: (req, file) => `recruiter-${file.originalname}`
     },
     transformation: [{ width: 500, height: 500, crop: 'limit' }]

@@ -43,7 +43,7 @@ app.use((err, req, res, next) => {
 const start = async () => {
   connectDB();
   connectNATS();
-  app.listen(3000, () => {console.log('Auth service listening on port 3000...')});
+  app.listen(3000, () => {console.log('Auth service listening on port 3000... ✅')});
 };
 
 start();

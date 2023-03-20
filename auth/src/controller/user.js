@@ -68,7 +68,7 @@ module.exports = {
             // find user by email
             const existingUser = await User.findOne({ email });
             if (!existingUser) return res.status(404).json({ errors: [{ msg: 'Invalid credentials' }] });
-            console.log(existingUser);
+           
             if (existingUser.is_blocked === true) return res.status(404).json({ errors: [{ msg: 'Unable to signin user is blocked ' }] });
 
             // password check
@@ -95,7 +95,7 @@ module.exports = {
     },
     current: async (req, res) => {
         try {
-            console.log(req.currentUser);
+           
             //check for user authorized
             if (!req.currentUser) {
                 return res.status(404).json({ errors: [{ msg: 'not authorized' }] })
@@ -157,7 +157,7 @@ module.exports = {
             const existingUser = await User.findOne({ email });
             const all = await OTP.find()
 
-            console.log(all,"1111111111111111");
+           
             if (!existingUser) {
                 return res.status(404).json({ errors: [{ msg: 'Invalid email address! User not registered' }] });
             }

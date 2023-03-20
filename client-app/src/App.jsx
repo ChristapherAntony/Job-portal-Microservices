@@ -19,7 +19,7 @@ function App() {
               <Route index element={<HomePage/>}/>
               <Route path='signup' element={<SignUpPage/>}/>
               <Route path='signin' element={<SignInPage/>}/>
-              <Route path='quick-profile' element={<ProfileQuickUpdate/>}/>
+              <Route path='quick-profile/:id' element={<ProfileQuickUpdate/>}/>
               <Route path='quick-experience' element={<AddWorkExp/>}/>
               <Route path='email-verification' element={<EmailVerfication/>}/>
               <Route path='otp/:email' element={<OtpVerify/>}/>

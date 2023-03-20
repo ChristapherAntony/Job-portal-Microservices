@@ -11,7 +11,7 @@ class UserUpdatedListener extends Listener {
   }
 
   async onMessage(data, msg) {
-    console.log(data);
+   
     try {
       if (data.role === 'recruiter') {
         const { _id } = data;
