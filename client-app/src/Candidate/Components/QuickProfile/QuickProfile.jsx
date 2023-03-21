@@ -111,7 +111,7 @@ function QuickProfile() {
                             className="object-cover w-16 h-16 rounded-lg"
                             src={imageUrl}
                             alt=""
-                        />
+                        />     
                         <div>
                             <label className="block text-sm  text-gray-700">Profile Image</label>
 
