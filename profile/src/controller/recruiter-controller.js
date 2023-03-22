@@ -21,17 +21,15 @@ module.exports = {
         }
     },
     updateProfile: async (req, res) => {
-        console.log("addprofile call");
-       
         try {
-
+            const id = req.params.id
             // Check for validation errors
             const errors = validationResult(req);
             if (!errors.isEmpty()) return res.status(422).json(errors);
 
             // NOTE---checked for user authorized status and role in router level---middleware
             //check block status of user before updating user profile
-            const user = await Recruiter.findOne({ _id: req.currentUser.id })
+            const user = await Recruiter.findOne({ _id: id })
             if (user.is_blocked === true) {
                 return res.status(404).json({ errors: [{ msg: 'user blocked unable to perform this action' }] })
             }

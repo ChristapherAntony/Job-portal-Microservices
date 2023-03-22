@@ -62,9 +62,6 @@ const validateExperience = [
         .isISO8601().withMessage('Invalid end date format'),
     body('notice_period'),
 
-    body('annual_salary')
-        .notEmpty().withMessage('Annual salary is required')
-        .isDecimal().withMessage('Annual salary must be a decimal number'),
     body('job_description')
         .notEmpty().withMessage('Job description is required'),
 

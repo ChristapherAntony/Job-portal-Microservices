@@ -11,8 +11,13 @@ export const emailVerify = '/api/v1/auth/email-verify';
 export const otpVerify = '/api/v1/auth/otp-verify';
 
 export const quickProfileUpdate = (id) => `/api/v1/profile/candidate/quick-update/${id}`
+export const quickExperienceUpdate = (id) => `/api/v1/profile/candidate/quick-experience-update/${id}`
 
+export const quickProfileUpdateRecruiter = (id) => `/api/v1/profile/recruiter/${id}`
 
+export const getProfile = '/api/v1/profile/candidate';
+export const updateProfileImage = '/api/v1/profile/candidate/profile-picture';
+export const deleteProfileImage = '/api/v1/profile/candidate/profile-picture';
 
 export const getUsers = '/api/v1/admin/candidates';
 export const blockCandidate = '/api/v1/admin/candidate-block';

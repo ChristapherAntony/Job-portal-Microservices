@@ -12,17 +12,19 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Logo from '../Logo/Logo';
-import { signIn } from '../../../utils/Constants';
+import Logo from '../../Candidate/Components/Logo/Logo';
+import { signIn } from '../../utils/Constants';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
-
+import { useSelector, useDispatch } from 'react-redux'
+import { changeRecruiterProfile } from '../../Redux/recruiterProfileReducer';
 
 
 const theme = createTheme();
 
 export default function SignIn() {
+  const dispatch = useDispatch()
   const navigate = useNavigate();
   const [error, setError] = useState(null)
   const handleSubmit = (event) => {
@@ -34,8 +36,8 @@ export default function SignIn() {
 
 
     axios.post(signIn, { email, password }).then(res => {
-
-      navigate('/candidate'); // Navigate to home page
+      dispatch(changeRecruiterProfile(res.data))
+      navigate('/recruiter'); // Navigate to home page
     }).catch(err => {
       console.log(err.response.data.errors[0].msg);
       setError(err.response.data.errors[0].msg); // Set the error state
@@ -97,12 +99,12 @@ export default function SignIn() {
               Sign In
             </Button>
             <Grid container>
-              <Grid item xs style={{ cursor: 'pointer' }} onClick={() => navigate('/candidate/email-verification')} >
+              <Grid item xs style={{ cursor: 'pointer' }} onClick={() => navigate('#')} >
                 <Link variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
-              <Grid item style={{ cursor: 'pointer' }} onClick={() => navigate('/candidate/signup')}>
+              <Grid item style={{ cursor: 'pointer' }} onClick={() => navigate('/recruiter/signup')}>
                 <Link variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>

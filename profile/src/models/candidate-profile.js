@@ -62,10 +62,11 @@ const candidateSchema = new mongoose.Schema({
         }
     },
     key_skills: {
-        type: String
+        type: Array
     },
     profile_image: {
-        type: String
+        type: String,
+        default:'https://res.cloudinary.com/dprxebwil/image/upload/v1679341215/Recruiter/recruiter-images.jpeg.jpg'
     },
     curriculum_vitae: {
         type: String

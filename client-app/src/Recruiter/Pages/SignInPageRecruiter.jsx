@@ -1,10 +1,10 @@
 import React from 'react';
-import Footer from '../Components/Footer/Footer';
-import NavBar from '../Components/NavBar/NavBar';
-import SignIn from '../../Recruiter/Components/SignIn';
+import Footer from '../Components/Footer';
+import NavBar from '../Components/NavBar';
+import SignIn from '../Components/SignIn'
 import { SignInPic } from '../assets/images';
 
-function SignInPage() {
+function SignInPageRecruiter() {
   return (
     <div className='bg-lightBlue'>
       <NavBar />
@@ -24,4 +24,4 @@ function SignInPage() {
   )
 }
 
-export default SignInPage;
+export default SignInPageRecruiter;

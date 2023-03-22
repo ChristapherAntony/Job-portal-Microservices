@@ -1,46 +1,74 @@
-import React from 'react'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React from 'react';
+import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { quickExperienceUpdate } from '../../utils/Constants';
+import Swal from 'sweetalert2';
+import axios from 'axios';
+
+
+
 
 function QuickExperience() {
-  const [currentStatus, setCurrentStatus] = useState(false)
-  const navigate = useNavigate()
+  const [currentStatus, setCurrentStatus] = useState(false);
+  const navigate = useNavigate();
+  const { id } = useParams();
 
-  // const addWorkExperience = (formData) => {
-  //   axios.post('/api/work-experience', formData)
-  //     .then(response => {
-  //       console.log(response);
-  //       navigate('/dashboard');
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  // };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    const formData = new FormData(event.target);
-
-    const body = {
-
-      designation: formData.get('designation'),
-      company_name: formData.get('company_name'),
+  const formik = useFormik({
+    initialValues: {
+      designation: 'Software Engineer',
+      company_name: 'ABC Company',
       current_status: currentStatus,
-      location: formData.get('location'),
-      start_date: formData.get('start_date'),
-      notice_period: formData.get('notice_period'),
-      end_date: formData.get('end_date'),
-      job_description: formData.get('job_description'),
+      location: 'Mumbai',
+      start_date: '',
+      notice_period: undefined,
+      end_date: undefined,
+      job_description: 'Responsible for designing and developing software applicationsResponsible for designing and developing software applicationsResponsible for designing and developing software applicationsResponsible for designing and developing software applications',
+    },
+    validationSchema: Yup.object({
+      designation: Yup.string().required('Required'),
+      company_name: Yup.string().required('Required'),
+      current_status: Yup.string().required('Required'),
+      location: Yup.string().required('Required'),
+      start_date: Yup.string().required('Required'),
+      notice_period: Yup.string().when('current_status', {
+        is: false,
+        then: Yup.string().required('Required'),
+      }),
+      end_date: Yup.string().when('current_status', {
+        is: true,
+        then: Yup.string().notRequired(),
+      }),
+      job_description: Yup.string().notRequired(),
+    }),
 
-    }
+    onSubmit: (values) => {
+      values.current_status = currentStatus;
+      console.log(values);
 
+      axios.post(quickExperienceUpdate(id), values).then(res => {
+        Swal.fire({
+          position: 'top-end',
+          text: 'Success',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }).catch((err) => {
+        console.log(err.response.data.errors[0].msg);
+        setError(err.response.data.errors[0].msg); // Set the error state
+        setTimeout(() => {
+          setError(null);
+        }, 8000);
+      })
 
+    },
+  });
 
-    console.log(body);
-    // addWorkExperience(formData);
-
-  };
+  const nextHandle = () => {
+    navigate('/candidate/signin')
+  }
 
 
   return (
@@ -48,20 +76,24 @@ function QuickExperience() {
       <h2 className="text-lg font-semibold text-gray-700 capitalize">
         Add work experience
       </h2>
-      <form onSubmit={handleSubmit}>
-
-
+      <form onSubmit={formik.handleSubmit}>
         <div className="grid grid-cols-1 gap-y-1 gap-x-5 mt-4 sm:grid-cols-2 p-5">
           <div>
-            <label className="text-gray-700 text-sm" htmlFor="username">
+            <label className="text-gray-700 text-sm" htmlFor="designation">
               Designation
             </label>
             <input
               id="designation"
               type="text"
               name="designation"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.designation}
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
             />
+            {formik.touched.designation && formik.errors.designation ? (
+              <div className="text-red-500 text-sm">{formik.errors.designation}</div>
+            ) : null}
           </div>
           <div>
             <label className="text-gray-700 text-sm" htmlFor="username">
@@ -70,9 +102,15 @@ function QuickExperience() {
             <input
               id="company_name"
               name="company_name"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.company_name}
               type="text"
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
             />
+            {formik.touched.company_name && formik.errors.company_name ? (
+              <div className="text-red-500 text-sm">{formik.errors.company_name}</div>
+            ) : null}
           </div>
 
           <div>
@@ -87,7 +125,7 @@ function QuickExperience() {
                   defaultValue=""
                   name="current_status"
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                  onClick={() => setCurrentStatus(true)}
+                  onClick={() => { setCurrentStatus(true); }}
                 />
                 <label
                   htmlFor="inline-radio"
@@ -103,7 +141,7 @@ function QuickExperience() {
                   defaultValue=""
                   name="current_status"
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500  focus:ring-2"
-                  onClick={() => setCurrentStatus(false)}
+                  onClick={() => { setCurrentStatus(false); }}
                 />
                 <label
                   htmlFor="inline-2-radio"
@@ -127,9 +165,15 @@ function QuickExperience() {
             <input
               id="location"
               name='location'
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.location}
               type="location"
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
             />
+            {formik.touched.location && formik.errors.location ? (
+              <div className="text-red-500 text-sm">{formik.errors.location}</div>
+            ) : null}
           </div>
 
           <div>
@@ -142,9 +186,15 @@ function QuickExperience() {
             <input
               type="date"
               name='start_date'
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.start_date}
               placeholder="John Doe"
               className="block  mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40"
             />
+            {formik.touched.start_date && formik.errors.start_date ? (
+              <div className="text-red-500 text-sm">{formik.errors.start_date}</div>
+            ) : null}
           </div>
           {currentStatus ? (
             <div>
@@ -157,6 +207,9 @@ function QuickExperience() {
               <select
                 id="countries"
                 name='notice_period'
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.notice_period}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
               >
                 <option selected="">Choose </option>
@@ -167,9 +220,14 @@ function QuickExperience() {
                 <option value="45 days">45 days</option>
                 <option value="Above 60 days">Above 60 days</option>
               </select>
-
+              {formik.touched.notice_period && formik.errors.notice_period ? (
+                <div className="text-red-500 text-sm">{formik.errors.notice_period}</div>
+              ) : null}
 
             </div>
+
+
+
           ) : (
             <div>
               <label
@@ -182,9 +240,17 @@ function QuickExperience() {
                 type="date"
                 name='end_date'
                 placeholder="John Doe"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.end_date}
                 className="block  mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40"
               />
+
+              {formik.touched.end_date && formik.errors.end_date ? (
+                <div className="text-red-500 text-sm">{formik.errors.end_date}</div>
+              ) : null}
             </div>
+
           )}
 
 
@@ -193,9 +259,15 @@ function QuickExperience() {
         <div className=' col-span-2 p-5'>
           <label for="Description" className="block text-sm text-gray-500">Job Description</label>
 
-          <textarea name='job_description' placeholder="Add you job and responsibilities" className="block  mt-2 w-full placeholder-gray-400/70rounded-lg border border-gray-200 bg-white px-4 h-32 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 "></textarea>
+          <textarea
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.job_description} name='job_description' placeholder="Add you job and responsibilities" className="block  mt-2 w-full placeholder-gray-400/70rounded-lg border border-gray-200 bg-white px-4 h-32 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 "></textarea>
 
           <p className="mt-3 text-xs text-gray-400"> </p>
+          {formik.touched.job_description && formik.errors.job_description ? (
+            <div className="text-red-500 text-sm">{formik.errors.job_description}</div>
+          ) : null}
         </div>
         <div className="flex justify-end mt-6">
           <button type="submit" className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
@@ -203,7 +275,7 @@ function QuickExperience() {
           </button>
         </div>
       </form>
-      <button onClick={() => navigate('/candidate')} type="button" className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Next</button>
+      <button onClick={nextHandle} type="button" className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Next</button>
 
     </section>
   )

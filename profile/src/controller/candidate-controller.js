@@ -17,8 +17,6 @@ module.exports = {
             if (user.is_blocked === true) {
                 return res.status(404).json({ errors: [{ msg: 'user blocked unable to perform this action' }] })
             }
-            console.log(user);
-
             res.status(200).json(user)
         } catch (error) {
             console.error(error);
@@ -29,16 +27,17 @@ module.exports = {
         try {
             const id = req.params.id
             // console.log(req.currentUser.id);
-            console.log(id, "888888888");
-            console.log(typeof (id));
+            console.log(req.body, "888888888");
+            console.log(typeof (req.body.key_skills));
             const user = await Candidate.findOne({ _id: id })
             if (user.is_blocked === true) {
                 return res.status(404).json({ errors: [{ msg: 'user blocked unable to perform this action' }] })
             }
-
             const profileImagePath = req.files['profile_image'][0].path;
             const curriculum_vitaePath = req.files['curriculum_vitae'][0].path;
-            // update the user profile
+
+
+            // update the user profile 
             const updatedUser = await Candidate.findByIdAndUpdate(
                 id, // user ID to update
                 {
@@ -48,7 +47,7 @@ module.exports = {
                         phone_number: req.body.phone_number,
                         about: req.body.about,
                         bio: req.body.bio,
-                        key_skills: req.body.key_skills,
+                        key_skills: req.body.key_skills.split(','),
                         profile_image: profileImagePath,
                         curriculum_vitae: curriculum_vitaePath,
                     }
@@ -134,7 +133,6 @@ module.exports = {
         }
     },
     updateProfilePicture: async (req, res) => {
-        console.log(req.body);
         try {
             // NOTE---checked for user authorized , role  status in router level---middleware
             //check block status of user before updating user profile
@@ -156,7 +154,6 @@ module.exports = {
                 },
                 { new: true }
             );
-            console.log(updatedUser);
             res.status(200).json({ message: 'User profile picture  updated successfully', profile_image: updatedUser.profile_image });
         } catch (error) {
             console.log(error);
@@ -176,7 +173,7 @@ module.exports = {
                 req.currentUser.id,
                 {
                     $set: {
-                        profile_image: null
+                        profile_image: 'https://res.cloudinary.com/dprxebwil/image/upload/v1679341215/Recruiter/recruiter-images.jpeg.jpg'
                     }
                 },
                 { new: true }

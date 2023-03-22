@@ -18,22 +18,26 @@ function QuickProfile() {
     const { id } = useParams();
 
     const handleAddSkill = () => {
+        
         const skillInput = document.getElementById('skills');
         const newSkill = skillInput.value.toLowerCase();
         if (newSkill) {
             setSkills(prevState => [...prevState, newSkill]);
             skillInput.value = '';
         }
+        console.log(typeof(skills));
     };
     const [file, setFile] = useState(null);
 
     const handleFileChangeImg = (event) => {
         const selectedFile = event.target.files[0];
         setImageUrl(URL.createObjectURL(event.target.files[0]));
+        console.log(selectedFile, "image000000000000000000000000000000000");
         setImage(selectedFile)
     };
     const handleFileChangePdf = (event) => {
         const selectedFile = event.target.files[0];
+        console.log(selectedFile, "image000000000000000000000000000000000");
         setPdf(selectedFile)
     };
 
@@ -42,15 +46,16 @@ function QuickProfile() {
         initialValues: {
             user_name: 'Christapher',
             profile_image: undefined,
-            about: 'nothing',
+            about: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. At iste a, necessitatibus conr sit amet, consectetur adipisicing elit. At iste r sit amet, consectetur adipisicing elit.',
             phone_number: '9446655316',
             email: 'christapher012@gmail.com',
             curriculum_vitae: undefined,
-            bio: 'hello',
+            bio: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. AtLorem ipsum dolor sit amet, consectetur adipisicing elit. AtLorem ipsum dolor sit amet, consectetur adipisicing elit. AtLorem ipsum dolor sit amet, consectetur adipisicing elit. At iste a, necessitatibus conr sit amet, consectetur adipisicing elit. At iste r sit amet, consectetur adipisicing elit. iste a, necessitatibus conr sit amet, consectetur adipisicing elit. At iste r sit amet, consectetur adipisicing elit. iste a, necessitatibus conr sit amet, consectetur adipisicing elit. At iste r sit amet, consectetur adipisicing elit. iste a, necessitatibus conr sit amet, consectetur adipisicing elit. At iste r sit amet, consectetur adipisicing elit.',
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
             console.log("button clicked");
+            console.log(image,"and",pdf);
             const formData = new FormData();
             formData.append('user_name', values.user_name);
             formData.append('profile_image', image);
@@ -111,7 +116,7 @@ function QuickProfile() {
                             className="object-cover w-16 h-16 rounded-lg"
                             src={imageUrl}
                             alt=""
-                        />     
+                        />
                         <div>
                             <label className="block text-sm  text-gray-700">Profile Image</label>
 
@@ -120,7 +125,12 @@ function QuickProfile() {
                                 type="file"
                                 accept="image/*"
                                 value={formik.values.profile_image}
-                                onChange={() => { formik.handleChange; handleFileChangeImg }}
+                                onChange={(event) => {
+                                    event.persist(); // Add this line to persist the event object
+                                    formik.handleChange(event);
+                                    handleFileChangeImg(event);
+                                }}
+
                                 onBlur={formik.handleBlur}
                                 className={
                                     formik.touched.profile_image && formik.errors.profile_image
@@ -215,7 +225,11 @@ function QuickProfile() {
                         <input
                             name='curriculum_vitae' type="file"
                             value={formik.values.curriculum_vitae}
-                            onChange={handleFileChangePdf}
+                            onChange={(event) => {
+                                event.persist(); // Add this line to persist the event object
+                                formik.handleChange(event);
+                                handleFileChangePdf(event);
+                            }}
                             onBlur={formik.handleBlur}
                             accept="application/pdf"
                             className={

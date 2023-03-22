@@ -1,7 +1,7 @@
 const express = require('express');
 const { addEducation, updateEducation, deleteEducation } = require('../controller/candidate-education');
 const { viewProfile, updateProfile, updatePersonalInfo, updateProfilePicture, deleteProfilePicture, updateCV, deleteCV, updateBio, updateSocialLinks, deleteSocialLink, addLanguage, deleteLanguage } = require('../controller/candidate-controller');
-const { addWorkExperience, deleteWorkExperience, updateWorkExperience } = require('../controller/candidate-experience');
+const { addWorkExperience, addQuickWorkExperience,deleteWorkExperience, updateWorkExperience } = require('../controller/candidate-experience');
 const { validateProfileQuickUpdate, validatePersonalInfo, validateEducation, validateExperience, validateCourse, validateLanguage } = require('../middleware/candidate-validation');
 const { checkAuthorization } = require('../middleware/check-authorization');
 const { updateCourseAndCertification, deleteCourseAndCertification, addCourseAndCertification } = require('../controller/candidate-CourseAndCertification');
@@ -14,6 +14,7 @@ router.get('/api/v1/profile/candidate', viewProfile);
 //router.patch('/api/v1/profile/candidate/quick-update/:id',   updateProfile)
 
 router.patch('/api/v1/profile/candidate/quick-update/:id', upload.fields([{ name: 'profile_image', maxCount: 1 }, { name: 'curriculum_vitae', maxCount: 1 }]),validateProfileQuickUpdate,  updateProfile)
+router.post('/api/v1/profile/candidate/quick-experience-update/:id', validateExperience, addQuickWorkExperience)
 
 router.patch('/api/v1/profile/candidate/personal-info', checkAuthorization('candidate'), validatePersonalInfo, updatePersonalInfo)
 //route related to work experience

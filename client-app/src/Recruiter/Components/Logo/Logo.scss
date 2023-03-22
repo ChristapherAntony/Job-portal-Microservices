@@ -1,0 +1,11 @@
+@import '../../variables';
+
+.logo{
+    font-size: 20px;
+    font-weight: bold;
+    color: $bg-primary;
+    border: #333;
+    background-color: $bg-logo;
+    padding-left: .5rem;
+    padding-right: .5rem;
+}
