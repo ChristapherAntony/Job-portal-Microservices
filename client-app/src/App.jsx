@@ -4,7 +4,10 @@ import AddWorkExp from './Candidate/Pages/AddWorkExp';
 import EmailVerfication from './Candidate/Pages/EmailVerfication/EmailVerfication';
 import { LandingPage, HomePage, SignInPage, SignUpPage, ProfileQuickUpdate, Profile } from './Candidate/Pages/index';
 import OtpVerify from './Candidate/Pages/OtpVerify/OtpVerify';
+import NotFoundPage from './Recruiter/Pages/404Page';
+
 import HomePageRecruiter from './Recruiter/Pages/HomePageRecruiter';
+import JobPostPage from './Recruiter/Pages/JobPostPage';
 import QuickProfileRecruiter from './Recruiter/Pages/QuickProfileRecruiter';
 import SiginUpPageRecruiter from './Recruiter/Pages/SiginUpPageRecruiter';
 import SignInPageRecruiter from './Recruiter/Pages/SignInPageRecruiter';
@@ -38,6 +41,8 @@ function App() {
               <Route path='recruiters' element={< Recruiters />} />
               <Route path='applications' element={<RecruiterApplication />} />
               <Route path='application/:id' element={<ApplicationDetails />} />
+
+
             </Route >
 
             {/* recruiter routes  */}
@@ -46,10 +51,14 @@ function App() {
               <Route path='signup' element={<SiginUpPageRecruiter />} />
               <Route path='signin' element={<SignInPageRecruiter />} />
               <Route path='quick-profile/:id' element={<QuickProfileRecruiter />} />
+              <Route path='post-job' element={<JobPostPage />} />
+
+
             </Route >
 
-
+            <Route path='*' element={<NotFoundPage />}></Route>
           </Route>
+
         </Routes>
       </BrowserRouter>
 

@@ -17,7 +17,7 @@ function HomePageRecruiter() {
   }, [profile, navigate]);
 
   return (
-    <div>
+    <div className='bg-lightBlue'>
       <NavBar />
       {profile?.is_verified ? <Home /> : <NotVerified />}
       <Footer />

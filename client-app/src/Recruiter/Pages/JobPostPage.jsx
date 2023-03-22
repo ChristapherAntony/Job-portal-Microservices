@@ -1,17 +1,16 @@
 import React from 'react'
 import Footer from '../Components/Footer'
 import NavBar from '../Components/NavBar'
+import PostAJob from '../Components/PostAJob/PostAJob'
 
-import QuickProfile from '../Components/QuickProfile/QuickProfile'
-
-function QuickProfileRecruiter() {
+function JobPostPage() {
   return (
     <div className='bg-lightBlue'>
         <NavBar/>
-        <QuickProfile/>
+        <PostAJob/>
         <Footer/>
     </div>
   )
 }
 
-export default QuickProfileRecruiter
+export default JobPostPage
