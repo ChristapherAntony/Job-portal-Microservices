@@ -36,7 +36,7 @@ export default function SignIn() {
 
 
     axios.post(signIn, { email, password }).then(res => {
-      dispatch(changeRecruiterProfile(res.data))
+      // dispatch(changeRecruiterProfile(res.data))
       navigate('/recruiter'); // Navigate to home page
     }).catch(err => {
       console.log(err.response.data.errors[0].msg);

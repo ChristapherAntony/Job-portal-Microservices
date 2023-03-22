@@ -83,7 +83,7 @@ export const Details = () => {
           <div className="profile-pic">
             <Avatar
               alt="Remy Sharp"
-              src="https://picsum.photos/id/237/200/300"
+              src={state.profile_image}
               variant="square"
               sx={{
                 width: 120, height: 120
@@ -100,7 +100,7 @@ export const Details = () => {
           <div className="logo">
             <Avatar
               alt="Remy Sharp"
-              src="https://picsum.photos/id/237/200/300"
+              src={state.company_logo}
               variant="square"
               sx={{ width: 40, height: 40 }}
             />

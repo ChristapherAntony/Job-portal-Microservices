@@ -7,43 +7,43 @@ const jobSchema = new mongoose.Schema({
         ref: 'Recruiter',
         required: true
     },
-    job_title: {
+    job_title: {//////
         type: String,
         required: true
     },
-    available_positions: {
+    available_positions: {///
         type: Number,
         required: true
     },
-    job_description: {
+    job_description: {///
         type: String,
         required: true
     },
-    skills_required: [{
+    skills_required: [{////
         type: String,
         required: true
     }],
-    experience_required: {
-        type: Number,
+    experience_required: {////
+        type: String,
         required: true
     },
-    education_required: [{
+    education_required: [{////
         type: String,
         required: true
     }],
-    location: {
+    location: {///
         type: String,
         required: true
     },
-    employment_type: {
+    employment_type: {////
         type: String,
         required: true
     },
-    base_salary: {
+    base_salary: {///   
         type: Number,
         required: true
     },
-    deadline: {
+    deadline: {///
         type: Date,
         required: true
     },

@@ -25,7 +25,7 @@ function QuickProfile() {
             setSkills(prevState => [...prevState, newSkill]);
             skillInput.value = '';
         }
-        console.log(typeof(skills));
+        
     };
     const [file, setFile] = useState(null);
 

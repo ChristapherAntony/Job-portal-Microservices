@@ -9,8 +9,8 @@ module.exports = {
         try {
             const jobs = await Job.find({})
                 .populate({
-                    path: 'recruiter_id',
-                    select: '-_id user_name email phone_number current_position company_name company_logo company_website company_email company_address company_description'
+                    path: 'recruiter',
+                    select: '-_id user_name email phone_number current_position company_name company_logo company_website company_email location company_description'
                 });
             res.status(200).json(jobs);
 
@@ -20,6 +20,7 @@ module.exports = {
         }
     },
     postJob: async (req, res) => {
+        console.log('api call at post a job')
         try {
             // NOTE---checked for user authorized status and role in router level---middleware
             //check block status of user before updating user profile

@@ -2,8 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { quickExperienceUpdate } from '../../../utils/Constants';
+import { postJob } from '../../../utils/Constants';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import validationSchema from './validation';
@@ -12,27 +11,52 @@ import validationSchema from './validation';
 
 
 function PostAJob() {
-  const [currentStatus, setCurrentStatus] = useState(false);
+  const [skills, setSkills] = useState([]);
+  const [education, setEducation] = useState([]);
+
+  const [error, setError] = useState(null)
+
   const navigate = useNavigate();
-  const { id } = useParams();
+  const handleAddSkill = () => {
+    const skillInput = document.getElementById('skills');
+    const newSkill = skillInput.value.toLowerCase();
+    if (newSkill) {
+      setSkills(prevState => [...prevState, newSkill]);
+      skillInput.value = '';
+    }
+  }
+  const handleAddEducation = () => {
+    const educationInput = document.getElementById('education');
+    const newEducation = educationInput.value.toLowerCase();
+    if (newEducation) {
+      setEducation(prevState => [...prevState, newEducation]);
+      educationInput.value = '';
+    }
+  }
 
 
   const formik = useFormik({
     initialValues: {
       job_title: '',
-      company_name: '',
+      available_positions: '',
       skills_required: '',
       education_required: '',
       experience_required: '',
+      location: '',
       base_salary: '',
+      employment_type: '',
+      deadline: '',
+      job_description: '',
     },
     validationSchema: validationSchema,
 
     onSubmit: (values) => {
-      values.current_status = currentStatus;
+      values.skills_required = skills;
+      values.education_required = education;
       console.log(values);
 
-      axios.post(quickExperienceUpdate(id), values).then(res => {
+      axios.post(postJob, values).then(res => {
+        console.log(res);
         Swal.fire({
           position: 'top-end',
           text: 'Success',
@@ -40,19 +64,17 @@ function PostAJob() {
           timer: 1500
         })
       }).catch((err) => {
-        console.log(err.response.data.errors[0].msg);
-        setError(err.response.data.errors[0].msg); // Set the error state
-        setTimeout(() => {
-          setError(null);
-        }, 8000);
+        console.log(err);
+        // setError(err.response.data.errors[0].msg); // Set the error state
+        // setTimeout(() => {
+        //   setError(null);
+        // }, 8000);
       })
 
     },
   });
 
-  const nextHandle = () => {
-    navigate('/candidate/signin')
-  }
+
 
 
   return (
@@ -85,55 +107,101 @@ function PostAJob() {
               Number of posts
             </label>
             <input
-              id="company_name"
+              id="available_positions"
               type='number'
-              name="company_name"
+              name="available_positions"
               placeholder='Enter number of posts'
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.company_name}
+              value={formik.values.available_positions}
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
             />
-            {formik.touched.company_name && formik.errors.company_name ? (
-              <div className="text-red-500 text-sm">{formik.errors.company_name}</div>
+            {formik.touched.available_positions && formik.errors.available_positions ? (
+              <div className="text-red-500 text-sm">{formik.errors.available_positions}</div>
             ) : null}
           </div>
-          <div>
-            <label className="text-gray-700 text-sm" htmlFor="skills_required">
+
+          <div className=''>
+            <label
+              className="text-gray-700 text-sm"
+              htmlFor="skill"
+            >
               Skills required
             </label>
             <input
-              id="skills_required"
+              id="skills"
               type="text"
               name="skills_required"
-              placeholder='Skills'
+              //value={formik.values.skills_required}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.skills_required}
-              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
+              className={
+                formik.touched.skills_required && formik.errors.skills_required
+                  ? 'validation-false'
+                  : 'validation-true'
+              }
             />
             {formik.touched.skills_required && formik.errors.skills_required ? (
-              <div className="text-red-500 text-sm">{formik.errors.skills_required}</div>
+              <p className="mt-1 text-xs font-medium text-red-500">
+                {formik.errors.skills_required}
+              </p>
             ) : null}
+
+            <button
+              type="button"
+              onClick={handleAddSkill}
+              className="inline-block rounded border-2 border-green-600 px-5 text-xs font-medium uppercase leading-normal text-green-600 transition duration-150 ease-in-out hover:border-black hover:bg-green-600 hover:bg-opacity-10 hover:text-black focus:border-success-600 focus:text-success-600 focus:outline-none focus:ring-0 active:border-success-700 active:text-success-700"
+              data-te-ripple-init>
+              Add
+            </button>
+            {skills.map((skill, index) => (
+              <span key={index} className="inline-block border-1 rounded-full bg-lightBlue px-3 py-1 text-xs font-medium text-black border-gray-600  mr-2 mb-2">
+                {skill}
+              </span>
+            ))}
+
           </div>
-          <div>
-            <label className="text-gray-700 text-sm" htmlFor="education_required">
+          <div className=''>
+            <label
+              className="text-gray-700 text-sm"
+              htmlFor="skill"
+            >
               Education Required
             </label>
             <input
-              id="education_required"
+              id="education"
               type="text"
               name="education_required"
-              placeholder='Education '
+              //value={formik.values.education_required}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.education_required}
-              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
+              className={
+                formik.touched.education_required && formik.errors.education_required
+                  ? 'validation-false'
+                  : 'validation-true'
+              }
             />
             {formik.touched.education_required && formik.errors.education_required ? (
-              <div className="text-red-500 text-sm">{formik.errors.education_required}</div>
+              <p className="mt-1 text-xs font-medium text-red-500">
+                {formik.errors.education_required}
+              </p>
             ) : null}
+
+            <button
+              type="button"
+              onClick={handleAddEducation}
+              className="inline-block rounded border-2 border-green-600 px-5 text-xs font-medium uppercase leading-normal text-green-600 transition duration-150 ease-in-out hover:border-black hover:bg-green-600 hover:bg-opacity-10 hover:text-black focus:border-success-600 focus:text-success-600 focus:outline-none focus:ring-0 active:border-success-700 active:text-success-700"
+              data-te-ripple-init>
+              Add
+            </button>
+            {education.map((education, index) => (
+              <span key={index} className="inline-block border-1 rounded-full bg-lightBlue px-3 py-1 text-xs font-medium text-black border-gray-600  mr-2 mb-2">
+                {education}
+              </span>
+            ))}
+
           </div>
+
           <div>
             <label className="text-gray-700 text-sm" htmlFor="experience_required">
               Experience
@@ -154,20 +222,20 @@ function PostAJob() {
           </div>
           <div>
             <label className="text-gray-700 text-sm" htmlFor="username">
-              Number of posts
+              Location
             </label>
             <input
-              id="company_name"
-              name="company_name"
-              placeholder='Enter number of posts'
+              id="location"
+              name="location"
+              placeholder='Job location'
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.company_name}
+              value={formik.values.location}
               type="text"
               className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
             />
-            {formik.touched.company_name && formik.errors.company_name ? (
-              <div className="text-red-500 text-sm">{formik.errors.company_name}</div>
+            {formik.touched.location && formik.errors.location ? (
+              <div className="text-red-500 text-sm">{formik.errors.location}</div>
             ) : null}
           </div>
           <div>
@@ -176,7 +244,7 @@ function PostAJob() {
             </label>
             <input
               id="base_salary"
-              type="text"
+              type="number"
               name="base_salary"
               placeholder='Salary'
               onChange={formik.handleChange}
@@ -206,9 +274,27 @@ function PostAJob() {
               <div className="text-red-500 text-sm">{formik.errors.employment_type}</div>
             ) : null}
           </div>
+          <div>
+            <label className="text-gray-700 text-sm" htmlFor="deadline">
+              Job Expiry
+            </label>
+            <input
+              id="deadline"
+              name="deadline"
+              placeholder='Job validity'
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.deadline}
+              type="date"
+              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
+            />
+            {formik.touched.deadline && formik.errors.deadline ? (
+              <div className="text-red-500 text-sm">{formik.errors.deadline}</div>
+            ) : null}
+          </div>
         </div>
         <div className=' col-span-2 p-5'>
-          <label for="Description" className="block text-sm text-gray-500">Job Description</label>
+          <label  className="block text-sm text-gray-500">Job Description</label>
           <textarea
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -219,7 +305,11 @@ function PostAJob() {
             <div className="text-red-500 text-sm">{formik.errors.job_description}</div>
           ) : null}
         </div>
-
+        {error && (
+          <p className='text-red-500'>
+            {error}
+          </p>
+        )}
 
         <div className="flex justify-end mt-6">
           <button type="submit" className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
@@ -227,7 +317,6 @@ function PostAJob() {
           </button>
         </div>
       </form>
-      <button onClick={nextHandle} type="button" className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Next</button>
 
     </section>
   )

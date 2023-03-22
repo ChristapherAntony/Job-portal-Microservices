@@ -16,6 +16,7 @@ export const quickExperienceUpdate = (id) => `/api/v1/profile/candidate/quick-ex
 export const quickProfileUpdateRecruiter = (id) => `/api/v1/profile/recruiter/${id}`
 
 export const getProfile = '/api/v1/profile/candidate';
+export const getRecruiterProfile = '/api/v1/profile/recruiter';
 export const updateProfileImage = '/api/v1/profile/candidate/profile-picture';
 export const deleteProfileImage = '/api/v1/profile/candidate/profile-picture';
 
@@ -26,6 +27,8 @@ export const unblockCandidate = '/api/v1/admin/candidate-unblock';
 export const getRecruiters = '/api/v1/admin/recruiters';
 export const blockRecruiters = (id) => `/api/v1/admin/recruiter-block/${id}`
 export const unblockRecruiters = (id) => `/api/v1/admin/recruiter-unblock/${id}`
+
+export const postJob = '/api/v1/jobs';
 
 
 

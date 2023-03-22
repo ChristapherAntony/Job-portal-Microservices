@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const recruiterProfileReducer = createSlice({
     name: 'recruiterprofile',
-    initialState: {is_verified:true},
+    initialState: {},
     reducers: {
         changeRecruiterProfile: (state, action) => {
             return action.payload

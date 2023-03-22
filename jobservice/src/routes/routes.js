@@ -6,6 +6,9 @@ const { checkAuthorization } = require('../middleware/check-authorization');
 
 
 //routes
+router.get('/api/v1/hello',(req,res)=>{
+    res.status("ok")
+})
 router.get('/api/v1/jobs', getJobs);
 router.post('/api/v1/jobs',checkAuthorization('recruiter'),validatePost,postJob)
 router.put('/api/v1/jobs/:id',checkAuthorization('recruiter'),validatePost,updateJob)
