@@ -6,9 +6,7 @@ const { checkAuthorization } = require('../middleware/check-authorization');
 
 
 //routes
-router.get('/api/v1/hello',(req,res)=>{
-    res.status("ok")
-})
+
 router.get('/api/v1/jobs', getJobs);
 
 //recruiter related routes

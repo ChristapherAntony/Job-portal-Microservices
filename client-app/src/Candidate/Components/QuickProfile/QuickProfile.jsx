@@ -65,6 +65,7 @@ function QuickProfile() {
             formData.append('curriculum_vitae', pdf);
             formData.append('key_skills', skills);
             formData.append('bio', values.bio);
+            
             axios.patch(quickProfileUpdate(id), formData).then(res => {
                 navigate(`/candidate/quick-experience/${id}`);
             }).catch((err) => {
