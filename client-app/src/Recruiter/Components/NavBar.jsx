@@ -135,10 +135,10 @@ function NavBar() {
             </div>
             <div className=" hidden lg:block pl-20  bg-lightDarkBlue shadow px-6  mx-auto">
 
-                <a href="#" className="px-3  mx-3 text-white  rounded-md lg:mb-3 pb-2  ">Jobs & Response  </a>
-                <a href="#" className="px-3  mx-3 text-white  rounded-md lg:mb-3 pb-2  ">Post a Job </a>
-                <a href="#" className="px-3  mx-3 text-white  rounded-md lg:mb-3 pb-2  ">Test results</a>
-                <a href="#" className="px-3  mx-3 text-white  rounded-md lg:mb-3 pb-2  ">Interviews</a>
+                <Link to={'/recruiter/jobs'} className="px-3  mx-3 text-white  rounded-md lg:mb-3 pb-2  ">Jobs & Response  </Link>
+                <Link to={''} className="px-3  mx-3 text-white  rounded-md lg:mb-3 pb-2  ">Post a Job </Link>
+                <Link to={''} className="px-3  mx-3 text-white  rounded-md lg:mb-3 pb-2  ">Test results</Link>
+                <Link to={''} className="px-3  mx-3 text-white  rounded-md lg:mb-3 pb-2  ">Interviews</Link>
 
 
 

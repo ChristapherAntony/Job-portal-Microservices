@@ -9,7 +9,7 @@ import axios from 'axios';
 
 function HomePageRecruiter() {
   const navigate = useNavigate();
-  const [is_verified, setIs_verified] = useState(false)
+  const [is_verified, setIs_verified] = useState(true)
   useEffect(() => {
      axios.get(getRecruiterProfile).then(res => {
       setIs_verified(res.data.is_verified)

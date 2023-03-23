@@ -29,7 +29,7 @@ export const blockRecruiters = (id) => `/api/v1/admin/recruiter-block/${id}`
 export const unblockRecruiters = (id) => `/api/v1/admin/recruiter-unblock/${id}`
 
 export const postJob = '/api/v1/jobs';
-
+export const jobPosted = '/api/v1/jobs/posted';
 
 
 

@@ -8,6 +8,7 @@ import NotFoundPage from './Recruiter/Pages/404Page';
 
 import HomePageRecruiter from './Recruiter/Pages/HomePageRecruiter';
 import JobPostPage from './Recruiter/Pages/JobPostPage';
+import JobsAndResponsePage from './Recruiter/Pages/JobsAndResponsePage';
 import QuickProfileRecruiter from './Recruiter/Pages/QuickProfileRecruiter';
 import SiginUpPageRecruiter from './Recruiter/Pages/SiginUpPageRecruiter';
 import SignInPageRecruiter from './Recruiter/Pages/SignInPageRecruiter';
@@ -31,6 +32,7 @@ function App() {
               <Route path='email-verification' element={<EmailVerfication />} />
               <Route path='otp/:email' element={<OtpVerify />} />
               <Route path='profile/:id' element={<Profile />} />
+
             </Route>
 
             {/* admin routes  */}
@@ -42,7 +44,6 @@ function App() {
               <Route path='applications' element={<RecruiterApplication />} />
               <Route path='application/:id' element={<ApplicationDetails />} />
 
-
             </Route >
 
             {/* recruiter routes  */}
@@ -50,8 +51,10 @@ function App() {
               <Route index element={<HomePageRecruiter />} />
               <Route path='signup' element={<SiginUpPageRecruiter />} />
               <Route path='signin' element={<SignInPageRecruiter />} />
+            
               <Route path='quick-profile/:id' element={<QuickProfileRecruiter />} />
               <Route path='post-job' element={<JobPostPage />} />
+              <Route path='jobs' element={<JobsAndResponsePage />} />
 
 
             </Route >

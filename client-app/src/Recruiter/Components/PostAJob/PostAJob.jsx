@@ -63,12 +63,13 @@ function PostAJob() {
           showConfirmButton: false,
           timer: 1500
         })
+        navigate('/recruiter/jobs')
       }).catch((err) => {
         console.log(err);
-        // setError(err.response.data.errors[0].msg); // Set the error state
-        // setTimeout(() => {
-        //   setError(null);
-        // }, 8000);
+        setError(err.response.data.errors[0].msg); // Set the error state
+        setTimeout(() => {
+          setError(null);
+        }, 8000);
       })
 
     },

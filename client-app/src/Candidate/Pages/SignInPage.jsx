@@ -1,7 +1,7 @@
 import React from 'react';
 import Footer from '../Components/Footer/Footer';
 import NavBar from '../Components/NavBar/NavBar';
-import SignIn from '../../Recruiter/Components/SignIn';
+import SignIn from '../Components/SignIn/SignIn';
 import { SignInPic } from '../assets/images';
 
 function SignInPage() {
