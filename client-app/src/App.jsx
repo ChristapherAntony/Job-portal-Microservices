@@ -1,18 +1,9 @@
-import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom'
-import { ApplicationDetails, Home, Candidates, Login, RecruiterApplication, Recruiters } from './Admin/Pages/index'
-import AddWorkExp from './Candidate/Pages/AddWorkExp';
-import EmailVerfication from './Candidate/Pages/EmailVerfication/EmailVerfication';
-import { LandingPage, HomePage, SignInPage, SignUpPage, ProfileQuickUpdate, Profile } from './Candidate/Pages/index';
-import OtpVerify from './Candidate/Pages/OtpVerify/OtpVerify';
-import NotFoundPage from './Recruiter/Pages/404Page';
+import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom';
+import { ApplicationDetails, Home, Candidates, Login, RecruiterApplication, Recruiters } from './Admin/Pages/index';
+import { LandingPage, HomePage, SignInPage, AddWorkExp, EmailVerfication, OtpVerify, SignUpPage, ProfileQuickUpdate, Profile } from './Candidate/Pages/index';
+import { HomePageRecruiter, JobPostPage, JobsAndResponsePage, NotFoundPage, QuickProfileRecruiter, SiginUpPageRecruiter, SignInPageRecruiter } from './Recruiter/Pages/index';
 
-import HomePageRecruiter from './Recruiter/Pages/HomePageRecruiter';
-import JobPostPage from './Recruiter/Pages/JobPostPage';
-import JobsAndResponsePage from './Recruiter/Pages/JobsAndResponsePage';
-import QuickProfileRecruiter from './Recruiter/Pages/QuickProfileRecruiter';
-import SiginUpPageRecruiter from './Recruiter/Pages/SiginUpPageRecruiter';
-import SignInPageRecruiter from './Recruiter/Pages/SignInPageRecruiter';
-// import RequireAuth from './utils/Common/RequireAuth';
+
 
 
 function App() {
@@ -38,18 +29,13 @@ function App() {
             {/* admin routes  */}
             <Route path='admin'>
               <Route index element={<Login />} />
-
-              {/* <Route element={<RequireAuth allowedRole="admin" />} > */}
-                
-                <Route path='home' element={<Home />} />
-                <Route path='candidates' element={<Candidates />} />
-                <Route path='recruiters' element={< Recruiters />} />
-                <Route path='applications' element={<RecruiterApplication />} />
-                <Route path='application/:id' element={<ApplicationDetails />} />
-
-              {/* </Route> */}
-
+              <Route path='home' element={<Home />} />
+              <Route path='candidates' element={<Candidates />} />
+              <Route path='recruiters' element={< Recruiters />} />
+              <Route path='applications' element={<RecruiterApplication />} />
+              <Route path='application/:id' element={<ApplicationDetails />} />
             </Route >
+
             {/* recruiter routes  */}
             <Route path='recruiter'>
               <Route index element={<HomePageRecruiter />} />
@@ -58,9 +44,7 @@ function App() {
               <Route path='quick-profile/:id' element={<QuickProfileRecruiter />} />
               <Route path='post-job' element={<JobPostPage />} />
               <Route path='jobs' element={<JobsAndResponsePage />} />
-
-
-            </Route >
+            </Route>
 
             <Route path='*' element={<NotFoundPage />}></Route>
           </Route>

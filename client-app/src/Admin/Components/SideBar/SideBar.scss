@@ -37,6 +37,7 @@
             margin: 0;
             padding: 0;
 
+
             .title {
                 font-size: px;
                 font-weight: bold;
@@ -55,6 +56,9 @@
                     background-color: $bg-primary;
                 }
 
+
+
+
                 .icon {
                     font-size: 25px;
                     color: $bg-logo;
@@ -66,11 +70,15 @@
                     color: $text-secondary;
                     margin-left: 10px;
                 }
+
+                .active {
+                    background-color: aqua;
+                }
             }
         }
     }
 
-    .div-bottom{
+    .div-bottom {
         position: absolute;
         bottom: 0;
     }

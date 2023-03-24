@@ -8,7 +8,7 @@ import CreditScoreOutlinedIcon from '@mui/icons-material/CreditScoreOutlined';
 import HailOutlinedIcon from '@mui/icons-material/HailOutlined';
 import WorkspacePremiumOutlinedIcon from '@mui/icons-material/WorkspacePremiumOutlined';
 import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 // import { DarkModeContext } from "../../context/darkModeContext";
 // import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
@@ -44,40 +44,40 @@ const SideBar = () => {
     return (
         <div className="sidebar">
             <div className="top">
-                <Link to="/admin/home" style={{ textDecoration: "none" }}>
+                <NavLink to="/admin/home" style={{ textDecoration: "none" }}>
                     <span className="logo">careerconnect</span>
-                </Link>
+                </NavLink>
             </div>
             <hr />
             <div className="center">
                 <ul>
                     <p className="title">MAIN</p>
-                    <Link to='/admin/home' style={{ textDecoration: "none" }}>
+                    <NavLink to='/admin/home' style={{ textDecoration: "none" }} activeClassName="active">
                         <li>
                             <DashboardIcon className="icon" />
                             <span>Dashboard</span>
                         </li>
-                    </Link>
+                    </NavLink>
 
                     <p className="title"></p>
-                    <Link to="/admin/candidates" style={{ textDecoration: "none" }}>
+                    <NavLink to="/admin/candidates" style={{ textDecoration: "none" }} activeClassName="active">
                         <li>
                             <GroupsOutlinedIcon className="icon" />
                             <span>Candidates</span>
                         </li>
-                    </Link>
-                    <Link to="/admin/applications" style={{ textDecoration: "none" }}>
+                    </NavLink>
+                    <NavLink to="/admin/applications" style={{ textDecoration: "none" }}>
                         <li>
                             <CreditScoreOutlinedIcon className="icon" />
                             <span>Applications</span>
                         </li>
-                    </Link>
-                    <Link to="/admin/recruiters" style={{ textDecoration: "none" }}>
+                    </NavLink>
+                    <NavLink to="/admin/recruiters" style={{ textDecoration: "none" }}>
                         <li>
                             <HailOutlinedIcon className="icon" />
                             <span>Recruiters</span>
                         </li>
-                    </Link>
+                    </NavLink>
 
                     <li>
                         <WorkspacePremiumOutlinedIcon className="icon" />
