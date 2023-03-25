@@ -23,6 +23,7 @@ const RequireAuth = ({ allowedRoles }) => {
 
 
         <Outlet />
+        
         // auth?.roles?.find(role => allowedRoles?.includes(role))
         //     ? <Outlet />
         //     : auth?.user
