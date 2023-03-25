@@ -1,5 +1,6 @@
 
 import React, { useEffect, useState } from 'react'
+import { Link, NavLink } from 'react-router-dom'
 import Footer from '../Components/Footer/Footer'
 import BrandsGrid from '../Components/Landing/BrandsGrid'
 import Hero from '../Components/Landing/Hero'
@@ -17,6 +18,9 @@ function LandingPage() {
   return (
     <div className='bg-lightBlue overflow-hidden'>
       <NavBar />
+      <NavLink to={'/admin'}>admin</NavLink>
+      <Link to={'/recruiter'}>Recruiter</Link>
+      <NavLink to={'/candidate'}> Candidate</NavLink>
       <Hero/>
 
       <SearchBox/>
