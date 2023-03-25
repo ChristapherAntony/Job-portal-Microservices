@@ -1,29 +1,37 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, Navigate, Outlet } from "react-router-dom";
 
 
 const RequireAuth = ({ allowedRoles }) => {
-    const [user,setUser]=useState({})
-    
+    const [user, setUser] = useState({})
+    const [auth, setAuth] = useState({})
     const location = useLocation();
     useEffect(() => {
         axios
             .get('/api/v1/auth/current')
             .then((res) => {
+                console.log(res.data);
+                setAuth({
+                    auth:res.user_name,
+                    role:
+                })
                 setUser(res.data);
+
             })
-            .catch((err) => {
-                console.log(err);
-            });
+            
     }, []);
-    console.log(user);
+    console.log(user,"koklk");
 
     return (
 
 
+
+
+        user ?
         <Outlet />
-        
+        : <Navigate to="/recruiter/signin" state={{ from: location }} replace />
+
         // auth?.roles?.find(role => allowedRoles?.includes(role))
         //     ? <Outlet />
         //     : auth?.user
