@@ -15,13 +15,16 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import './login.scss'
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { signIn } from '../../../utils/Constants';
 import { useState } from 'react';
 const theme = createTheme();
 
 export default function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "home";
+
   const [error, setError] = useState(null)
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -33,7 +36,8 @@ export default function Login() {
 
     Axios.post(signIn, { email, password }).then(res => {
       console.log(res); // Handle successful response
-      navigate('home'); // Navigate to home page
+      navigate(from, { replace: true }); // Navigate to home page or prv
+      
     }).catch(err => {
       console.log(err.response.data.errors[0].msg);
       setError(err.response.data.errors[0].msg); // Set the error state

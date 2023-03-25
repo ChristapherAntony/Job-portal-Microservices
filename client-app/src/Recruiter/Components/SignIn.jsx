@@ -14,7 +14,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Logo from '../../Candidate/Components/Logo/Logo';
 import { signIn } from '../../utils/Constants';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux'
@@ -26,6 +26,8 @@ const theme = createTheme();
 export default function SignIn() {
   const dispatch = useDispatch()
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/recruiter";
   const [error, setError] = useState(null)
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -37,7 +39,8 @@ export default function SignIn() {
 
     axios.post(signIn, { email, password }).then(res => {
       // dispatch(changeRecruiterProfile(res.data))
-      navigate('/recruiter'); // Navigate to home page
+      navigate(from, { replace: true }); // Navigate to home page or prv
+      // navigate('/recruiter'); // Navigate to home page
     }).catch(err => {
       console.log(err.response.data.errors[0].msg);
       setError(err.response.data.errors[0].msg); // Set the error state

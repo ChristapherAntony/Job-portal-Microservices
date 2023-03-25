@@ -14,7 +14,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Logo from '../../Components/Logo/Logo';
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate ,useLocation} from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 
@@ -27,6 +27,9 @@ const theme = createTheme();
 export default function SignIn() {
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/candidate";
+
   const [error, setError] = useState(null)
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -37,8 +40,8 @@ export default function SignIn() {
 
 
     axios.post(signIn, { email, password }).then(res => {
-
-      navigate('/candidate'); // Navigate to home page
+      navigate(from, { replace: true }); // Navigate to home page or prv
+      // navigate('/candidate'); // Navigate to home page
     }).catch(err => {
       console.log(err.response.data.errors[0].msg);
       setError(err.response.data.errors[0].msg); // Set the error state

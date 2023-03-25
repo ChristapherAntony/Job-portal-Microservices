@@ -6,6 +6,7 @@ const {natsWrapper} = require('../nats-wrapper');
 module.exports = {
     viewAllCandidates: async (req, res) => {
         try {
+            console.log("api call ");
             // Fetch all candidates from the database
             const candidates = await Candidate.find({});
             console.log(candidates);

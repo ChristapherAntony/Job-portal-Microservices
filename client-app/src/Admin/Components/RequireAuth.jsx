@@ -19,14 +19,14 @@ const RequireAuth = ({ allowedRole }) => {
             .catch((err) => {
                 setError(err.message);
             });
-    }, []);
+    }, [allowedRole]);
 
     if (auth) {
         return <Outlet />;
     } else if (error === "Unauthorized") {
         return <Navigate to="/unauthorized" state={{ from: location }} replace  />;
     } else if (error) {
-        return <Navigate to="/recruiter/signin" state={{ from: location }} replace  />;
+        return <Navigate to="/admin" state={{ from: location }} replace  />;
     } else {
         return null; // or some kind of loading indicator
     }

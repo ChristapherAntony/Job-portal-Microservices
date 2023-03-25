@@ -20,7 +20,7 @@ export const Details = () => {
     }).catch((err) => {
       console.log(err);
     })
-  }, [])
+  }, [state])
 
 
   const acceptUser = (id) => {
