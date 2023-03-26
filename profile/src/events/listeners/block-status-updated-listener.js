@@ -6,7 +6,7 @@ const  {Listener}  = require('../base')
 
 class blockStatusUpdatedListener extends Listener {
     constructor(client) {
-        super(client);
+        super(client);  
         this.subject = 'blockStatus:updated';
         this.queueGroupName = queueGroupName;
     }
