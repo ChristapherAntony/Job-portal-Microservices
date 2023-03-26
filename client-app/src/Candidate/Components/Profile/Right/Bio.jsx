@@ -1,11 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
+import EditPenButton from '../../buttons/EditPenButton'
+import BioModal from '../../modals/BioModal'
+import { useSelector, useDispatch } from 'react-redux'
+
+
 
 function Bio() {
+  const profile = useSelector((state) => state.candidateprofile)
+
+  const [showModal, setShowModal] = useState(false);
+  const handleClick = () => {
+    setShowModal(true);
+  };
+  const handleClose = () => {
+    setShowModal(false);
+  };
+
   return (
     <div className='bg-white rounded-md px-5 py-5'>
-      <h1 className='pro-h-right'>Bio</h1>
+      <div class="relative">
+        <h1 className='pro-h-right'>Bio</h1>
+        <span class="absolute top-0 right-0" onClick={handleClick}>
+          <EditPenButton />
+        </span>
+      </div>
+      {/* show this modal on editpenbutton click */}
+      {showModal && <BioModal onClose={handleClose} bio={profile.bio} />}
       <hr className="h-px my-4 bg-gray-200 border-0" />
-      <p className='text-myGray '>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At iste a, necessitatibus conr sit amet, consectetur adipisicing elit. At iste r sit amet, consectetur adipisicing elit. At iste a, necessitatibus consectetur, assumenda sunt a, necessitatibus consectetur, assumenda sunt sectetur, assumenda sunt eos non hic, itaque totam deserunt est nisi quos repudiandae sapiente ipsam ipsa sequi impedit.</p>
+      <p className='text-myGray '>{profile.bio}</p>
 
     </div>
   )

@@ -1,18 +1,37 @@
-import React from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
 import { changeCandidateProfile } from '../../../../Redux/candidateProfileReducer'
+import Sample from '../../modals/Sample'
+import EditPenButton from '../../buttons/EditPenButton'
 
 function About() {
   const profile = useSelector((state) => state.candidateprofile)
-  const dispatch = useDispatch()
-  console.log(profile, "from about");
+
+  const [showModal, setShowModal] = useState(false);
+
+  const handleClick = () => {
+    setShowModal(true);
+  };
+
+  const handleClose = () => {
+    setShowModal(false);
+  };
+
+
+
   return (
     <div className="w-full max-w-sm px-4 py-3 bg-white rounded-md shadow-md ">
       <div>
-        <h1 className="mt-2 text-lg font-semibold text-gray-800 ">
-          About
-        </h1>
+        <div class="relative">
+          <h1 class="mt-2 text-lg font-semibold text-gray-800">About</h1>
+          <span class="absolute top-0 right-0" onClick={handleClick}>
+            <EditPenButton />
+          </span>
+        </div>
+
+       
+        {showModal && <Sample onClose={handleClose} keySkills={profile.key_skills} about={profile.about} />}
         <p className="mt-2 text-sm pro-text ">
           {profile.about}
         </p>
@@ -29,7 +48,7 @@ function About() {
               {skill}
             </span>
           )
-          
+
           )}
         </div>
       </div>

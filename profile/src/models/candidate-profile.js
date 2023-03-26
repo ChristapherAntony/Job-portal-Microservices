@@ -36,7 +36,7 @@ const candidateSchema = new mongoose.Schema({
     },
     gender: {
         type: String,
-        enum: ['male', 'female', 'other']
+        enum: ['Male', 'Female', 'Other']
     },
     current_location: {
         type: String
@@ -66,7 +66,7 @@ const candidateSchema = new mongoose.Schema({
     },
     profile_image: {
         type: String,
-        default:'https://res.cloudinary.com/dprxebwil/image/upload/v1679341215/Recruiter/recruiter-images.jpeg.jpg'
+        default: 'https://res.cloudinary.com/dprxebwil/image/upload/v1679341215/Recruiter/recruiter-images.jpeg.jpg'
     },
     curriculum_vitae: {
         type: String
@@ -100,23 +100,23 @@ const candidateSchema = new mongoose.Schema({
     social_links: {
         instagram: {
             type: String,
-            default:null
+            default: null
         },
         facebook: {
             type: String,
-            default:null
+            default: null
         },
         twitter: {
             type: String,
-            default:null
+            default: null
         },
         linkedIn: {
             type: String,
-            default:null
+            default: null
         },
         gitHub: {
             type: String,
-            default:null
+            default: null
         }
     },
     work_experience: [{
@@ -206,8 +206,14 @@ const candidateSchema = new mongoose.Schema({
 candidateSchema.set('toJSON', {
     transform: function (doc, ret) {
         delete ret.__v;
+        if (ret.date_of_birth) {
+            const dateOfBirth = new Date(ret.date_of_birth);
+            const formattedDate = `${dateOfBirth.getDate().toString().padStart(2, '0')}-${(dateOfBirth.getMonth() + 1).toString().padStart(2, '0')}-${dateOfBirth.getFullYear().toString()}`;
+            ret.date_of_birth = formattedDate;
+        }
     }
 });
+
 
 
 

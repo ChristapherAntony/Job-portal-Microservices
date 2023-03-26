@@ -47,10 +47,6 @@ function NavBar() {
                 setUser(false)
             });
 
-
-
-
-
     }, [logout])
 
 

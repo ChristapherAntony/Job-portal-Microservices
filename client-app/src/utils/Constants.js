@@ -19,6 +19,10 @@ export const quickExperienceUpdate = (id) => `/api/v1/profile/candidate/quick-ex
 
 export const updateProfileImage = '/api/v1/profile/candidate/profile-picture';
 export const deleteProfileImage = '/api/v1/profile/candidate/profile-picture';
+export const updateAbout = '/api/v1/profile/candidate/about';
+export const updateBio = '/api/v1/profile/candidate/bio';
+export const updatePersonalInfo = '/api/v1/profile/candidate/personal-info';
+
 //----recruiter
 export const getRecruiterProfile = '/api/v1/profile/recruiter';
 export const quickProfileUpdateRecruiter = (id) => `/api/v1/profile/recruiter/${id}`

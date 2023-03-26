@@ -4,6 +4,7 @@ const { UserUpdatedPublisher } = require("../events/publisher/user-updated-publi
 const { natsWrapper } = require("../nats-wrapper");
 const { Candidate } = require("../models/candidate-profile");
 const mongoose = require('mongoose');
+const { Recruiter } = require('../models/recruiter-profile');
 const ObjectId = mongoose.Types.ObjectId;
 
 
@@ -25,10 +26,8 @@ module.exports = {
     },
     updateProfile: async (req, res) => {
         try {
+            console.log('aoi jsut beofre aau');
             const id = req.params.id
-            // console.log(req.currentUser.id);
-            console.log(req.body, "888888888");
-            console.log(typeof (req.body.key_skills));
             const user = await Candidate.findOne({ _id: id })
             if (user.is_blocked === true) {
                 return res.status(404).json({ errors: [{ msg: 'user blocked unable to perform this action' }] })
@@ -36,7 +35,7 @@ module.exports = {
             const profileImagePath = req.files['profile_image'][0].path;
             const curriculum_vitaePath = req.files['curriculum_vitae'][0].path;
 
-
+           
             // update the user profile 
             const updatedUser = await Candidate.findByIdAndUpdate(
                 id, // user ID to update
@@ -90,6 +89,28 @@ module.exports = {
             if (user.is_blocked === true) {
                 return res.status(404).json({ errors: [{ msg: 'user blocked unable to perform this action' }] })
             }
+            
+            // Check if email already exists for another recruiter
+            if (req.body.email) {
+                const recruiterWithSameEmail = await Recruiter.findOne({
+                    email: req.body.email,
+                    _id: { $ne: req.currentUser.id }, // Exclude the current recruiter from the search
+                });
+                if (recruiterWithSameEmail) {
+                    return res.status(422).json({ errors: [{ msg: "Email already exists" }] });
+                }
+            }
+            // Check if phone number already exists for another recruiter
+            if (req.body.phone_number) {
+                const recruiterWithSamePhone = await Recruiter.findOne({
+                    phone_number: req.body.phone_number,
+                    _id: { $ne: req.currentUser.id }, // Exclude the current recruiter from the search
+                });
+                if (recruiterWithSamePhone) {
+                    return res.status(422).json({ errors: [{ msg: "Phone number already exists" }] });
+                }
+            }
+
             // update the user profile
             const updatedUser = await Candidate.findByIdAndUpdate(
                 req.currentUser.id,
@@ -115,7 +136,7 @@ module.exports = {
 
             // Publish user updated event
             await new UserUpdatedPublisher(natsWrapper.client).publish(updatedUser);
-            res.status(200).json({ message: 'User details  updated successfully', user: updatedUser });
+            res.status(200).json({ message: 'User details  updated successfully', updatedUser: updatedUser });
         } catch (error) {
             if (error.name === 'ValidationError') {
                 // Handle validation errors
@@ -250,7 +271,34 @@ module.exports = {
                 },
                 { new: true }
             );
-            res.status(200).json({ message: 'User bio  updated successfully', bio: updatedUser.bio });
+            res.status(200).json({ message: 'User bio  updated successfully', updatedUser: updatedUser });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ errors: [{ msg: 'Server error' }] });
+        }
+    },
+    updateAbout: async (req, res) => {
+        try {
+            // NOTE---checked for user authorized , role  status in router level---middleware
+            //check block status of user before updating user profile
+            const user = await Candidate.findOne({ _id: req.currentUser.id })
+            if (user.is_blocked === true) {
+                return res.status(404).json({ errors: [{ msg: 'user blocked unable to perform this action' }] })
+            }
+            console.log(req.body.key_skills);
+            console.log(typeof (req.body.key_skills));
+            // update the Bio
+            const updatedUser = await Candidate.findByIdAndUpdate(
+                req.currentUser.id,
+                {
+                    $set: {
+                        about: req.body.about,
+                        key_skills: req.body.key_skills,
+                    }
+                },
+                { new: true }
+            );
+            res.status(200).json({ message: 'User About  updated successfully', updatedUser: updatedUser });
         } catch (error) {
             console.log(error);
             res.status(500).json({ errors: [{ msg: 'Server error' }] });

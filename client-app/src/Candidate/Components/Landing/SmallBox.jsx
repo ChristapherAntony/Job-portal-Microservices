@@ -18,7 +18,7 @@ function SmallBox() {
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nostrum quam
                     voluptatibus
                 </p> */}
-                <div className="grid grid-cols-1 gap-8 mt-8 xl:mt-12 xl:gap-12 md:grid-cols-2   ">
+                <div className="grid grid-cols-1 gap-8 mt-1 xl:mt-1 xl:gap-12 md:grid-cols-2   ">
                     <div className="p-8 space-y-3 border-2 border-blue-400 rounded-xl">
                         <span className="inline-block text-blue-500">
                             <svg

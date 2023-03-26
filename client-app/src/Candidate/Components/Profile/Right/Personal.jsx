@@ -1,171 +1,97 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux';
+import EditPenButton from '../../buttons/EditPenButton'
+import PersonalInfoModal from '../../modals/PersonalInfoModal';
+
+
+
 
 function Personal() {
+    const profile = useSelector((state) => state.candidateprofile)
+    const [showModal, setShowModal] = useState(false);
+    const handleClick = () => {
+        setShowModal(true);
+    };
+    const handleClose = () => {
+        setShowModal(false);
+    };
+
+
     return (
         <div className='bg-white rounded-md px-5 py-5'>
-            <h1 className='pro-h-right'>Personal Information</h1>
+            <div class="relative">
+                <h1 className='pro-h-right'>Personal Information</h1>
+                <span class="absolute top-0 right-0" onClick={handleClick}>
+                    <EditPenButton />
+                </span>
+                {showModal && <PersonalInfoModal onClose={handleClose} />}
+            </div>
+
             <hr className="h-px my-4 bg-gray-200 border-0" />
             <div>
                 <form>
-
-
                     <div className="grid grid-cols-1 gap-y-1 gap-x-5 mt-4 sm:grid-cols-2 p-5 pro-text">
                         <div>
-                            <label className="text-gray-700 text-sm" htmlFor="username">
-                                Full name
-                            </label>
-                            <input
-                                id="username"
-                                type="text"
-                                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
-                            />
+                            <label class="text-gray-700 text-sm">Full name</label>
+                            <span class="block w-full px-4 py-1 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md">
+                                 {profile.user_name}
+                            </span>
                         </div>
                         <div>
-                            <label
-                                htmlFor="startDate"
-                                className="block text-sm text-gray-500"
-                            >
-                                Date of Birth
-                            </label>
-                            <input
-                                type="date"
-                                name='start_date'
-                                placeholder="John Doe"
-                                className="block  mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40"
-                            />
+                            <label class="text-gray-700 text-sm">Date of Birth</label>
+                            <span placeholder='add' class="block w-full px-4 py-1 mt-2  text-gray-700 bg-white border border-gray-200 rounded-md">
+                            {profile.date_of_birth?profile.date_of_birth:'.'}
+                            {/* {profile.date_of_birth} */}
+                            </span>
                         </div>
                         <div>
-                            <label className="text-gray-700 text-sm" htmlFor="username">
-                                Email Address
-                            </label>
-                            <input
-                                id="username"
-                                type="text"
-                                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
-                            />
-                        </div>
-
-                        <div>
-                            <label className="text-gray-700 text-sm" htmlFor="username">
-                                Phone Number
-                            </label>
-                            <input
-                                id="phon"
-                                type="text"
-                                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
-                            />
+                            <label class="text-gray-700 text-sm">Email Address</label>
+                            <span class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md">
+                            {profile.email}
+                            </span>
                         </div>
                         <div>
-                            <label className="text-gray-700 text-sm" htmlFor="username">
-                                Gender
-                            </label>
-                            <div className="flex mt-2">
-                                <div className="flex items-center mr-4">
-                                    <input
-                                        id="inline-radio"
-                                        type="radio"
-                                        defaultValue=""
-                                        name="current_status"
-                                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
-                                        onClick={() => setCurrentStatus(true)}
-                                    />
-                                    <label
-                                        htmlFor="inline-radio"
-                                        className="ml-2 text-sm font-medium text-gray-900"
-                                    >
-                                        Male
-                                    </label>
-                                </div>
-                                <div className="flex items-center mr-4">
-                                    <input
-                                        id="inline-2-radio"
-                                        type="radio"
-                                        defaultValue=""
-                                        name="current_status"
-                                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500  focus:ring-2"
-
-                                    />
-                                    <label
-                                        htmlFor="inline-2-radio"
-                                        className="ml-2 text-sm font-medium text-gray-900 "
-                                    >
-                                        Female
-                                    </label>
-                                </div>
-                                <div className="flex items-center mr-4">
-                                    <input
-                                        id="inline-2-radio"
-                                        type="radio"
-                                        defaultValue=""
-                                        name="current_status"
-                                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500  focus:ring-2"
-
-                                    />
-                                    <label
-                                        htmlFor="inline-2-radio"
-                                        className="ml-2 text-sm font-medium text-gray-900 "
-                                    >
-                                        Other
-                                    </label>
-                                </div>
-
-                            </div>
-
+                            <label class="text-gray-700 text-sm">Phone Number</label>
+                            <span class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md">
+                            {profile.phone_number}
+                            </span>
                         </div>
                         <div>
-                            <label
-                                className="text-gray-700 text-sm"
-                                htmlFor="emailAddress"
-                            >
-                                Location
-                            </label>
-                            <input
-                                id="emailAddress"
-                                type="email"
-                                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
-                            />
+                            <label class="text-gray-700 text-sm">Gender</label>
+                            <span class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md">
+                            {profile.gender?profile.gender:'.'}
+                            </span>
+                        </div>
+                        <div>
+                            <label class="text-gray-700 text-sm">Location</label>
+                            <span class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md">
+                            {profile.current_location?profile.current_location:'.'}
+                            </span>
                         </div>
 
                         <div className=' md:col-span-2 ' >
 
-                            <label
-                                className="text-gray-700 text-sm"
-                                htmlFor="CV"
-                            >
-                                Address
-                            </label>
+                            <label class="text-gray-700 text-sm">Address</label>
                             <div className='grid gap-y-1 gap-x-5 grid-cols-1 md:grid-cols-2'>
 
-                                <input
-                                    id="skills"
-                                    type="text"
-                                    className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
-                                />
-                                 <input
-                                    id="skills"
-                                    type="text"
-                                    className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
-                                />
-                                 <input
-                                    id="skills"
-                                    type="text"
-                                    className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
-                                />
-                                 <input
-                                    id="skills"
-                                    type="text"
-                                    className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
-                                />
-                                 <input
-                                    id="skills"
-                                    type="text"
-                                    className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
-                                />
-                                 <input
-                                    id="skills"
-                                    type="text"
-                                    className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
-                                />
+                                <span class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md">
+                                {profile?.address?.house_no?profile.address.house_no:'.'}
+                                </span>
+                                <span class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md">
+                                {profile?.address?.street?profile.address.street:'.'}
+                                </span>
+                                <span class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md">
+                                {profile?.address?.city?profile.address.city:'.'}
+                                </span>
+                                <span class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md">
+                                {profile?.address?.state?profile.address.state:'.'}
+                                </span>
+                                <span class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md">
+                                {profile?.address?.country?profile.address.country:'.'}
+                                </span>
+                                <span class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md">
+                                {profile?.address?.pin_code?profile.address.pin_code:'.'}
+                                </span>
 
 
                             </div>

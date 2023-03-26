@@ -20,19 +20,19 @@ const validateProfileQuickUpdate = [
 ];
 
 const validatePersonalInfo = [
-    body('user_name').trim().notEmpty().withMessage('User name is required'),
-    body('email').trim().isEmail().withMessage('Invalid email'),
-    body('phone_number').trim().isLength({ min: 10, max: 10 }).withMessage('Phone number must be 10 digits'),
-    body('date_of_birth').optional({ checkFalsy: true }).isISO8601().toDate(),
-    body('gender').optional({ checkFalsy: true }).isIn(['male', 'female', 'other']).withMessage('Invalid gender, should be male, female, or other'),
-    body('current_location').optional({ checkFalsy: true }).trim(),
-    body('house_no').trim().notEmpty().withMessage('House no is required'),
-    body('street').trim().notEmpty().withMessage('Street is required'),
-    body('city').trim().notEmpty().withMessage('City is required'),
-    body('state').trim().notEmpty().withMessage('State is required'),
-    body('country').trim().notEmpty().withMessage('Country is required'),
-    body('pin_code').trim().notEmpty().withMessage('Pin code is required').isNumeric().withMessage('Pin code must be numeric'),
-    check('*').trim().escape(),
+    // body('user_name').trim().notEmpty().withMessage('User name is required'),
+    // body('email').trim().isEmail().withMessage('Invalid email'),
+    // body('phone_number').trim().isLength({ min: 10, max: 10 }).withMessage('Phone number must be 10 digits'),
+    // body('date_of_birth').optional({ checkFalsy: true }).isISO8601().toDate(),
+    // body('gender').optional({ checkFalsy: true }).isIn(['Male', 'Female', 'Other']).withMessage('Invalid gender, should be male, female, or other'),
+    // body('current_location').optional({ checkFalsy: true }).trim(),
+    // body('house_no').trim().notEmpty().withMessage('House no is required'),
+    // body('street').trim().notEmpty().withMessage('Street is required'),
+    // body('city').trim().notEmpty().withMessage('City is required'),
+    // body('state').trim().notEmpty().withMessage('State is required'),
+    // body('country').trim().notEmpty().withMessage('Country is required'),
+    // body('pin_code').trim().notEmpty().withMessage('Pin code is required').isNumeric().withMessage('Pin code must be numeric'),
+    // check('*').trim().escape(),
 
     (req, res, next) => {
         const errors = validationResult(req);
