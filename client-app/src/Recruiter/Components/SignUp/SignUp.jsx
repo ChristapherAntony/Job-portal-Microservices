@@ -1,17 +1,12 @@
 import * as React from 'react';
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
 import Axios from 'axios';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -150,24 +145,7 @@ function SignUp() {
                                     helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
                                 />
                             </Grid>
-                            {/* <Grid item xs={12}>
-                                <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            name="termsAndConditions"
-                                            color="primary"
-                                            checked={formik.values.termsAndConditions}
-                                            onChange={formik.handleChange}
-                                        />
-                                    }
-                                    label="I accept the terms and conditions"
-                                />
-                                {formik.touched.termsAndConditions && Boolean(formik.errors.termsAndConditions) && (
-                                    <Typography variant="caption" color="error" sx={{ display: 'block', mt: 1 }}>
-                                        {formik.errors.termsAndConditions}
-                                    </Typography>
-                                )}
-                            </Grid> */}
+                         
                         </Grid>
                         <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                             Sign Up

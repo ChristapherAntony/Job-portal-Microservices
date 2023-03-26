@@ -20,7 +20,7 @@ function CandidateRoutes() {
         <Route path='quick-experience/:id' element={<AddWorkExp />} />
         <Route path='email-verification' element={<EmailVerfication />} />
         <Route path='otp/:email' element={<OtpVerify />} />
-        <Route path='profile/:id' element={<Profile />} />
+        <Route path='profile' element={<Profile />} />
       </Route>
       <Route path='*' element={<NotFoundPage />} />
 

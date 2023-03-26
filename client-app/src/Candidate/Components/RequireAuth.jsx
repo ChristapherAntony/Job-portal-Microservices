@@ -1,14 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { currentUser } from "../../utils/Constants";
 
 const RequireAuth = ({ allowedRole }) => {
     const [auth, setAuth] = useState(false);
     const [error, setError] = useState(null);
     const location = useLocation();
+    
     useEffect(() => {
         axios
-            .get("/api/v1/auth/current")
+            .get(currentUser)
             .then((res) => {
                 if (res.data.role === allowedRole) {
                     setAuth(true);

@@ -9,6 +9,8 @@ export const signOut = '/api/v1/auth/signout';
 export const emailVerify = '/api/v1/auth/email-verify';
 export const otpVerify = '/api/v1/auth/otp-verify';
 
+export const currentUser = '/api/v1/auth/current';
+
 // profile servies
 //----candidate
 export const getProfile = '/api/v1/profile/candidate';

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { currentUser } from "../../utils/Constants";
 
 const RequireAuth = ({ allowedRole }) => {
     const [auth, setAuth] = useState(false);
@@ -8,7 +9,7 @@ const RequireAuth = ({ allowedRole }) => {
     const location = useLocation();
     useEffect(() => {
         axios
-            .get("/api/v1/auth/current")
+            .get(currentUser)
             .then((res) => {
                 if (res.data.role === allowedRole) {
                     setAuth(true);
@@ -28,7 +29,7 @@ const RequireAuth = ({ allowedRole }) => {
     } else if (error) {
         return <Navigate to="/recruiter/signin" state={{ from: location }} replace  />;
     } else {
-        return null; // or some kind of loading indicator
+        return null; 
     }
 };
 

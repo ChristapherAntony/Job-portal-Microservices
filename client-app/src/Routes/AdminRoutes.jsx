@@ -8,6 +8,7 @@ function AdminRoutes() {
     return (
         <Routes>
             <Route path='/' element={<Login />} />
+
             <Route element={<RequireAuth allowedRole={'admin'} />}>
                 <Route path='home' element={<Home />} />
                 <Route path='candidates' element={<Candidates />} />
@@ -16,6 +17,7 @@ function AdminRoutes() {
                 <Route path='application/:id' element={<ApplicationDetails />} />
                 <Route path='*' element={<NotFoundPage />} />
             </Route>
+            
         </Routes>
     );
 }

@@ -8,16 +8,16 @@ function SmallBox() {
     const navigate = useNavigate();
     return (
 
-        <section className="bg-white">
-            <div className="container px-6 py-10 mx-auto w-3/4 ">
-                <h1 className="text-2xl font-semibold text-gray-800 capitalize lg:text-3xl">
+        <section className="bg-lightBlue">
+            <div className="bg-white container my-5 px-6 py-10 mx-auto w-3/4 ">
+                {/* <h1 className="text-2xl font-semibold text-gray-800 capitalize lg:text-3xl">
                     Please Register <br /> {" "}
                     <span className="underline decoration-blue-500">here</span>
                 </h1>
                 <p className="mt-4 text-gray-500 xl:mt-6">
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nostrum quam
                     voluptatibus
-                </p>
+                </p> */}
                 <div className="grid grid-cols-1 gap-8 mt-8 xl:mt-12 xl:gap-12 md:grid-cols-2   ">
                     <div className="p-8 space-y-3 border-2 border-blue-400 rounded-xl">
                         <span className="inline-block text-blue-500">
