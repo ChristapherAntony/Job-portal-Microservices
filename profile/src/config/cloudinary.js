@@ -8,5 +8,5 @@ cloudinary.config({
   api_secret: "PckML-KZ-JVs3gIM_cW64L5FGew"
 });
 
-
+   
 module.exports = { cloudinary };
