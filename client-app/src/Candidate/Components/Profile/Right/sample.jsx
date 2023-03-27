@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import EditPenButton from '../../buttons/EditPenButton'
-import AddEducation from '../../modals/AddEducation'
+import AddExperience from '../../modals/AddExperience/AddExperience'
 import Delete from '../../modals/Delete'
 function Education() {
     const profile = useSelector((state) => state.candidateprofile)
@@ -34,7 +34,7 @@ function Education() {
                     add +
                 </span>
             </div>
-            {showModal && <AddEducation onClose={handleClose} />}
+            {showModal && <AddExperience onClose={handleClose} />}
             <hr className="h-px my-4 bg-gray-200 border-0" />
 
             {showEdu ? (

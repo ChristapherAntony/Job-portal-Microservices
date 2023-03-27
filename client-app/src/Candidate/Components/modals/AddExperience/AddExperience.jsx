@@ -15,48 +15,13 @@ export default function AddExperience({ onClose }) {
     const [error, setError] = useState('')
     const [open, setOpen] = useState(true)
     const profile = useSelector((state) => state.candidateprofile)
-
-    const [form, setForm] = useState({
-        user_name: profile.user_name,
-        email: profile.email,
-        phone_number: profile.phone_number,
-        date_of_birth: profile.date_of_birth,
-        gender: profile.gender,
-        current_location: profile.current_location,
-        house_no: profile.address?.house_no,
-        street: profile.address?.street,
-        city: profile.address?.city,
-        state: profile.address?.state,
-        country: profile.address?.country,
-        pin_code: profile.address?.pin_code,
-    })
-
     const cancelButtonRef = useRef(null)
     const handleClose = () => {
         setOpen(false);
         onClose();
     }
 
-    const handleSubmit = () => {
-        axios.patch(updatePersonalInfo, form).then(res => {
-            console.log(res);
-            dispatch(changeCandidateProfile(res.data.user))
-            setOpen(false);
-            onClose();
-        }).catch((err) => {
-            console.log(err.response.data.errors[0].msg);
-            setError(err.response.data.errors[0].msg); // Set the error state
-            setTimeout(() => {
-                setError(null);
-            }, 8000);
-        })
-
-    }
-
-
-    /////
     const [currentStatus, setCurrentStatus] = useState(false);
-
     const formik = useFormik({
         initialValues: {
             designation: 'Software Engineer',

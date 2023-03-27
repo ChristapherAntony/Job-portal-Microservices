@@ -5,7 +5,7 @@ import AddExperience from '../../modals/AddExperience/AddExperience'
 import Delete from '../../modals/Delete'
 function WorkExperience() {
   const profile = useSelector((state) => state.candidateprofile)
-  
+  const showEXP = profile.work_experience?.length > 0
 
   const [showModal, setShowModal] = useState(false);
   const handleClickAdd = () => {
@@ -37,7 +37,7 @@ function WorkExperience() {
       {showModal && <AddExperience onClose={handleClose} />}
       <hr className="h-px my-4 bg-gray-200 border-0" />
 
-      {profile.work_experience.length ? (
+      {showEXP ? (
         profile.work_experience && profile.work_experience.map((exp, index) => {
           return (
             <div key={index} className='grid grid-cols-12'>
