@@ -1,21 +1,21 @@
 import { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { useSelector, useDispatch } from 'react-redux'
-import { changeCandidateProfile } from '../../../../src/Redux/candidateProfileReducer'
+import { changeCandidateProfile } from '../../../Redux/candidateProfileReducer'
 import axios from 'axios'
 import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Swal from 'sweetalert2';
-import { educationAdd } from '../../../utils/Constants'
+import { certificationAdd } from '../../../utils/Constants'
 
 
-export default function AddEducation({ onClose }) {
+export default function AddCertification({ onClose }) {
     const dispatch = useDispatch()
     const [error, setError] = useState('')
     const [open, setOpen] = useState(true)
     const cancelButtonRef = useRef(null)
-    
+
     const handleClose = () => {
         setOpen(false);
         onClose();
@@ -23,18 +23,16 @@ export default function AddEducation({ onClose }) {
 
     const formik = useFormik({
         initialValues: {
-            qualification: 'BSC ',
-            specialization: 'computer Science',
-            institute: 'ZYX Technologies',
+            certificate: 'MERN Stack',
+            issued_by: 'ZYZ Group of Tech',
         },
         validationSchema: Yup.object({
-            qualification: Yup.string().required('Required'),
-            specialization: Yup.string().required('Required'),
-            institute: Yup.string().required('Required'),
+            certificate: Yup.string().required('Required'),
+            issued_by: Yup.string().required('Required'),
         }),
 
         onSubmit: (values) => {
-            axios.post(educationAdd, values).then(res => {
+            axios.post(certificationAdd, values).then(res => {
                 dispatch(changeCandidateProfile(res.data.user))
                 setOpen(false);
                 onClose();
@@ -57,7 +55,7 @@ export default function AddEducation({ onClose }) {
     });
 
 
-      
+
 
     return (
         <Transition.Root show={open} as={Fragment}>
@@ -94,70 +92,44 @@ export default function AddEducation({ onClose }) {
 
                                 <section className="max-w-4xl p-6 mx-auto bg-white rounded-xl shadow-md m-10">
                                     <h2 className="text-lg font-semibold text-gray-700 capitalize">
-                                        Add work experience
+                                        Add Course and certifaction details
                                     </h2>
                                     <form onSubmit={formik.handleSubmit}>
                                         <div className="grid grid-cols-1 gap-y-1 gap-x-5 mt-4 sm:grid-cols-2 p-5">
                                             <div>
                                                 <label className="text-gray-700 text-sm" htmlFor="qualification">
-                                                    Qualification
+                                                    Name of certificate
                                                 </label>
                                                 <input
-                                                    id="qualification"
-                                                    type="text"
-                                                    name="qualification"
+                                                    id="certificate"
+                                                    type="certificate"
+                                                    name="certificate"
                                                     onChange={formik.handleChange}
                                                     onBlur={formik.handleBlur}
-                                                    value={formik.values.qualification}
+                                                    value={formik.values.certificate}
                                                     className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
                                                 />
-                                                {formik.touched.qualification && formik.errors.qualification ? (
-                                                    <div className="text-red-500 text-sm">{formik.errors.qualification}</div>
+                                                {formik.touched.certificate && formik.errors.certificate ? (
+                                                    <div className="text-red-500 text-sm">{formik.errors.certificate}</div>
                                                 ) : null}
                                             </div>
                                             <div>
                                                 <label className="text-gray-700 text-sm" htmlFor="username">
-                                                    Specialization
+                                                    Issued by
                                                 </label>
                                                 <input
-                                                    id="specialization"
-                                                    name="specialization"
+                                                    id="issued_by"
+                                                    name="issued_by"
                                                     onChange={formik.handleChange}
                                                     onBlur={formik.handleBlur}
-                                                    value={formik.values.specialization}
+                                                    value={formik.values.issued_by}
                                                     type="text"
                                                     className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
                                                 />
-                                                {formik.touched.specialization && formik.errors.specialization ? (
-                                                    <div className="text-red-500 text-sm">{formik.errors.specialization}</div>
+                                                {formik.touched.issued_by && formik.errors.issued_by ? (
+                                                    <div className="text-red-500 text-sm">{formik.errors.issued_by}</div>
                                                 ) : null}
                                             </div>
-
-
-                                            <div>
-                                                <label
-                                                    className="text-gray-700 text-sm"
-                                                    htmlFor="institute"
-                                                >
-                                                    Institute
-                                                </label>
-                                                <input
-                                                    id="institute"
-                                                    name='institute'
-                                                    onChange={formik.handleChange}
-                                                    onBlur={formik.handleBlur}
-                                                    value={formik.values.institute}
-                                                    type="institute"
-                                                    className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
-                                                />
-                                                {formik.touched.institute && formik.errors.institute ? (
-                                                    <div className="text-red-500 text-sm">{formik.errors.institute}</div>
-                                                ) : null}
-                                            </div>
-
-
-
-
                                         </div>
 
                                         {error && (

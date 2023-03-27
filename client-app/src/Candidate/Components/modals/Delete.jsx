@@ -1,7 +1,7 @@
 import { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
-import { educationDelete, experienceDelete } from '../../../utils/Constants'
+import { educationDelete, experienceDelete, certificationDelete } from '../../../utils/Constants'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { changeCandidateProfile } from '../../../Redux/candidateProfileReducer'
@@ -22,6 +22,8 @@ export default function Delete({ onClose, id, context }) {
             api = experienceDelete(id)
         } else if (context == 'education') {
             api = educationDelete(id)
+        } else if (context == 'courseAnd_certification') {
+            api = certificationDelete(id)
         }
         axios.delete(api).then((res) => {
             console.log(res);

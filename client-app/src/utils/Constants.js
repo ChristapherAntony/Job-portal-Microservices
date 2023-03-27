@@ -22,11 +22,17 @@ export const deleteProfileImage = '/api/v1/profile/candidate/profile-picture';
 export const updateAbout = '/api/v1/profile/candidate/about';
 export const updateBio = '/api/v1/profile/candidate/bio';
 export const updatePersonalInfo = '/api/v1/profile/candidate/personal-info';
+
 export const experienceAdd  = `/api/v1/profile/candidate/work-experience`
 export const experienceDelete = (id) => `/api/v1/profile/candidate/work-experience/${id}`
 
 export const educationAdd  = '/api/v1/profile/candidate/education'
 export const educationDelete = (id) => `/api/v1/profile/candidate/education/${id}`
+
+export const certificationAdd  = '/api/v1/profile/candidate/course-certification'                 //post
+export const certificationUpdate = (id) => `/api/v1/profile/candidate/course-certification/${id}` //put
+export const certificationDelete = (id) => `/api/v1/profile/candidate/course-certification/${id}` //delete
+
 //----recruiter
 export const getRecruiterProfile = '/api/v1/profile/recruiter';
 export const quickProfileUpdateRecruiter = (id) => `/api/v1/profile/recruiter/${id}`
