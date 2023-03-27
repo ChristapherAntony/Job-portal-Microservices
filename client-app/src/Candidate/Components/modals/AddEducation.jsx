@@ -59,7 +59,7 @@ export default function AddEducation({ onClose }) {
     });
 
 
-
+      
 
     return (
         <Transition.Root show={open} as={Fragment}>
