@@ -213,17 +213,19 @@ module.exports = {
             if (user.is_blocked === true) {
                 return res.status(404).json({ errors: [{ msg: 'user blocked unable to perform this action' }] })
             }
+
+            const curriculum_vitaePath = req.files['curriculum_vitae'][0].path;
             // update the  curriculum_vitae
             const updatedUser = await Candidate.findByIdAndUpdate(
                 req.currentUser.id,
                 {
                     $set: {
-                        curriculum_vitae: req.body.curriculum_vitae
+                        curriculum_vitae: curriculum_vitaePath
                     }
                 },
                 { new: true }
             );
-            res.status(200).json({ message: 'User curriculum_vitae  updated successfully', curriculum_vitae: updatedUser.curriculum_vitae });
+            res.status(200).json({ message: 'User curriculum_vitae  updated successfully', user: updatedUser });
         } catch (error) {
             console.log(error);
             res.status(500).json({ errors: [{ msg: 'Server error' }] });

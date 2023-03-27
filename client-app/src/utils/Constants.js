@@ -19,9 +19,14 @@ export const quickExperienceUpdate = (id) => `/api/v1/profile/candidate/quick-ex
 
 export const updateProfileImage = '/api/v1/profile/candidate/profile-picture';
 export const deleteProfileImage = '/api/v1/profile/candidate/profile-picture';
+
 export const updateAbout = '/api/v1/profile/candidate/about';
 export const updateBio = '/api/v1/profile/candidate/bio';
 export const updatePersonalInfo = '/api/v1/profile/candidate/personal-info';
+
+export const updateCV = '/api/v1/profile/candidate/curriculum-vitae';  //patch
+export const deleteCV = '/api/v1/profile/candidate/curriculum-vitae';  //delete
+
 
 export const experienceAdd  = `/api/v1/profile/candidate/work-experience`
 export const experienceDelete = (id) => `/api/v1/profile/candidate/work-experience/${id}`

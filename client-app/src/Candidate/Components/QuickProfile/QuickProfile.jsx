@@ -32,12 +32,10 @@ function QuickProfile() {
     const handleFileChangeImg = (event) => {
         const selectedFile = event.target.files[0];
         setImageUrl(URL.createObjectURL(event.target.files[0]));
-        console.log(selectedFile, "image000000000000000000000000000000000");
         setImage(selectedFile)
     };
     const handleFileChangePdf = (event) => {
         const selectedFile = event.target.files[0];
-        console.log(selectedFile, "image000000000000000000000000000000000");
         setPdf(selectedFile)
     };
 
@@ -54,8 +52,6 @@ function QuickProfile() {
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
-            console.log("button clicked");
-            console.log(image,"and",pdf);
             const formData = new FormData();
             formData.append('user_name', values.user_name);
             formData.append('profile_image', image);
