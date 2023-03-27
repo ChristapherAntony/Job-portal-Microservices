@@ -3,18 +3,22 @@ import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import { experienceDelete } from '../../../utils/Constants'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { changeCandidateProfile } from '../../../Redux/candidateProfileReducer'
+
 export default function Delete({ onClose,id }) {
     const [open, setOpen] = useState(true)
-    const [error, setError] = useState("adsdsa")
+    const [error, setError] = useState('')
     const cancelButtonRef = useRef(null)
+    const dispatch = useDispatch();
+
     const handleClose = () => {
         setOpen(false)
         onClose()
     }
     const handleSubmit = () => {
-        console.log('handle submit');
         axios.delete(experienceDelete(id)).then((res) => {
-            console.log(res.data.user);
+            dispatch(changeCandidateProfile(res.data.user))
             setOpen(false)
             onClose()
         }).catch((err) => {
@@ -83,7 +87,7 @@ export default function Delete({ onClose,id }) {
                                         className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
                                         onClick={handleSubmit}
                                     >
-                                        Deactivate
+                                        Delete
                                     </button>
                                     <button
                                         type="button"
