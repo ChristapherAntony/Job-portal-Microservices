@@ -1,0 +1,409 @@
+/* @charset "UTF-8";
+@import url(https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap);
+
+*,
+::after,
+::before {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 0 solid #e5e7eb;
+    --tw-border-spacing-x: 0;
+    --tw-border-spacing-y: 0;
+    --tw-translate-x: 0;
+    --tw-translate-y: 0;
+    --tw-rotate: 0;
+    --tw-skew-x: 0;
+    --tw-skew-y: 0;
+    --tw-scale-x: 1;
+    --tw-scale-y: 1;
+    --tw-scroll-snap-strictness: proximity;
+    --tw-ring-offset-width: 0px;
+    --tw-ring-offset-color: #fff;
+    --tw-ring-color: rgb(59 130 246 / 0.5);
+    --tw-ring-offset-shadow: 0 0 #0000;
+    --tw-ring-shadow: 0 0 #0000;
+    --tw-shadow: 0 0 #0000;
+    --tw-shadow-colored: 0 0 #0000
+}
+
+::after,
+::before {
+    --tw-content: ''
+} */
+
+
+.outer{
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  -webkit-font-feature-settings: normal;
+  font-feature-settings: normal
+}
+
+
+
+
+.mycontainer {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 12px;
+  padding-left: 12px
+}
+
+@media (min-width:540px) {
+  .mycontainer {
+      max-width: 540px
+  }
+}
+
+@media (min-width:640px) {
+  .mycontainer {
+      max-width: 640px;
+      padding-right: 1rem;
+      padding-left: 1rem
+  }
+}
+
+@media (min-width:768px) {
+  .mycontainer {
+      max-width: 768px
+  }
+}
+
+@media (min-width:992px) {
+  .mycontainer {
+      max-width: 992px
+  }
+}
+
+@media (min-width:1024px) {
+  .mycontainer {
+      max-width: 1024px;
+      padding-right: 45px;
+      padding-left: 45px
+  }
+}
+
+@media (min-width:1280px) {
+  .mycontainer {
+      max-width: 1280px;
+      padding-right: 5rem;
+      padding-left: 5rem
+  }
+}
+
+@media (min-width:1536px) {
+  .mycontainer {
+      max-width: 1536px;
+      padding-right: 13rem;
+      padding-left: 13rem
+  }
+}
+
+
+.mycontainer {
+  position: relative
+}
+
+@media (min-width:1024px) {
+    .lg\:mycontainer {
+        width: 100%;
+        margin-right: auto;
+        margin-left: auto;
+        padding-right: 12px;
+        padding-left: 12px
+    }
+
+    @media (min-width:540px) {
+        .lg\:mycontainer {
+            max-width: 540px
+        }
+    }
+
+    @media (min-width:640px) {
+        .lg\:mycontainer {
+            max-width: 640px;
+            padding-right: 1rem;
+            padding-left: 1rem
+        }
+    }
+
+    @media (min-width:768px) {
+        .lg\:mycontainer {
+            max-width: 768px
+        }
+    }
+
+    @media (min-width:992px) {
+        .lg\:mycontainer {
+            max-width: 992px
+        }
+    }
+
+    @media (min-width:1024px) {
+        .lg\:mycontainer {
+            max-width: 1024px;
+            padding-right: 45px;
+            padding-left: 45px
+        }
+    }
+
+    @media (min-width:1280px) {
+        .lg\:mycontainer {
+            max-width: 1280px;
+            padding-right: 5rem;
+            padding-left: 5rem
+        }
+    }
+
+    @media (min-width:1536px) {
+        .lg\:mycontainer {
+            max-width: 1536px;
+            padding-right: 13rem;
+            padding-left: 13rem
+        }
+    }
+}
+
+.font-medium {
+    font-weight: 500 !important
+}
+
+.font-semibold {
+    font-weight: 600 !important
+}
+
+/* .text-sm {
+  font-size: .875rem !important;
+  line-height: 1.25rem !important
+} */
+.my-form-checkbox:checked {
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
+  border-color: transparent;
+  background-color: currentColor;
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat
+}
+
+@media not print {
+  .form-select::-ms-expand {
+      display: none
+  }
+
+  .my-form-checkbox::-ms-check {
+      color: transparent;
+      background: inherit;
+      border-color: inherit;
+      border-radius: inherit
+  }
+}
+
+.my-form-checkbox {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+ 
+  display: inline-block;
+  vertical-align: middle;
+  background-origin: border-box;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  height: 1em;
+  width: 1em;
+  color: #3b82f6
+}
+
+.my-form-checkbox:focus {
+  outline: 0;
+  border-color: #60a5fa
+}
+.my-form-checkbox,
+.my-form-radio {
+    background-color: transparent
+}
+
+.my-form-checkbox:checked,
+.my-form-radio:checked {
+    border-width: 0 !important
+}
+
+.my-form-checkbox:focus,
+.my-form-radio:focus {
+    border-color: inherit !important
+}
+
+
+.my-form-radio:checked {
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='3'/%3e%3c/svg%3e");
+  border-color: transparent;
+  background-color: currentColor;
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat
+}
+
+@media not print {
+  .my-form-radio::-ms-check {
+      color: transparent;
+      background: inherit;
+      border-color: inherit;
+      border-radius: inherit
+  }
+}
+
+.my-form-radio {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  display: inline-block;
+  vertical-align: middle;
+  background-origin: border-box;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  border-radius: 100%;
+  height: 1em;
+  width: 1em;
+  color: #3b82f6
+}
+
+.my-form-radio:focus {
+  outline: 0;
+  border-color: #60a5fa
+}
+
+
+
+.form-input {
+  height: 2.5rem;
+  width: 100%;
+  border-radius: .25rem;
+  border-width: 1px;
+  border-color: inherit;
+  background-color: transparent;
+  font-size: 14px;
+  outline: transparent solid 2px;
+  outline-offset: 2px;
+  padding: .5rem .75rem
+}
+
+
+.form-input:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(16 185 129 / var(--tw-border-opacity));
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  -webkit-box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+}
+
+.form-input.textarea {
+  height: 7rem
+}
+
+
+
+.form-input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    line-height: 1.5
+}
+
+.form-input::-webkit-input-placeholder {
+    color: #6b7280;
+    opacity: 1
+}
+
+.form-input::-moz-placeholder {
+    color: #6b7280;
+    opacity: 1
+}
+
+.form-input:-ms-input-placeholder {
+    color: #6b7280;
+    opacity: 1
+}
+
+.form-input::-ms-input-placeholder {
+    color: #6b7280;
+    opacity: 1
+}
+
+.form-input::placeholder {
+    color: #6b7280;
+    opacity: 1
+}
+
+.form-input:focus {
+    outline: 0;
+    border-color: #60a5fa
+}
+
+.form-select::-ms-expand {
+    color: #6b7280;
+    border: none
+}
+
+@media print and (-ms-high-contrast:active),
+print and (-ms-high-contrast:none) {
+    .form-select {
+        padding-right: .75rem
+    }
+}
+
+.form-select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236b7280'%3e%3cpath d='M15.3 9.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z'/%3e%3c/svg%3e");
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    
+    background-repeat: no-repeat;
+    background-color: #fff;
+    font-size: 1rem;
+    font-size: [object Object];
+    line-height: 1.5;
+    background-position: right .5rem center;
+    background-size: 1.5em 1.5em;
+    padding: .5rem 2.5rem .5rem .75rem
+}
+
+.form-select:focus {
+    outline: 0;
+    border-color: #60a5fa
+}
+
+.form-checkbox:checked {
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
+    border-color: transparent;
+    background-color: currentColor;
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat
+}
+
+@media not print {
+    .form-select::-ms-expand {
+        display: none
+    }
+
+    .form-checkbox::-ms-check {
+        color: transparent;
+        background: inherit;
+        border-color: inherit;
+        border-radius: inherit
+    }
+} 
