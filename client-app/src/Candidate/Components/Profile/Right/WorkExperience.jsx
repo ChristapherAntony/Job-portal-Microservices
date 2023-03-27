@@ -53,7 +53,7 @@ function WorkExperience() {
                   <h1 className='font-bold'>{exp.designation}</h1>
                   <span class="absolute top-0 right-0" onClick={handleClickEdit}>
                     <EditPenButton />
-                    {showModalDel && <Delete onClose={handleClose} id={exp._id} />}
+                    {showModalDel && <Delete onClose={handleClose} id={exp._id} context={'experience'} />}
                   </span>
                 </div>
 

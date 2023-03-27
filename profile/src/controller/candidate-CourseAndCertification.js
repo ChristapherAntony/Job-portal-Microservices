@@ -60,8 +60,8 @@ module.exports = {
             if (response.modifiedCount === 0) {
                 return res.status(200).json({ errors: [{ msg: 'requited courseAnd_certification details already deleted or not found' }] });
             }
-
-            return res.status(200).json({ message: 'courseAnd_certification details deleted successfully' });
+            const newUser = await Candidate.findOne({ _id: req.currentUser.id });
+            return res.status(200).json({ message: 'courseAnd_certification details deleted successfully', user: newUser });
 
         } catch (error) {
             console.log(error);
@@ -92,7 +92,7 @@ module.exports = {
                 },
                 { new: true }
             );
-            if(!education) res.status(201).json({ message: 'courseAnd_certification did not found try another id' }); 
+            if (!education) res.status(201).json({ message: 'courseAnd_certification did not found try another id' });
 
             return res.status(200).json({ message: 'education updated successfully', courseAnd_certification: education.courseAnd_certification });
         } catch (error) {

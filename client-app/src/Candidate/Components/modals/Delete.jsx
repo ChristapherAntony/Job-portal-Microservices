@@ -1,12 +1,12 @@
 import { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
-import { experienceDelete } from '../../../utils/Constants'
+import { educationDelete, experienceDelete } from '../../../utils/Constants'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { changeCandidateProfile } from '../../../Redux/candidateProfileReducer'
 
-export default function Delete({ onClose,id }) {
+export default function Delete({ onClose, id, context }) {
     const [open, setOpen] = useState(true)
     const [error, setError] = useState('')
     const cancelButtonRef = useRef(null)
@@ -17,7 +17,14 @@ export default function Delete({ onClose,id }) {
         onClose()
     }
     const handleSubmit = () => {
-        axios.delete(experienceDelete(id)).then((res) => {
+        let api = null
+        if (context == 'experience') {
+            api = experienceDelete(id)
+        } else if (context == 'education') {
+            api = educationDelete(id)
+        }
+        axios.delete(api).then((res) => {
+            console.log(res);
             dispatch(changeCandidateProfile(res.data.user))
             setOpen(false)
             onClose()
@@ -69,8 +76,7 @@ export default function Delete({ onClose,id }) {
                                             </Dialog.Title>
                                             <div className="mt-2">
                                                 <p className="text-sm text-gray-500">
-                                                    Are you sure you want to Delete this work experience? All of your data will be permanently
-                                                    removed. This action cannot be undone.
+                                                    {`Are you sure you want to Delete this work ${context}? All of your data will be permanently removed. This action cannot be undone.`}
                                                 </p>
                                             </div>
                                         </div>

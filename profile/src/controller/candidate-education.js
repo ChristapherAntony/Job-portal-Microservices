@@ -18,9 +18,9 @@ module.exports = {
 
             const newEducation = {
                 _id: new mongoose.Types.ObjectId(), // generate a new ObjectId
-                qualification:req.body.qualification,
-                specialization:req.body.specialization,
-                institute:req.body.institute
+                qualification: req.body.qualification,
+                specialization: req.body.specialization,
+                institute: req.body.institute
             };
 
 
@@ -65,8 +65,8 @@ module.exports = {
             if (response.modifiedCount === 0) {
                 return res.status(200).json({ errors: [{ msg: 'requited educational details already deleted or not found' }] });
             }
-
-            return res.status(200).json({ message: 'educational details deleted successfully' });
+            const newUser = await Candidate.findOne({ _id: req.currentUser.id });
+            return res.status(200).json({ message: 'educational details deleted successfully',user:newUser });
 
         } catch (error) {
             console.log(error);
@@ -94,12 +94,12 @@ module.exports = {
                         'education.$.qualification': req.body?.qualification,
                         'education.$.specialization': req.body?.specialization,
                         'education.$.institute': req.body?.institute,
-                        
+
                     }
                 },
                 { new: true }
             );
-            if(!education) res.status(201).json({ message: 'educational details did not found try another id' }); 
+            if (!education) res.status(201).json({ message: 'educational details did not found try another id' });
             return res.status(200).json({ message: 'education updated successfully', education: education.education });
         } catch (error) {
             console.log(error);
