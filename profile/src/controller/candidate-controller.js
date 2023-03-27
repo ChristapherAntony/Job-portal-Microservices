@@ -18,6 +18,7 @@ module.exports = {
             if (user.is_blocked === true) {
                 return res.status(404).json({ errors: [{ msg: 'user blocked unable to perform this action' }] })
             }
+            console.log(user);
             res.status(200).json(user)
         } catch (error) {
             console.error(error);

@@ -35,6 +35,7 @@ module.exports = {
                 { $push: { work_experience: newWorkExperience } },
                 { new: true }
             );
+            console.log('6666666666666666666666666');
             console.log(updatedUser);
 
             res.status(200).json({ message: 'Work experience added successfully', user: updatedUser });
@@ -123,8 +124,8 @@ module.exports = {
             if (response.modifiedCount === 0) {
                 return res.status(200).json({ errors: [{ msg: 'requisted work experience already deleted or not found' }] });
             }
-
-            return res.status(200).json({ message: 'Work experience deleted successfully' });
+            const newUser = await Candidate.findOne({ _id: req.currentUser.id });
+            return res.status(200).json({ message: 'Work experience deleted successfully',user:newUser });
 
         } catch (error) {
             console.log(error);

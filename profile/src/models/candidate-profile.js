@@ -210,9 +210,25 @@ candidateSchema.set('toJSON', {
             const dateOfBirth = new Date(ret.date_of_birth);
             const formattedDate = `${dateOfBirth.getDate().toString().padStart(2, '0')}-${(dateOfBirth.getMonth() + 1).toString().padStart(2, '0')}-${dateOfBirth.getFullYear().toString()}`;
             ret.date_of_birth = formattedDate;
-        }
+        };
+        if (ret.work_experience) {
+            ret.work_experience.forEach((exp) => {
+                if (exp.start_date) {
+                    const startDate = new Date(exp.start_date);
+                    const formattedStartDate = `${startDate.getDate().toString().padStart(2, '0')}-${(startDate.getMonth() + 1).toString().padStart(2, '0')}-${startDate.getFullYear().toString()}`;
+                    exp.start_date = formattedStartDate;
+                };
+                if (exp.end_date) {
+                    const endDate = new Date(exp.end_date);
+                    const formattedEndDate = `${endDate.getDate().toString().padStart(2, '0')}-${(endDate.getMonth() + 1).toString().padStart(2, '0')}-${endDate.getFullYear().toString()}`;
+                    exp.end_date = formattedEndDate;
+                };
+            });
+        };
+
     }
 });
+
 
 
 

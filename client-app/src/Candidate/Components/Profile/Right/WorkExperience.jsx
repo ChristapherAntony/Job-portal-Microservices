@@ -1,14 +1,39 @@
-import React from 'react'
-import axios from 'axios'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { changeCandidateProfile } from '../../../../Redux/candidateProfileReducer'
+import EditPenButton from '../../buttons/EditPenButton'
+import AddExperience from '../../modals/AddExperience/AddExperience'
+import Delete from '../../modals/Delete'
 function WorkExperience() {
   const profile = useSelector((state) => state.candidateprofile)
-  
+
+  const [showModal, setShowModal] = useState(false);
+  const handleClickAdd = () => {
+    setShowModal(true);
+  };
+  const [showModalDel, setShowModalDel] = useState(false);
+  const handleClickEdit = () => {
+    setShowModalDel(true);
+  };
+
+
+
+
+
+  const handleClose = () => {
+    setShowModal(false);
+    setShowModalDel(false)
+  };
+
   const dispatch = useDispatch()
   return (
     <div className='bg-white rounded-md px-5 py-5'>
-      <h1 className='pro-h-right'>Work Experience</h1>
+      <div class="relative">
+        <h1 className='pro-h-right'>Work Experience</h1>
+        <span class="absolute top-0 right-0 text-blue-400 font-bold hover:text-lightDarkBlue cursor-pointer" onClick={handleClickAdd}>
+          add +
+        </span>
+      </div>
+      {showModal && <AddExperience onClose={handleClose} />}
       <hr className="h-px my-4 bg-gray-200 border-0" />
 
 
@@ -24,7 +49,14 @@ function WorkExperience() {
             </div>
 
             <div className="details col-span-11  pro-text space-y-2">
-              <h1 className='font-bold'>{exp.designation}</h1>
+              <div class="relative">
+                <h1 className='font-bold'>{exp.designation}</h1>
+                <span class="absolute top-0 right-0" onClick={handleClickEdit}>
+                  <EditPenButton />
+                  {showModalDel && <Delete onClose={handleClose} id={exp._id} />}
+                </span>
+              </div>
+
               <span>{exp.company_name}</span>  <span>{exp.location}</span>
               {exp.current_status ? (
                 <div>

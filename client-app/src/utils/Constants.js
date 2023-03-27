@@ -22,7 +22,8 @@ export const deleteProfileImage = '/api/v1/profile/candidate/profile-picture';
 export const updateAbout = '/api/v1/profile/candidate/about';
 export const updateBio = '/api/v1/profile/candidate/bio';
 export const updatePersonalInfo = '/api/v1/profile/candidate/personal-info';
-
+export const experienceAdd  = `/api/v1/profile/candidate/work-experience`
+export const experienceDelete = (id) => `/api/v1/profile/candidate/work-experience/${id}`
 //----recruiter
 export const getRecruiterProfile = '/api/v1/profile/recruiter';
 export const quickProfileUpdateRecruiter = (id) => `/api/v1/profile/recruiter/${id}`
