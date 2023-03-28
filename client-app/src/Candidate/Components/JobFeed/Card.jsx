@@ -28,7 +28,7 @@ function Card({ data }) {
                     <div className="ltr:ml-3 rtl:mr-3">
                         <a
                             href="job-detail-three.html"
-                            className="inline-block text-[16px] font-semibold hover:text-emerald-600 transition-all duration-500 ltr:mr-1 rtl:ml-1"
+                            className="inline-block text-[16px] font-semibold hover:text-blue-600 transition-all duration-500 ltr:mr-1 rtl:ml-1"
                         >
                             {data.job_title}
                         </a>
@@ -36,7 +36,7 @@ function Card({ data }) {
                             {formattedDate}
                         </span>
                         <div className='space-x-3'>
-                            <span className="bg-emerald-600/10 inline-block text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full ltr:mr-1 rtl:ml-1">
+                            <span className="bg-blue-600/10 inline-block text-blue-600 text-xs px-2.5 py-0.5 font-semibold rounded-full ltr:mr-1 rtl:ml-1">
                                 {data.employment_type}
                             </span>
                             <span className="text-sm font-medium inline-block ltr:mr-1 rtl:ml-1">
@@ -95,14 +95,14 @@ function Card({ data }) {
                 </div>
                 <a
                     href="job-apply.html"
-                    className="btn btn-sm rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto"
+                    className="btn btn-sm rounded-md bg-blue-600 hover:bg-blue-700 border-blue-600 hover:border-blue-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto"
                 >
                     Apply Now
                 </a>
             </div>
             <a
                 href="job-list-four.html"
-                className="btn btn-icon rounded-full bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white absolute top-0 right-0 m-3"
+                className="btn btn-icon rounded-full bg-blue-600/5 hover:bg-blue-600 border-blue-600/10 hover:border-blue-600 text-blue-600 hover:text-white absolute top-0 right-0 m-3"
             >  bookmark
                 <i data-feather="bookmark" className="h-4 w-4" />
             </a>

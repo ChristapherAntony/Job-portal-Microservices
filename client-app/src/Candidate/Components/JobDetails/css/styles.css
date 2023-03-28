@@ -43,7 +43,10 @@
   font-feature-settings: normal
 }
 
-
+.myList{
+    list-style: disc;
+  margin-left: 1rem;
+}
 
 
 .mycontainer {

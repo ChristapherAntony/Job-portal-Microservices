@@ -45,12 +45,12 @@ function Filter() {
                                     <label className="inline-flex items-center">
                                         <input
                                             type="checkbox"
-                                            className="my-form-checkbox border border-slate-100  text-emerald-600 rounded w-4 h-4"
+                                            className="my-form-checkbox border border-slate-100  text-blue-600 rounded w-4 h-4"
                                             defaultChecked=""
                                         />
                                         <span className="ml-2 text-slate-400">Full Time</span>
                                     </label>
-                                    <span className="bg-emerald-600/10 text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full h-5">
+                                    <span className="bg-blue-600/10 text-blue-600 text-xs px-2.5 py-0.5 font-semibold rounded-full h-5">
                                         3
                                     </span>
                                 </div>
@@ -58,11 +58,11 @@ function Filter() {
                                     <label className="inline-flex items-center">
                                         <input
                                             type="checkbox"
-                                            className="my-form-checkbox border border-slate-100  text-emerald-600 rounded w-4 h-4"
+                                            className="my-form-checkbox border border-slate-100  text-blue-600 rounded w-4 h-4"
                                         />
                                         <span className="ml-2 text-slate-400">Part Time</span>
                                     </label>
-                                    <span className="bg-emerald-600/10 text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full h-5">
+                                    <span className="bg-blue-600/10 text-blue-600 text-xs px-2.5 py-0.5 font-semibold rounded-full h-5">
                                         7
                                     </span>
                                 </div>
@@ -70,11 +70,11 @@ function Filter() {
                                     <label className="inline-flex items-center">
                                         <input
                                             type="checkbox"
-                                            className="my-form-checkbox border border-slate-100  text-emerald-600 rounded w-4 h-4"
+                                            className="my-form-checkbox border border-slate-100  text-blue-600 rounded w-4 h-4"
                                         />
                                         <span className="ml-2 text-slate-400">Freelancing</span>
                                     </label>
-                                    <span className="bg-emerald-600/10 text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full h-5">
+                                    <span className="bg-blue-600/10 text-blue-600 text-xs px-2.5 py-0.5 font-semibold rounded-full h-5">
                                         4
                                     </span>
                                 </div>
@@ -82,11 +82,11 @@ function Filter() {
                                     <label className="inline-flex items-center">
                                         <input
                                             type="checkbox"
-                                            className="my-form-checkbox border border-slate-100  text-emerald-600 rounded w-4 h-4"
+                                            className="my-form-checkbox border border-slate-100  text-blue-600 rounded w-4 h-4"
                                         />
                                         <span className="ml-2 text-slate-400">Fixed Price</span>
                                     </label>
-                                    <span className="bg-emerald-600/10 text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full h-5">
+                                    <span className="bg-blue-600/10 text-blue-600 text-xs px-2.5 py-0.5 font-semibold rounded-full h-5">
                                         6
                                     </span>
                                 </div>
@@ -94,11 +94,11 @@ function Filter() {
                                     <label className="inline-flex items-center">
                                         <input
                                             type="checkbox"
-                                            className="my-form-checkbox border border-slate-100  text-emerald-600 rounded w-4 h-4"
+                                            className="my-form-checkbox border border-slate-100  text-blue-600 rounded w-4 h-4"
                                         />
                                         <span className="ml-2 text-slate-400">Remote</span>
                                     </label>
-                                    <span className="bg-emerald-600/10 text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full h-5">
+                                    <span className="bg-blue-600/10 text-blue-600 text-xs px-2.5 py-0.5 font-semibold rounded-full h-5">
                                         7
                                     </span>
                                 </div>
@@ -106,13 +106,13 @@ function Filter() {
                                     <label className="inline-flex items-center">
                                         <input
                                             type="checkbox"
-                                            className="my-form-checkbox border border-slate-100  text-emerald-600 rounded w-4 h-4"
+                                            className="my-form-checkbox border border-slate-100  text-blue-600 rounded w-4 h-4"
                                         />
                                         <span className="ml-2 text-slate-400">
                                             Hourly Basis
                                         </span>
                                     </label>
-                                    <span className="bg-emerald-600/10 text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full h-5">
+                                    <span className="bg-blue-600/10 text-blue-600 text-xs px-2.5 py-0.5 font-semibold rounded-full h-5">
                                         44
                                     </span>
                                 </div>
@@ -125,7 +125,7 @@ function Filter() {
                                     <label className="inline-flex items-center">
                                         <input
                                             type="radio"
-                                            className="my-form-radio text-emerald-600 border border-slate-100 "
+                                            className="my-form-radio text-blue-600 border border-slate-100 "
                                             name="radio-colors"
                                             defaultValue={1}
                                             defaultChecked=""
@@ -137,7 +137,7 @@ function Filter() {
                                     <label className="inline-flex items-center">
                                         <input
                                             type="radio"
-                                            className="my-form-radio text-emerald-600 border border-slate-100 "
+                                            className="my-form-radio text-blue-600 border border-slate-100 "
                                             name="radio-colors"
                                             defaultValue={2}
                                         />
@@ -148,7 +148,7 @@ function Filter() {
                                     <label className="inline-flex items-center">
                                         <input
                                             type="radio"
-                                            className="my-form-radio text-emerald-600 border border-slate-100 "
+                                            className="my-form-radio text-blue-600 border border-slate-100 "
                                             name="radio-colors"
                                             defaultValue={3}
                                         />
@@ -162,7 +162,7 @@ function Filter() {
                         <div>
                             <input
                                 type="submit"
-                                className="btn bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md w-full"
+                                className="btn bg-blue-600 hover:bg-blue-700 border-blue-600 hover:border-blue-700 text-white rounded-md w-full"
                                 defaultValue="Apply Filter"
                             />
                         </div>

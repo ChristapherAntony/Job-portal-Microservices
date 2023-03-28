@@ -24,22 +24,28 @@ const recruiterSchema = new mongoose.Schema({
         type: String
     },
     company_name: {
-        type: String
+        type: String,
     },
     company_logo: {
-        type: String
+        type: String,
     },
     company_website: {
-        type: String
+        type: String,
     },
     company_email: {
-        type: String
+        type: String,
     },
-    company_address: {
-        type: String
+    company_location: {
+        type: String,
+    },
+    company_state: {
+        type: String,
+    },
+    company_country: {
+        type: String,
     },
     company_description: {
-        type: String
+        type: String,
     },
     createdAt: {
         type: Date,

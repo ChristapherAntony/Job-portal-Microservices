@@ -7,18 +7,6 @@ import './css/styles.css'
 
 
 
-
-const products = [
-    {
-        id: 1,
-        name: 'Basic Tee',
-        href: '#',
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
-        imageAlt: "Front of men's Basic Tee in black.",
-        price: '$35',
-        color: 'Black',
-    },
-];
 const jobs=[
     
     {
@@ -43,7 +31,7 @@ const jobs=[
         ],
         "experience_required": "1 year",
         "education_required": [
-            "bcom"
+            "bcom","mcom",
         ],
         "location": "Mumbai",
         "employment_type": "full time",
@@ -61,7 +49,7 @@ const productsRepeated = jobs.flatMap(product => Array(20).fill(product));
 
 export default function JobFeed() {
     return (
-        <div className="outer">
+        <div className="outer1">
 
             <section className="relative  md:py-10 py-16">
                 <div className="mycontainer ">
