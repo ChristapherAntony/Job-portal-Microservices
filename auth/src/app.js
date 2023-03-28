@@ -17,6 +17,9 @@ app.use(xss()); //  xss-clean
 app.use(authorize);  
 app.use(authenticationRoutes);
 
+   
+
+
 // Error handling middleware
 
 app.use((err, req, res, next) => {

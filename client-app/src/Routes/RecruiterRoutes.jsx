@@ -11,10 +11,10 @@ function RecruiterRoutes() {
         <Routes>
             <Route path='signin' element={<SignInPageRecruiter />} />
             <Route path='signup' element={<SiginUpPageRecruiter />} />
-
+            <Route path='quick-profile/:id' element={<QuickProfileRecruiter />} />
+            
             <Route element={<RequireAuth allowedRole={'recruiter'} />}>
                 <Route path='/' element={<HomePageRecruiter />} />
-                <Route path='quick-profile/:id' element={<QuickProfileRecruiter />} />
                 <Route path='post-job' element={<JobPostPage />} />
                 <Route path='jobs' element={<JobsAndResponsePage />} />
             </Route>

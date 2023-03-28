@@ -103,12 +103,12 @@ export default function SignIn() {
               Sign In
             </Button>
             <Grid container>
-              <Grid item xs style={{ cursor: 'pointer' }} onClick={() => navigate('#')} >
+              <Grid item xs style={{ cursor: 'pointer' }} onClick={() => navigate('/candidate/email-verification')} >
                 <Link variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
-              <Grid item style={{ cursor: 'pointer' }} onClick={() => navigate('/recruiter/signup')}>
+              <Grid item style={{ cursor: 'pointer' }} onClick={() => navigate('/candidate/signup')}>
                 <Link variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>

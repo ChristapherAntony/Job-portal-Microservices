@@ -3,6 +3,7 @@ import Card from './Card'
 
 
 function Jobs({ jobs }) {
+    console.log(jobs,"from jobs card");
     return (
         <div className="lg:col-span-8 md:col-span-6">
             <div className="grid grid-cols-1 gap-[30px]">

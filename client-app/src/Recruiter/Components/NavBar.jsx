@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import Logo from './Logo/Logo'
 
 import React, { useEffect, useState } from 'react'
-import { currentUser } from '../../utils/Constants';
+import { currentUser, signOut } from '../../utils/Constants';
 import axios from  'axios'
 
 
@@ -105,6 +105,7 @@ function NavBar() {
                                     <Link to={'/recruiter'} className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0  hover:bg-gray-100 ">Home </Link>
                                     <Link to={'#'} className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0  hover:bg-gray-100 ">Hire</Link>
                                     <Link to={'#'} className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0  hover:bg-gray-100 ">Skill test</Link>
+                                    <button onClick={logout} className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0  hover:bg-gray-100 ">Logout</button>
                                     {/* <a href="#" className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0  hover:bg-gray-100 ">Experts</a> */}
 
 

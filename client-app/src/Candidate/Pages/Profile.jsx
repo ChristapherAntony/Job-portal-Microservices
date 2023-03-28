@@ -12,6 +12,7 @@ function Profile() {
   //const [profileData, setProfileData] = useState({});
 
   useEffect(() => {
+
     axios.get(getProfile)
       .then(response => {
         dispatch(changeCandidateProfile(response.data))
@@ -19,6 +20,7 @@ function Profile() {
       .catch(error => {
         console.error(error);
       });
+
   }, [dispatch]);
 
 

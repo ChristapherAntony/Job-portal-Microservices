@@ -1,17 +1,20 @@
 import React from 'react'
 
 import moment from 'moment'
+import { useNavigate } from 'react-router-dom';
 
 
 
 function Card({ data }) {
-
+   const navigate=useNavigate()
+    const handleClick=()=>{
+        navigate(`/job-details/${data._id}`)
+    }
 
 
     const jobPostedDate = moment(data.created_at);
-    const currentDate = moment();
-
-    const daysAgo = currentDate.diff(jobPostedDate, 'days');
+    // const currentDate = moment();
+    // const daysAgo = currentDate.diff(jobPostedDate, 'days');
     const formattedDate = jobPostedDate.fromNow(); // E.g. "2 days ago"
 
     return (
@@ -25,7 +28,7 @@ function Card({ data }) {
                             alt=""
                         />
                     </div>
-                    <div className="ltr:ml-3 rtl:mr-3">
+                    <div className="ltr:ml-3 rtl:mr-3 cursor-pointer" onClick={handleClick}>
                         <a
                             href="job-detail-three.html"
                             className="inline-block text-[16px] font-semibold hover:text-blue-600 transition-all duration-500 ltr:mr-1 rtl:ml-1"

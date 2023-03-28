@@ -61,7 +61,13 @@ function OtpVerify() {
 
         axios .post(otpVerify, { email, otp }).then((res) => {
                 console.log(res);
-                navigate('/candidate/home'); // Navigate to home page
+                if(res.role==='candidate'){
+                    navigate('/candidate/home'); // Navigate to home page
+                }else if(res.role==='recruiter'){
+                    navigate('/recruiter/home'); // Navigate to home page
+                }else{
+                    navigate('/'); // Navigate to home page
+                }
             })
             .catch((err) => {
                 console.log(err);
@@ -76,7 +82,7 @@ function OtpVerify() {
     return (
         <div className='signup' >
             <NavBar />
-            <div className='outerbox'>
+            <div className='outerbox m-auto'>
                 <div className=''>
                     <ThemeProvider theme={theme}>
                         <Container component="main" maxWidth="xs">

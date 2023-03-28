@@ -1,17 +1,12 @@
 import * as React from 'react';
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
 import Axios from 'axios';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -34,7 +29,6 @@ function SignUp() {
         },
         validationSchema: validationSchema, // use the imported validationSchema
         onSubmit: (values) => {
-
             const body = {
                 user_name: values.fullName,
                 email: values.email,
@@ -44,10 +38,7 @@ function SignUp() {
                 role: 'candidate'
             }
             Axios.post(signUp, body).then(res => {
-                console.log(res); // Handle successful response
-
-                navigate(`/candidate/quick-profile/${res._id}`);
-
+                navigate(`/candidate/quick-profile/${res.data._id}`);
             }).catch((err) => {
                 console.log(err.response.data.errors[0].msg);
                 setError(err.response.data.errors[0].msg); // Set the error state

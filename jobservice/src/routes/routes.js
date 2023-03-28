@@ -1,5 +1,5 @@
 const express = require('express');
-const { getJobs, postJob, updateJob,getPostedJobs } = require('../controller/jobs-controller');
+const { getJobs, postJob, updateJob,getPostedJobs, getJobDetails } = require('../controller/jobs-controller');
 const { validatePost } = require('../middleware/job-validator');
 const router = express.Router();
 const { checkAuthorization } = require('../middleware/check-authorization');
@@ -8,6 +8,7 @@ const { checkAuthorization } = require('../middleware/check-authorization');
 //routes
 
 router.get('/api/v1/jobs', getJobs);
+router.get('/api/v1/jobs/:id', getJobDetails);
 
 //recruiter related routes
 router.post('/api/v1/jobs',checkAuthorization('recruiter'),validatePost,postJob)

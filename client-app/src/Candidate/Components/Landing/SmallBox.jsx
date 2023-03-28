@@ -1,8 +1,5 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
-import { candidateImage, recruiterImage } from '../../assets/images'
-import Candidate from './small-box/Candidate'
-import Recruiter from './small-box/Recruiter'
 
 function SmallBox() {
     const navigate = useNavigate();

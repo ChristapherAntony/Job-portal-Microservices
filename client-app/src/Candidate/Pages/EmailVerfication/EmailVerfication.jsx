@@ -1,6 +1,5 @@
 
 import React, { useState } from 'react';
-import Footer from '../../Components/Footer/Footer';
 import NavBar from '../../Components/NavBar/NavBar';
 import './EmailVerfication.scss'
 import Button from '@mui/material/Button';
@@ -37,14 +36,12 @@ function EmailVerfication() {
                 setError(null);
             }, 8000);
         })
-
         
-
     };
     return (
         <div className='signup' >
             <NavBar />
-            <div className='outerbox'>
+            <div className='outerbox m-auto'>
                 <div className=''>
                     <ThemeProvider theme={theme}>
                         <Container component="main" maxWidth="xs">

@@ -7,7 +7,7 @@ const { UserCreatedPublisher } = require('../events/publisher/user-created-publi
 const { natsWrapper } = require('../nats-wrapper');
 const { sendOTP } = require('../middleware/otp');
 const { OTP } = require("../models/otp");
-const { transporter } = require('../config/nodeMailer');  
+const { transporter } = require('../config/nodeMailer');
 
 module.exports = {
     signup: async (req, res) => {
@@ -53,13 +53,8 @@ module.exports = {
             }
         }
     },
-
-
-
-
-
     signIn: async (req, res) => {
-        
+
         try {
             const { email, password } = req.body;
             // // Check for validation errors
@@ -68,7 +63,7 @@ module.exports = {
             // find user by email
             const existingUser = await User.findOne({ email });
             if (!existingUser) return res.status(404).json({ errors: [{ msg: 'Invalid credentials' }] });
-           
+
             if (existingUser.is_blocked === true) return res.status(404).json({ errors: [{ msg: 'Unable to signin user is blocked ' }] });
 
             // password check
@@ -95,7 +90,7 @@ module.exports = {
     },
     current: async (req, res) => {
         try {
-           
+
             //check for user authorized
             if (!req.currentUser) {
                 return res.status(404).json({ errors: [{ msg: 'not authorized' }] })
@@ -155,9 +150,7 @@ module.exports = {
         try {
             const { email, otp } = req.body;
             const existingUser = await User.findOne({ email });
-            const all = await OTP.find()
 
-           
             if (!existingUser) {
                 return res.status(404).json({ errors: [{ msg: 'Invalid email address! User not registered' }] });
             }
@@ -179,6 +172,7 @@ module.exports = {
 
             console.log(`OTP verified for ${email}: ${otp}`);
             // Generate JWT
+
             const userJwt = jwt.sign(
                 { id: existingUser._id, email: existingUser.email, role: existingUser.role },
                 process.env.JWT_KEY,

@@ -56,8 +56,11 @@ export const viewApplicationByStatus = '/api/v1/admin/recruiter-applications-by-
 export const applicationDetails = (id) => `/api/v1/admin/recruiter-applications/${id}`;
 export const recruiterVerifyUrl = (id, action) => `/api/v1/admin/recruiter-verify/${id}/${action}`;
 // Jobs services
-export const postJob = '/api/v1/jobs';
-export const jobPosted = '/api/v1/jobs/posted';
+export const postJob = '/api/v1/jobs';                    //post all
+export const jobPosted = '/api/v1/jobs/posted';           //get all
+export const jobDetails =(id)=> `/api/v1/jobs/${id}`;     //get all
+
+
 
 
 

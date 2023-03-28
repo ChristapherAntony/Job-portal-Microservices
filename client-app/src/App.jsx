@@ -21,7 +21,7 @@ function App() {
           <Routes>
             <Route path='/' element={<LandingPage />} />
             <Route path='/jobfeed' element={<JobFeedPage />} />
-            <Route path='/job-details' element={<JobDetailsPage />} />
+            <Route path='/job-details/:id' element={<JobDetailsPage />} />
             <Route path="/unauthorized" element={<Unauthorized />} />
             <Route path='/candidate/*' element={<CandidateRoutes />} />
             <Route path='/admin/*' element={<AdminRoutes />} />

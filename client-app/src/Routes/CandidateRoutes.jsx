@@ -13,13 +13,13 @@ function CandidateRoutes() {
 
       <Route path='signup' element={<SignUpPage />} />
       <Route path='signin' element={<SignInPage />} />
+      <Route path='email-verification' element={<EmailVerfication />} />
+      <Route path='otp/:email' element={<OtpVerify />} />
+      <Route path='quick-profile/:id' element={<ProfileQuickUpdate />} />
+      <Route path='quick-experience/:id' element={<AddWorkExp />} />
 
       <Route element={<RequireAuth allowedRole={'candidate'} />} >
         <Route path='/' element={<HomePage />} />
-        <Route path='quick-profile/:id' element={<ProfileQuickUpdate />} />
-        <Route path='quick-experience/:id' element={<AddWorkExp />} />
-        <Route path='email-verification' element={<EmailVerfication />} />
-        <Route path='otp/:email' element={<OtpVerify />} />
         <Route path='profile' element={<Profile />} />
       </Route>
       <Route path='*' element={<NotFoundPage />} />

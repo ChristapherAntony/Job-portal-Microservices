@@ -39,6 +39,7 @@ function SignUp() {
                 role: 'recruiter'
             }
             Axios.post(signUp, body).then(res => {
+              
                 navigate(`/recruiter/quick-profile/${res.data._id}`);
 
             }).catch((err) => {

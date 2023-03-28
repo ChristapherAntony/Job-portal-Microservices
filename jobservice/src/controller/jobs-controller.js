@@ -10,10 +10,28 @@ module.exports = {
             const jobs = await Job.find({})
                 .populate({
                     path: 'recruiter',
-                    select: '-_id user_name email phone_number current_position company_name company_logo company_website company_email location company_description'
+                    select: '-_id user_name email phone_number current_position company_name company_logo company_country company_country company_website company_email location company_description'
                 });
             res.status(200).json(jobs);
 
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ errors: [{ msg: 'Server error' }] });
+        }
+    },
+    getJobDetails: async (req, res) => {
+        try {
+            const job = await Job.findOne({ _id: req.params.id })
+                .populate({
+                    path: 'recruiter',
+                    select: '-_id user_name email phone_number current_position company_name company_logo company_website company_email location company_description'
+                });
+
+            if (!job) {
+                return res.status(404).json({ errors: [{ msg: 'Job not found' }] });
+            }
+
+            res.status(200).json(job);
         } catch (error) {
             console.error(error);
             res.status(500).json({ errors: [{ msg: 'Server error' }] });
