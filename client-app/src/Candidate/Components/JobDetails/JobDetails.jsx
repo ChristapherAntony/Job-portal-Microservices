@@ -1,6 +1,10 @@
 import React from 'react'
 import './css/styles.css'
+
+
+
 function JobDetails() {
+
     return (
         <div className='outer'>
             <section className="bg-slate-50  md:py-24 py-16">
