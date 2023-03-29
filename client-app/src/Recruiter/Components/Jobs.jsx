@@ -2,9 +2,14 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { jobPosted } from '../../utils/Constants';
 import { useNavigate } from 'react-router-dom';
+import { VIEW_APPLICATOIONS } from '../../utils/ConstantRoutes';
 function Jobs() {
     const [jobs, setJobs] = useState([])
     const navigate = useNavigate()
+
+    const handleClick=(id)=>{
+        navigate(VIEW_APPLICATOIONS(id))
+    }
 
     useEffect(() => {
         axios.get(jobPosted)
@@ -74,7 +79,7 @@ function Jobs() {
                     </div> */}
                     <div className="flex items-center mt-4 gap-x-3">
 
-                        <button onClick={()=>navigate('/recruiter/post-job')} className="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-blue-500 rounded-lg shrink-0 sm:w-auto gap-x-2 hover:bg-blue-600 ">
+                        <button onClick={() => navigate('/recruiter/post-job')} className="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-blue-500 rounded-lg shrink-0 sm:w-auto gap-x-2 hover:bg-blue-600 ">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -118,37 +123,58 @@ function Jobs() {
 
                                                 </button>
                                             </th>
-                                            <th
-                                                scope="col"
-                                                className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 "
-                                            >
-                                                Status
-                                            </th>
+                                           
                                             <th
                                                 scope="col"
                                                 className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 "
                                             >
                                                 Vacancy
                                             </th>
+                                            <th
+                                                scope="col"
+                                                className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 "
+                                            >
+                                                Applications
+                                            </th>
+                                            <th
+                                                scope="col"
+                                                className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 "
+                                            >
+                                                Hired
+                                            </th>
+                                            <th
+                                                scope="col"
+                                                className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 "
+                                            >
+                                                Rejected
+                                            </th>
+                                           
 
 
                                         </tr>
                                     </thead>
-                                    <tbody className="bg-white divide-y divide-gray-200 ">
+                                    <tbody className="bg-white divide-y divide-gray-200 cursor-pointer " >
                                         {jobs?.map((jobs, index) => {
                                             return (
-                                                <tr key={index}>
+                                                <tr key={index} onClick={()=>handleClick(jobs._id)}>
                                                     <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
                                                         {index}
                                                     </td>
                                                     <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
                                                         {jobs.job_title}
                                                     </td>
+                                                   
                                                     <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
-                                                            active
+                                                        {jobs.available_positions}
                                                     </td>
                                                     <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
-                                                    {jobs.available_positions}
+                                                        {jobs.number_applied}
+                                                    </td>
+                                                    <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
+                                                        {jobs.number_hired}
+                                                    </td>
+                                                    <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
+                                                        {jobs.number_rejected}
                                                     </td>
 
                                                 </tr>

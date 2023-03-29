@@ -30,7 +30,7 @@ function Card({ data }) {
                     </div>
                     <div className="ltr:ml-3 rtl:mr-3 cursor-pointer" onClick={handleClick}>
                         <a
-                            href="job-detail-three.html"
+                            
                             className="inline-block text-[16px] font-semibold hover:text-blue-600 transition-all duration-500 ltr:mr-1 rtl:ml-1"
                         >
                             {data.job_title}

@@ -55,10 +55,12 @@ export const unblockRecruiters = (id) => `/api/v1/admin/recruiter-unblock/${id}`
 export const viewApplicationByStatus = '/api/v1/admin/recruiter-applications-by-status'//status;
 export const applicationDetails = (id) => `/api/v1/admin/recruiter-applications/${id}`;
 export const recruiterVerifyUrl = (id, action) => `/api/v1/admin/recruiter-verify/${id}/${action}`;
+
+
 // Jobs services
 export const postJob = '/api/v1/jobs';                    //post all
 export const jobPosted = '/api/v1/jobs/posted';           //get all
-export const jobDetails =(id)=> `/api/v1/jobs/${id}`;     //get all
+export const jobDetails =(id)=> `/api/v1/jobs/details/${id}`;     //get all
 
 
 
