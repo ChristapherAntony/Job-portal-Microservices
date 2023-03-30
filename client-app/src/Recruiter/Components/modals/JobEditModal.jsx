@@ -134,7 +134,7 @@ export default function JobEditModal({ jobData, onClose, onUpdate }) {
                                         Update Job
                                     </h2>
                                     <form onSubmit={formik.handleSubmit}>
-                                        <div className="grid grid-cols-1 gap-y-1 gap-x-5 mt-4 sm:grid-cols-2 p-5">
+                                        <div className="grid grid-cols-1 gap-y-0 gap-x-5 mt-0 sm:grid-cols-2 p-5">
                                             <div>
                                                 <label className="text-gray-700 text-sm" htmlFor="job_title">
                                                     Job Title
@@ -365,9 +365,9 @@ export default function JobEditModal({ jobData, onClose, onUpdate }) {
                                             </p>
                                         )}
 
-                                        <div className="flex justify-end mt-6">
+                                        <div className="flex justify-end mt-1">
                                             <button type="submit" className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
-                                                Add
+                                              Update
                                             </button>
                                         </div>
                                     </form>
