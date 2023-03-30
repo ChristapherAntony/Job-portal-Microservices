@@ -1,27 +1,32 @@
 
 import { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
-import { useSelector, useDispatch } from 'react-redux'
-import { changeCandidateProfile } from '../../../Redux/candidateProfileReducer'
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useFormik } from 'formik';
 import validationSchema from '../PostAJob/validation'
+import { updateJob } from '../../../utils/Constants'
+import { toast } from 'react-toastify';
 
-export default function JobEditModal({ jobData, onClose }) {
+export default function JobEditModal({ jobData, onClose, onUpdate }) {
+   
     const cancelButtonRef = useRef(null)
     const handleClose = () => {
         setOpen(false);
         onClose();
+        onUpdate()
     }
 
-    const [skills, setSkills] = useState([]);
-    const [education, setEducation] = useState([]);
+
     const [open, setOpen] = useState(true)
     const [error, setError] = useState(null)
-
     const navigate = useNavigate();
+    //for handling skills array in skills input
+    const [skills, setSkills] = useState(jobData?.skills_required);
+    const handleRemoveSkill = (index) => {
+        const updatedSkills = skills.filter((skill, i) => i !== index);
+        setSkills(updatedSkills);
+    }
     const handleAddSkill = () => {
         const skillInput = document.getElementById('skills');
         const newSkill = skillInput.value.toLowerCase();
@@ -29,6 +34,12 @@ export default function JobEditModal({ jobData, onClose }) {
             setSkills(prevState => [...prevState, newSkill]);
             skillInput.value = '';
         }
+    }
+    //for handling education array in education input
+    const [education, setEducation] = useState(jobData?.education_required);
+    const handleRemoveEducation = (index) => {
+        const updatedEducation = education.filter((education, i) => i !== index);
+        setEducation(updatedEducation);
     }
     const handleAddEducation = () => {
         const educationInput = document.getElementById('education');
@@ -42,33 +53,34 @@ export default function JobEditModal({ jobData, onClose }) {
 
     const formik = useFormik({
         initialValues: {
-            job_title: '',
-            available_positions: '',
-            skills_required: '',
-            education_required: '',
-            experience_required: '',
-            location: '',
-            base_salary: '',
-            employment_type: '',
-            deadline: '',
-            job_description: '',
+            job_title: jobData.job_title,
+            available_positions: jobData.available_positions,
+            skills_required: "", ///
+            education_required: "", //
+            experience_required: jobData.experience_required,
+            location: jobData.location,
+            base_salary: jobData.base_salary,
+            employment_type: jobData.employment_type,
+            deadline: jobData.deadline,
+            job_description: jobData.job_description,
         },
         validationSchema: validationSchema,
-
         onSubmit: (values) => {
             values.skills_required = skills;
             values.education_required = education;
-            console.log(values);
-
-            axios.post(postJob, values).then(res => {
+            axios.put(updateJob(jobData._id), values).then(res => {
                 console.log(res);
-                Swal.fire({
-                    position: 'top-end',
-                    text: 'Success',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-                navigate('/recruiter/jobs')
+                toast.success('Updated..', {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    })
+                handleClose()
             }).catch((err) => {
                 console.log(err);
                 setError(err.response.data.errors[0].msg); // Set the error state
@@ -116,20 +128,10 @@ export default function JobEditModal({ jobData, onClose }) {
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
                             <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                                <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                                    <div className="sm:flex sm:items-start">
 
-                                        <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                                            <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
-                                                Profile Information
-                                            </Dialog.Title>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <section className="max-w-4xl p-6 mx-auto bg-white rounded-xl shadow-md m-10">
+                                <section className="max-w-4xl p-2 mx-auto bg-white rounded-xl shadow-md m-10">
                                     <h2 className="text-lg font-semibold text-gray-700 capitalize">
-                                        Post a job
+                                        Update Job
                                     </h2>
                                     <form onSubmit={formik.handleSubmit}>
                                         <div className="grid grid-cols-1 gap-y-1 gap-x-5 mt-4 sm:grid-cols-2 p-5">
@@ -196,6 +198,7 @@ export default function JobEditModal({ jobData, onClose }) {
                                                     </p>
                                                 ) : null}
 
+
                                                 <button
                                                     type="button"
                                                     onClick={handleAddSkill}
@@ -206,6 +209,7 @@ export default function JobEditModal({ jobData, onClose }) {
                                                 {skills.map((skill, index) => (
                                                     <span key={index} className="inline-block border-1 rounded-full bg-lightBlue px-3 py-1 text-xs font-medium text-black border-gray-600  mr-2 mb-2">
                                                         {skill}
+                                                        <button onClick={() => handleRemoveSkill(index)} className="ml-2 text-xs font-medium text-red-600">X</button>
                                                     </span>
                                                 ))}
 
@@ -243,9 +247,10 @@ export default function JobEditModal({ jobData, onClose }) {
                                                     data-te-ripple-init>
                                                     Add
                                                 </button>
-                                                {education.map((education, index) => (
+                                                {education.map((data, index) => (
                                                     <span key={index} className="inline-block border-1 rounded-full bg-lightBlue px-3 py-1 text-xs font-medium text-black border-gray-600  mr-2 mb-2">
-                                                        {education}
+                                                        {data}
+                                                        <button onClick={() => handleRemoveEducation(index)} className="ml-2 text-xs font-medium text-red-600">X</button>
                                                     </span>
                                                 ))}
 

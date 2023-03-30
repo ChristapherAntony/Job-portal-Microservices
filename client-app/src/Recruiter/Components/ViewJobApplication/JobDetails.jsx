@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 
 import {useState} from 'react' 
 
-function JobDetails({ jobData, recruiter }) {
+function JobDetails({ jobData, recruiter,  onUpdate }) {
     const [showModal, setShowModal] = useState(false);
     const handleClick = () => {
         setShowModal(true);
@@ -45,7 +45,7 @@ function JobDetails({ jobData, recruiter }) {
                                 </div>
 
                                 <button onClick={handleClick} type="button" class="float-right text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-1 text-center mr-2 mb-2">Edit</button>
-                                {showModal && <JobEditModal jobData={jobData} onClose={handleClose} />}
+                                {showModal && <JobEditModal onUpdate={onUpdate} jobData={jobData} onClose={handleClose} />}
                                 <div>
                                     <h5 className="text-lg font-semibold mt-6">Job Description:</h5>
                                     <p className="text-slate-400 mt-4">
