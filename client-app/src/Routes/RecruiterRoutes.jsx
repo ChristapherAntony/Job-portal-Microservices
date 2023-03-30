@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, } from 'react-router-dom';
 import Footer from '../Recruiter/Components/Footer';
 import NavBar from '../Recruiter/Components/NavBar';
 import RequireAuth from '../Recruiter/Components/RequireAuth';
+import CandidateDetailsPage from '../Recruiter/Pages/CandidateDetailsPage';
 
 import { HomePageRecruiter, JobPostPage, JobsAndResponsePage, NotFoundPage, QuickProfileRecruiter, SiginUpPageRecruiter, SignInPageRecruiter } from '../Recruiter/Pages/index';
 import ViewJobApplication from '../Recruiter/Pages/ViewJobApplication';
@@ -22,6 +23,7 @@ function RecruiterRoutes() {
                 <Route path='post-job' element={<JobPostPage />} />
                 <Route path='jobs' element={<JobsAndResponsePage />} />
                 <Route path='jobs/applications/:id' element={<ViewJobApplication />} />
+                <Route path='jobs/applications/candidate/:id' element={<CandidateDetailsPage />} />
             </Route>
 
             <Route path='*' element={<NotFoundPage />} />

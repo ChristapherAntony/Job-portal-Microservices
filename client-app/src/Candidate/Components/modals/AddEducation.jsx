@@ -6,9 +6,8 @@ import axios from 'axios'
 import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import Swal from 'sweetalert2';
 import { educationAdd } from '../../../utils/Constants'
-
+import {  toast } from 'react-toastify';
 
 export default function AddEducation({ onClose }) {
     const dispatch = useDispatch()
@@ -38,12 +37,16 @@ export default function AddEducation({ onClose }) {
                 dispatch(changeCandidateProfile(res.data.user))
                 setOpen(false);
                 onClose();
-                Swal.fire({
-                    position: 'top-end',
-                    text: 'Success',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
+                toast.success('Success.', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
             }).catch((err) => {
                 console.log(err);
                 console.log(err.response.data.errors[0].msg);
@@ -94,7 +97,7 @@ export default function AddEducation({ onClose }) {
 
                                 <section className="max-w-4xl p-6 mx-auto bg-white rounded-xl shadow-md m-10">
                                     <h2 className="text-lg font-semibold text-gray-700 capitalize">
-                                        Add work experience
+                                        Add Education
                                     </h2>
                                     <form onSubmit={formik.handleSubmit}>
                                         <div className="grid grid-cols-1 gap-y-1 gap-x-5 mt-4 sm:grid-cols-2 p-5">

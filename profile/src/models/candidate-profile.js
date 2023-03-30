@@ -208,7 +208,7 @@ candidateSchema.set('toJSON', {
         delete ret.__v;
         if (ret.date_of_birth) {
             const dateOfBirth = new Date(ret.date_of_birth);
-            const formattedDate = `${dateOfBirth.getDate().toString().padStart(2, '0')}-${(dateOfBirth.getMonth() + 1).toString().padStart(2, '0')}-${dateOfBirth.getFullYear().toString()}`;
+            const formattedDate = `${dateOfBirth.getFullYear().toString()}-${(dateOfBirth.getMonth() + 1).toString().padStart(2, '0')}-${dateOfBirth.getDate().toString().padStart(2, '0')}`;
             ret.date_of_birth = formattedDate;
         };
         if (ret.work_experience) {

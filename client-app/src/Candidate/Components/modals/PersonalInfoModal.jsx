@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { changeCandidateProfile } from '../../../Redux/candidateProfileReducer'
 import axios from 'axios'
 import { updatePersonalInfo } from '../../../utils/Constants'
-
+import {  toast } from 'react-toastify';
 export default function PersonalInfoModal({ onClose }) {
     const dispatch = useDispatch()
     const [error, setError] = useState("")
@@ -40,6 +40,16 @@ export default function PersonalInfoModal({ onClose }) {
             dispatch(changeCandidateProfile(res.data.updatedUser))
             setOpen(false);
             onClose();
+            toast.success('Success.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }).catch((err) => {
             console.log(err.response.data.errors[0].msg);
             setError(err.response.data.errors[0].msg); // Set the error state

@@ -108,7 +108,8 @@ module.exports = {
                 if (recruiterWithSamePhone) {
                     return res.status(422).json({ errors: [{ msg: "Phone number already exists" }] });
                 }
-            }
+            }   
+            console.log(req.body.date_of_birth,'@@@@@@@@@@@@@@@@@@@@@@@@');
 
             // update the user profile
             const updatedUser = await Candidate.findByIdAndUpdate(
@@ -206,6 +207,7 @@ module.exports = {
     },
     updateCV: async (req, res) => {
         try {
+            console.log('api00000000000000000000')
             // NOTE---checked for user authorized , role  status in router level---middleware
             //check block status of user before updating user profile
             const user = await Candidate.findOne({ _id: req.currentUser.id })

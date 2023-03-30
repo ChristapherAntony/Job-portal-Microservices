@@ -41,7 +41,7 @@ export const certificationDelete = (id) => `/api/v1/profile/candidate/course-cer
 //----recruiter
 export const getRecruiterProfile = '/api/v1/profile/recruiter';
 export const quickProfileUpdateRecruiter = (id) => `/api/v1/profile/recruiter/${id}`
-
+export const CANDIDATE_PROFILE=(id) => `/api/v1/profile/recruiter/candidate/${id}`;
 
 
 // Admin servies
@@ -68,7 +68,7 @@ export const getApplicatons = (id)=> `/api/v1/jobs/posted-details/${id}`   //get
 
 
 
-
+  
 
 
 

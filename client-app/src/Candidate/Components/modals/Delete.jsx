@@ -5,7 +5,7 @@ import { educationDelete, experienceDelete, certificationDelete } from '../../..
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { changeCandidateProfile } from '../../../Redux/candidateProfileReducer'
-
+import {  toast } from 'react-toastify';
 export default function Delete({ onClose, id, context }) {
     const [open, setOpen] = useState(true)
     const [error, setError] = useState('')
@@ -30,6 +30,16 @@ export default function Delete({ onClose, id, context }) {
             dispatch(changeCandidateProfile(res.data.user))
             setOpen(false)
             onClose()
+            toast.success('Success.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }).catch((err) => {
             console.log(err.response.data.errors[0].msg);
             setError(err.response.data.errors[0].msg); // Set the error state
