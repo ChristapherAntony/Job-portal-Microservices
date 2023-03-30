@@ -37,7 +37,7 @@ module.exports = {
                 application_status: 'pending'
             });
             // }
-
+ 
             await application.save();
             res.json({ message: 'Job application submitted successfully' });
 
