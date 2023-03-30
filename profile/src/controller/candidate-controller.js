@@ -26,7 +26,6 @@ module.exports = {
     },
     updateProfile: async (req, res) => {
         try {
-            console.log('aoi jsut beofre aau');
             const id = req.params.id
             const user = await Candidate.findOne({ _id: id })
             if (user.is_blocked === true) {

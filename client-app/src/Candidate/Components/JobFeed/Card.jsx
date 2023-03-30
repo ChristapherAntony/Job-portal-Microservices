@@ -2,20 +2,57 @@ import React from 'react'
 
 import moment from 'moment'
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { applyJob } from '../../../utils/Constants';
 
 
 
 function Card({ data }) {
-   const navigate=useNavigate()
-    const handleClick=()=>{
-        navigate(`/job-details/${data._id}`)
-    }
-
-
     const jobPostedDate = moment(data.created_at);
     // const currentDate = moment();
     // const daysAgo = currentDate.diff(jobPostedDate, 'days');
     const formattedDate = jobPostedDate.fromNow(); // E.g. "2 days ago"
+
+
+    const apply = (id) => {
+        axios.post(applyJob(id)).then((res) => {
+            console.log(res);
+            Swal.fire(
+                'Applied!',
+                'success'
+            )
+        }).catch((err) => {
+            console.log(err);
+            Swal.fire({
+                title: 'Oops...',
+                text: err.response.data.errors[0].msg,
+            })
+        })
+    }
+    const handleApply = (id) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Apply'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                apply(id)
+            }
+        })
+
+    }
+
+
+
+    const navigate = useNavigate()
+    const handleClick = () => {
+        navigate(`/job-details/${data._id}`)
+    }
+
+
 
     return (
         <div className="group relative overflow-hidden bg-white shadow hover:shadow-md  hover:-mt-2 rounded-md transition-all duration-500 h-fit">
@@ -30,7 +67,7 @@ function Card({ data }) {
                     </div>
                     <div className="ltr:ml-3 rtl:mr-3 cursor-pointer" onClick={handleClick}>
                         <a
-                            
+
                             className="inline-block text-[16px] font-semibold hover:text-blue-600 transition-all duration-500 ltr:mr-1 rtl:ml-1"
                         >
                             {data.job_title}
@@ -96,12 +133,12 @@ function Card({ data }) {
                         {data.location}
                     </span>
                 </div>
-                <a
-                    href="job-apply.html"
-                    className="btn btn-sm rounded-md bg-blue-600 hover:bg-blue-700 border-blue-600 hover:border-blue-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto"
+                <div onClick={() => handleApply(data._id)}
+
+                    className="cursor-pointer btn btn-sm rounded-md bg-blue-600 hover:bg-blue-700 border-blue-600 hover:border-blue-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto"
                 >
                     Apply Now
-                </a>
+                </div>
             </div>
             <a
                 href="job-list-four.html"

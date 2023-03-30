@@ -1,6 +1,8 @@
 import React from 'react'
 
-function Applications() {
+function Applications({applications}) {
+    console.log("applications");
+    console.log(applications);
     return (
         <section className="container px-4 mx-auto">
             <div className="flex items-center gap-x-3">
@@ -128,9 +130,9 @@ function Applications() {
                                             </div>
                                         </td>
                                         <td className="px-12 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                                            <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2 bg-emerald-100/60 ">
-                                                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                                                <h2 className="text-sm font-normal text-emerald-500">
+                                            <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2 bg-blue-100/60 ">
+                                                <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+                                                <h2 className="text-sm font-normal text-blue-500">
                                                     Active
                                                 </h2>
                                             </div>
@@ -216,9 +218,9 @@ function Applications() {
                                             </div>
                                         </td>
                                         <td className="px-12 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                                            <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2 bg-emerald-100/60 ">
-                                                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                                                <h2 className="text-sm font-normal text-emerald-500">
+                                            <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2 bg-blue-100/60 ">
+                                                <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+                                                <h2 className="text-sm font-normal text-blue-500">
                                                     Active
                                                 </h2>
                                             </div>
@@ -304,9 +306,9 @@ function Applications() {
                                             </div>
                                         </td>
                                         <td className="px-12 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                                            <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2 bg-emerald-100/60 ">
-                                                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                                                <h2 className="text-sm font-normal text-emerald-500">
+                                            <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2 bg-blue-100/60 ">
+                                                <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+                                                <h2 className="text-sm font-normal text-blue-500">
                                                     Active
                                                 </h2>
                                             </div>
@@ -392,9 +394,9 @@ function Applications() {
                                             </div>
                                         </td>
                                         <td className="px-12 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                                            <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2 bg-emerald-100/60 ">
-                                                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                                                <h2 className="text-sm font-normal text-emerald-500">
+                                            <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2 bg-blue-100/60 ">
+                                                <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+                                                <h2 className="text-sm font-normal text-blue-500">
                                                     Active
                                                 </h2>
                                             </div>
@@ -480,9 +482,9 @@ function Applications() {
                                             </div>
                                         </td>
                                         <td className="px-12 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                                            <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2 bg-emerald-100/60 ">
-                                                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                                                <h2 className="text-sm font-normal text-emerald-500">
+                                            <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2 bg-blue-100/60 ">
+                                                <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+                                                <h2 className="text-sm font-normal text-blue-500">
                                                     Active
                                                 </h2>
                                             </div>

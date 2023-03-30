@@ -38,8 +38,8 @@ module.exports = {
             console.error(error);
             res.status(500).json({ errors: [{ msg: 'Server error' }] });
         }
-    },
-   
+    }
+
 
 
 
