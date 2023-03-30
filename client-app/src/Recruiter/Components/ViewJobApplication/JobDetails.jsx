@@ -2,11 +2,19 @@ import React from 'react'
 import './css/styles.css'
 import SideBar from './Contents/SideBar';
 import SkillsAndQulifications from './Contents/SkillsAndQulifications';
+import JobEditModal from '../modals/JobEditModal';
+import { useSelector } from 'react-redux';
 
+import {useState} from 'react' 
 
-function JobDetails({ jobData, recruiter }) {
-    console.log("job");
-    console.log(jobData);
+function JobDetails({ jobData, recruiter,  onUpdate }) {
+    const [showModal, setShowModal] = useState(false);
+    const handleClick = () => {
+        setShowModal(true);
+    };
+    const handleClose = () => {
+        setShowModal(false);
+    };
     return (
         <div>
             <section className="bg-slate-50  md:py-10 py-8">
@@ -35,8 +43,9 @@ function JobDetails({ jobData, recruiter }) {
                                     </div>
 
                                 </div>
-                                <button type="button" class="float-right text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-1 text-center mr-2 mb-2">Edit</button>
 
+                                <button onClick={handleClick} type="button" class="float-right text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-1 text-center mr-2 mb-2">Edit</button>
+                                {showModal && <JobEditModal onUpdate={onUpdate} jobData={jobData} onClose={handleClose} />}
                                 <div>
                                     <h5 className="text-lg font-semibold mt-6">Job Description:</h5>
                                     <p className="text-slate-400 mt-4">

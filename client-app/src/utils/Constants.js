@@ -60,6 +60,7 @@ export const recruiterVerifyUrl = (id, action) => `/api/v1/admin/recruiter-verif
 // Jobs services
 export const postJob = '/api/v1/jobs';                    //post all
 export const jobPosted = '/api/v1/jobs/posted';           //get all
+export const updateJob =(id)=> `/api/v1/jobs/${id}`       //put
 export const jobDetails =(id)=> `/api/v1/jobs/details/${id}`;     //get all
 export const applyJob = (id)=> `/api/v1/jobs/apply/${id}`                    //post 
 

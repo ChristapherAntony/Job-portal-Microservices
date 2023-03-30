@@ -10,15 +10,19 @@ import JobDetails from '../Components/ViewJobApplication/JobDetails'
 function ViewJobApplication() {
     const { id } = useParams()
     const [response, setResponse] = useState({})
-    console.log(id);
-    useEffect(() => {
+
+    const fetchData = () => {
         axios.get(getApplicatons(id)).then((res) => {
             setResponse(res.data)
         }).catch((err) => {
             console.log(err);
         })
+    }
 
 
+
+    useEffect(() => {
+        fetchData()
     }, [])
 
 
@@ -27,7 +31,7 @@ function ViewJobApplication() {
         <div>
             <NavBar />
 
-            <JobDetails jobData={response.job} recruiter={response.recruiter} />
+            <JobDetails onUpdate={fetchData} jobData={response.job} recruiter={response.recruiter} />
             <Applications applications={response.applications} />
 
             <Footer />

@@ -1,8 +1,7 @@
 import React from 'react'
 
-function Applications({applications}) {
-    console.log("applications");
-    console.log(applications);
+function Applications({applications }) {
+   
     return (
         <section className="container px-4 mx-auto">
             <div className="flex items-center gap-x-3">
