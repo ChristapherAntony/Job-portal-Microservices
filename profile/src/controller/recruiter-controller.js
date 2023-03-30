@@ -2,7 +2,8 @@ const { Recruiter } = require("../models/recruiter-profile");
 const { validationResult } = require('express-validator');
 const { UserUpdatedPublisher } = require("../events/publisher/user-updated-publisher");
 const { natsWrapper } = require("../nats-wrapper");
-const { cloudinary } = require("../config/cloudinary");
+const { Candidate } = require("../models/candidate-profile");
+
 
 module.exports = {
     viewProfile: async (req, res) => {
@@ -81,7 +82,23 @@ module.exports = {
                 res.status(500).json({ errors: [{ msg: 'Server error' }] });
             }
         }
-    }
+    },
+    viewCandidateProfile: async (req, res) => {
+
+        try {
+            // NOTE---checked for user authorized , role  status in router level---middleware
+            //check block status of user before updating user profile
+            const user = await Recruiter.findOne({ _id: req.currentUser.id })
+            if (user.is_blocked === true) {
+                return res.status(404).json({ errors: [{ msg: 'user blocked unable to perform this action' }] })
+            }
+            const candidate = await Candidate.findOne({ _id: req.params.id })
+            res.status(200).json(candidate)
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ errors: [{ msg: 'Server error' }] });
+        }
+    },
 
 
 };

@@ -16,6 +16,8 @@ build:
         manual:
           - src: "src/**/*.jsx"
             dest: .
+          - src: "src/**/*.js"
+            dest: .
     - image: christapherantony/auth
       context: auth
       docker:

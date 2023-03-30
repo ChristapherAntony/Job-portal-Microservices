@@ -8,7 +8,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { experienceAdd } from '../../../../utils/Constants';
 import Swal from 'sweetalert2';
-
+import {  toast } from 'react-toastify';
 
 export default function AddExperience({ onClose }) {
     const dispatch = useDispatch()
@@ -57,12 +57,16 @@ export default function AddExperience({ onClose }) {
                 dispatch(changeCandidateProfile(res.data.user))
                 setOpen(false);
                 onClose();
-                Swal.fire({
-                    position: 'top-end',
-                    text: 'Success',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
+                toast.success('Success.', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
             }).catch((err) => {
                 console.log("faild", err);
                 console.log(err.response.data.errors[0].msg);

@@ -5,7 +5,7 @@ import  axios from 'axios'
 import { updateAbout } from '../../../utils/Constants'
 import { useSelector, useDispatch } from 'react-redux'
 import { changeCandidateProfile } from '../../../Redux/candidateProfileReducer'
-
+import { toast } from 'react-toastify';
 
 export default function Sample({ onClose, about, keySkills }) {
   const dispatch = useDispatch()
@@ -41,7 +41,16 @@ export default function Sample({ onClose, about, keySkills }) {
     }
 
     axios.patch(updateAbout, body).then(res => {
-      
+      toast.success('Success.', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
       dispatch(changeCandidateProfile(res.data.updatedUser))
       setOpen(false);
       onClose();

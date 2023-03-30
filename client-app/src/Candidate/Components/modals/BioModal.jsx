@@ -4,7 +4,7 @@ import axios from 'axios'
 import { updateBio } from '../../../utils/Constants'
 import { useDispatch } from 'react-redux'
 import { changeCandidateProfile } from '../../../Redux/candidateProfileReducer'
-
+import {  toast } from 'react-toastify';
 
 export default function BioModal({ onClose, bio }) {
   const dispatch = useDispatch()
@@ -25,6 +25,16 @@ export default function BioModal({ onClose, bio }) {
       dispatch(changeCandidateProfile(res.data.updatedUser))
       setOpen(false);
       onClose();
+      toast.success('Success.', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+    });
     }).catch((err) => {
       console.log(err.response.data.errors[0].msg);
       setError(err.response.data.errors[0].msg); // Set the error state

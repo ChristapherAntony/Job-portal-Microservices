@@ -1,11 +1,10 @@
 import { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import axios from 'axios'
-
+import { toast } from 'react-toastify';
 import { changeCandidateProfile } from '../../../Redux/candidateProfileReducer'
 import { useDispatch } from 'react-redux'
 import { updateCV } from '../../../utils/Constants'
-
 
 export default function UpdateCV({ onClose, cv }) {
     const dispatch = useDispatch()
@@ -26,6 +25,7 @@ export default function UpdateCV({ onClose, cv }) {
         onClose();
     }
     const handleSubmit = () => {
+        console.log('submi')
         const formData = new FormData();
         formData.append('curriculum_vitae', pdf);
         if (!pdf) {
@@ -34,20 +34,34 @@ export default function UpdateCV({ onClose, cv }) {
                 setError(null);
             }, 8000);
         } else {
-            axios.patch(updateCV, formData).then(res => {
-                dispatch(changeCandidateProfile(res.data.user))
+            const uploadPromise = new Promise((resolve, reject) => {
+                axios.patch(updateCV, formData).then(res => {
+                    dispatch(changeCandidateProfile(res.data.user));
+                    resolve(res.data);
+                }).catch((err) => {
+                    console.log(err.response.data.errors[0].msg);
+                    reject(err.response.data.errors[0].msg);
+                });
+            });
+    
+            toast.promise(uploadPromise, {
+                pending: 'Uploading file...',
+                success: 'File uploaded successfully.',
+                error: 'An error occurred while uploading the file.'
+            });
+    
+            uploadPromise.then(() => {
                 setOpen(false);
                 onClose();
-            }).catch((err) => {
-                console.log(err.response.data.errors[0].msg);
-                setError(err.response.data.errors[0].msg); // Set the error state
+            }).catch((error) => {
+                setError(error); // Set the error state
                 setTimeout(() => {
                     setError(null);
                 }, 8000);
-            })
+            });
         }
-
-    }
+    };
+    
 
     return (
         <Transition.Root show={open} as={Fragment}>
@@ -89,7 +103,7 @@ export default function UpdateCV({ onClose, cv }) {
 
                                 <div className="">
                                     <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                                    Upload CV
+                                        Upload CV
                                     </Dialog.Title>
 
                                     <div>
