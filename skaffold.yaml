@@ -18,6 +18,8 @@ build:
             dest: .
           - src: "src/**/*.js"
             dest: .
+          - src: "src/**/*.css"
+            dest: .
     - image: christapherantony/auth
       context: auth
       docker:
