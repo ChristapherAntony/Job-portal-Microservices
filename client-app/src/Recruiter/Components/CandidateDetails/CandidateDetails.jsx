@@ -30,14 +30,14 @@ function CandidateDetails() {
                 link.click();
             });
     }
-   const [first, setfirst] = useState(false)
-   const handleChange=(value)=>{
-    if(value!=='Choose'){
-        setfirst(true)
-    }else{
-        setfirst(false)
+    const [first, setfirst] = useState(false)
+    const handleChange = (value) => {
+        if (value !== 'Choose') {
+            setfirst(true)
+        } else {
+            setfirst(false)
+        }
     }
-   }
 
     return (
         <div>
@@ -196,7 +196,7 @@ function CandidateDetails() {
                                 <div>
                                     <select
                                         id="countries"
-                                        onChange={(e) => handleChange( e.target.value )}
+                                        onChange={(e) => handleChange(e.target.value)}
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                                     >
                                         <option selected="">Choose </option>
@@ -205,12 +205,14 @@ function CandidateDetails() {
                                         <option value="Other">Fluter Advanced</option>
                                     </select>
                                     <br />
-                                    {first ?(
-                                        <button type="button" class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-1 text-center mr-2 mb-2">Send </button>
-
-                                    ):(
+                                    <div className='flex justify-between'>
                                         <button type="button" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-1 text-center mr-2 mb-2">Reject</button>
-                                    )}
+                                        {first ? (
+                                            <button type="button" class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-1 text-center mr-2 mb-2">Send </button>
+
+                                        ) : (null)}
+                                    </div>
+
                                 </div>
                             </div>
                             <div className="bg-slate-50  rounded-md shadow  p-6 sticky top-20">
