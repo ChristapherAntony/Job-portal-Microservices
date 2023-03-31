@@ -13,7 +13,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import Logo from '../../../Candidate/Components/Logo/Logo'
 import './login.scss'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { signIn } from '../../../utils/Constants';
@@ -37,7 +37,7 @@ export default function Login() {
     Axios.post(signIn, { email, password }).then(res => {
       console.log(res); // Handle successful response
       navigate(from, { replace: true }); // Navigate to home page or prv
-      
+
     }).catch(err => {
       console.log(err.response.data.errors[0].msg);
       setError(err.response.data.errors[0].msg); // Set the error state
@@ -68,9 +68,11 @@ export default function Login() {
                 alignItems: 'center',
               }}
             >
-              <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                <LockOutlinedIcon />
-              </Avatar>
+              <div className='cursor-pointer' onClick={()=>navigate('/')} >
+
+                <Logo />
+              </div>
+
               <Typography component="h1" variant="h5">
                 Sign in
               </Typography>
@@ -119,10 +121,10 @@ export default function Login() {
 
                 </Grid>
                 {error && (
-                <Typography component="p" variant="subtitle1" color="error">
-                  {error}
-                </Typography>
-              )}
+                  <Typography component="p" variant="subtitle1" color="error">
+                    {error}
+                  </Typography>
+                )}
               </Box>
             </Box>
 

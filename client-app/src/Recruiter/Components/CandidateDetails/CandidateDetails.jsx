@@ -30,9 +30,15 @@ function CandidateDetails() {
                 link.click();
             });
     }
-    console.log(candidate);
-    const work_experience = candidate?.work_experience
-    console.log(work_experience);
+    const [first, setfirst] = useState(false)
+    const handleChange = (value) => {
+        if (value !== 'Choose') {
+            setfirst(true)
+        } else {
+            setfirst(false)
+        }
+    }
+
     return (
         <div>
 
@@ -75,111 +81,140 @@ function CandidateDetails() {
 
                             <h4 className="mt-6 text-xl font-semibold">Skills :</h4>
                             <div className="grid lg:grid-cols-2 grid-cols-1 mt-6 gap-6">
-                                <div>
-                                    <div className="flex justify-between mb-2">
-                                        <span className="text-slate-400">WordPress</span>
-                                        <span className="text-slate-400">84%</span>
-                                    </div>
-                                    <div className="w-full bg-gray-100  rounded-full h-[6px]">
-                                        <div
-                                            className="bg-blue-600 h-[6px] rounded-full"
-                                            style={{ width: "84%" }}
-                                        />
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="flex justify-between mb-2">
-                                        <span className="text-slate-400">JavaScript</span>
-                                        <span className="text-slate-400">79%</span>
-                                    </div>
-                                    <div className="w-full bg-gray-100  rounded-full h-[6px]">
-                                        <div
-                                            className="bg-blue-600 h-[6px] rounded-full"
-                                            style={{ width: "79%" }}
-                                        />
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="flex justify-between mb-2">
-                                        <span className="text-slate-400">HTML</span>
-                                        <span className="text-slate-400">95%</span>
-                                    </div>
-                                    <div className="w-full bg-gray-100  rounded-full h-[6px]">
-                                        <div
-                                            className="bg-blue-600 h-[6px] rounded-full"
-                                            style={{ width: "95%" }}
-                                        />
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="flex justify-between mb-2">
-                                        <span className="text-slate-400">Figma</span>
-                                        <span className="text-slate-400">85%</span>
-                                    </div>
-                                    <div className="w-full bg-gray-100  rounded-full h-[6px]">
-                                        <div
-                                            className="bg-blue-600 h-[6px] rounded-full"
-                                            style={{ width: "85%" }}
-                                        />
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="flex justify-between mb-2">
-                                        <span className="text-slate-400">Photoshop</span>
-                                        <span className="text-slate-400">70%</span>
-                                    </div>
-                                    <div className="w-full bg-gray-100  rounded-full h-[6px]">
-                                        <div
-                                            className="bg-blue-600 h-[6px] rounded-full"
-                                            style={{ width: "70%" }}
-                                        />
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="flex justify-between mb-2">
-                                        <span className="text-slate-400">Illustration</span>
-                                        <span className="text-slate-400">65%</span>
-                                    </div>
-                                    <div className="w-full bg-gray-100  rounded-full h-[6px]">
-                                        <div
-                                            className="bg-blue-600 h-[6px] rounded-full"
-                                            style={{ width: "65%" }}
-                                        />
-                                    </div>
-                                </div>
+                                {candidate.key_skills?.map((skill) => {
+                                    return (
+                                        <div className="flex justify-between mb-2">
+                                            <span className="text-blue-600">{skill}</span>
+                                        </div>
+                                    )
+                                })}
                             </div>
-                            <h4 className="mt-6 text-xl font-semibold">Experience :</h4>
-                            {candidate?.work_experience?.map((exp, index) => {
-                                { console.log(exp, 'exparaay------------------') }
-                                return (
-                                    <div key={index} className="flex mt-6">
-                                        <div className="ltr:ml-4 rtl:mr-4">
-                                            <h5 className="text-lg font-medium mb-0">{exp.designation}</h5>
-                                            <span className="text-slate-400 company-university">
-                                                {exp.location}
-                                            </span><br />
-                                            {exp.current_status ? (
-                                                <span>
-                                                    <span>{exp.start_date}</span> to  <span>till now</span>
-                                                </span>
-                                            ) : (
-                                                <div>
-                                                    <span>{exp.start_date}</span>  to       <span>{exp.end_date}</span>
+
+                            <div>
+                                <h4 className="mt-6 text-xl font-semibold">Experience :</h4>
+                                {candidate?.work_experience?.map((exp, index) => {
+                                    { console.log(exp, 'exparaay------------------') }
+                                    return (
+                                        <div key={index} className="flex mt-6">
+                                            <div className="ltr:ml-4 rtl:mr-4">
+                                                <h5 className="text-lg font-medium mb-0">{exp.designation}</h5>
+                                                <span className="text-slate-400 company-university">
+                                                    {exp.location}
+                                                </span><br />
+                                                {exp.current_status ? (
+                                                    <span>
+                                                        <span>{exp.start_date}</span> to  <span>Currentnly working here</span>
+                                                    </span>
+                                                ) : (
+                                                    <div>
+                                                        <span>{exp.start_date}</span>  to       <span>{exp.end_date}</span>
+                                                    </div>
+
+                                                )}
+
+                                                <p className="text-slate-400 mt-2 mb-0">
+                                                    {exp.job_description} .{" "}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+
+
+                            <div>
+                                <h4 className="mt-6 text-xl font-semibold">Educational Details:</h4>
+                                <hr className="h-px my-4 bg-gray-200 border-0" />
+
+                                {
+                                    candidate?.education?.map((edu, index) => {
+                                        return (
+                                            <div key={index} className='grid grid-cols-12 my-5'>
+                                                <div className=" col-span-1 flex justify-center ">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
+                                                    </svg>
                                                 </div>
 
-                                            )}
+                                                <div className="details col-span-11  pro-text space-y-2">
+                                                    <div class="relative">
+                                                        <h1 className='font-bold'>{edu.qualification}</h1>
 
-                                            <p className="text-slate-400 mt-2 mb-0">
-                                                {exp.job_description} .{" "}
-                                            </p>
+                                                    </div>
+                                                    <span>{edu.specialization}</span>
+                                                    <p>{edu.institute}</p>
+                                                </div>
+                                            </div>
+                                        );
+                                    })
+
+                                }
+                            </div>
+
+                            <div>
+                                <h4 className="mt-6 text-xl font-semibold">Courses & Certifications:</h4>
+                                <hr className="h-px my-4 bg-gray-200 border-0" />
+
+                                {candidate?.courseAnd_certification?.map((data, index) => {
+                                    return (
+                                        <div key={index} className='grid grid-cols-12 my-5'>
+                                            <div className=" col-span-1 flex justify-center ">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
+                                                </svg>
+                                            </div>
+
+                                            <div className="details col-span-11  pro-text space-y-2">
+                                                <div class="relative">
+                                                    <h1 className='font-bold'>{data.certificate}</h1>
+
+                                                </div>
+                                                <p>{data.issued_by}</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                )
-                            })}
+                                    );
+                                })
+                                }
+                            </div>
+
+
+
+
+
+
+
+
+
+
 
                         </div>
 
                         <div className="lg:col-span-4 md:col-span-5">
+                            <div className="bg-slate-50  rounded-md shadow  p-6  top-20">
+                                <h5 className="text-lg font-semibold">Action</h5>
+                                Give Skill Test
+                                <div>
+                                    <select
+                                        id="countries"
+                                        onChange={(e) => handleChange(e.target.value)}
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                                    >
+                                        <option selected="">Choose </option>
+                                        <option value="Male">Node js Test</option>
+                                        <option value="Female"> General Aptitude test</option>
+                                        <option value="Other">Fluter Advanced</option>
+                                    </select>
+                                    <br />
+                                    <div className='flex justify-between'>
+                                        <button type="button" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-1 text-center mr-2 mb-2">Reject</button>
+                                        {first ? (
+                                            <button type="button" class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-1 text-center mr-2 mb-2">Send </button>
+
+                                        ) : (null)}
+                                    </div>
+
+                                </div>
+                            </div>
                             <div className="bg-slate-50  rounded-md shadow  p-6 sticky top-20">
                                 <h5 className="text-lg font-semibold">Personal Detail:</h5>
                                 <ul className="list-none mt-4">
