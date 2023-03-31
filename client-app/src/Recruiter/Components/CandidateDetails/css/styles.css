@@ -473,7 +473,7 @@ print and (-ms-high-contrast:none) {
     transition-duration: .5s;
     --tw-content: "";
     content: var(--tw-content)
-}
+} 
 
 [dir=ltr] .btn.btn-link::after {
     right: 0;
