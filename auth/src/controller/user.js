@@ -8,6 +8,7 @@ const { natsWrapper } = require('../nats-wrapper');
 const { sendOTP } = require('../middleware/otp');
 const { OTP } = require("../models/otp");
 const { transporter } = require('../config/nodeMailer');
+const { samplePublisher } = require('../events/publisher/sample');
 
 module.exports = {
     signup: async (req, res) => {

@@ -42,7 +42,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: skillTest-srv
+                name: skilltest-srv
                 port:
                   number: 3000    
           - path: /?(.*)

@@ -1,3 +1,4 @@
+
 import nats from 'node-nats-streaming';
 
 class NatsWrapper {
@@ -27,5 +28,7 @@ class NatsWrapper {
 
     }
 }
+
 const natsWrapper = new NatsWrapper();
-export {natsWrapper}
+
+export default natsWrapper;

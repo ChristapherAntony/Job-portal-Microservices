@@ -1,4 +1,8 @@
-import { natsWrapper } from "../nats-wrapper";
+
+import SampleListener from "../events/listener/sample-listener.js";
+import UserUpdatedListener from "../events/listener/user-updated-listener.js";
+import natsWrapper from "../nats-wrapper.js";
+
 
 
 const connectNATS = async () => {
@@ -12,7 +16,7 @@ const connectNATS = async () => {
     });
     process.on('SIGINT', () => natsWrapper.client.close());
     process.on('SIGTERM', () => natsWrapper.client.close());
-
+    new UserUpdatedListener(natsWrapper.client).listen();
 
     
   } catch (error) {
@@ -21,4 +25,5 @@ const connectNATS = async () => {
   }  
 };
 
-export { connectNATS };
+export default connectNATS
+ 

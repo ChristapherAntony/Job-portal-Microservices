@@ -1,5 +1,4 @@
 import { Fragment, useRef, useState } from 'react'
-import { uid } from 'uid';
 import { Dialog, Transition } from '@headlessui/react'
 import { toast } from 'react-toastify';
 
@@ -41,13 +40,12 @@ export default function AddQuestions({ onClose, addQuestion }) {
       return;
     }
     const data = {
-      id: uid(5),
       question: question,
       optionA: answerA,
       optionB: answerB,
       optionC: answerC,
       optionD: answerD,
-      answer: correctAnswer
+      correctAnswer: correctAnswer
     };
     addQuestion(data)
     handleClose()

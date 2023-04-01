@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 
 import axios from 'axios';
 import validationSchema from './validation';
-import { quickProfileUpdate, quickProfileUpdateRecruiter } from '../../../utils/Constants';
+import { addNewTest, quickProfileUpdate, quickProfileUpdateRecruiter } from '../../../utils/Constants';
 import AddInstructions from './Modals/AddInstructions';
 import AddQuestions from './Modals/AddQuestions';
 import Delete from './Modals/Delete';
@@ -22,9 +22,7 @@ function CreateTest() {
     const [showModalDelete, setShowModalDelete] = useState(false);
 
 
-    const handleAddInstruction = () => {
 
-    }
 
     const [instructions, setInstructions] = useState([])
     const [questions, setQuestions] = useState([]) //array of objects
@@ -55,15 +53,22 @@ function CreateTest() {
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
-            const formData = new FormData();
-            formData.append('test_title', values.test_title);
-            formData.append('time_per_question', values.time_per_question);
-            formData.append('pass_percentage', values.pass_percentage);
-            formData.append('description', values.description);
-            formData.append('instructions',instructions);
-            formData.append('questions', questions);
-            console.log(formData);
-            
+            const body = {
+                test_title: values.test_title,
+                time_per_question: values.time_per_question,
+                pass_percentage: values.pass_percentage,
+                description: values.description,
+                instructions: instructions,
+                questions: questions
+            };
+
+            console.log(body);
+            axios.post(addNewTest, body).then((response) => {
+                console.log();
+            }).catch((error) => {
+                console.log(error);
+            })
+
 
         },
     });
