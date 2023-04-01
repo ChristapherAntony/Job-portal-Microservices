@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: skillTest-depl
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      app: skillTest
+  template:
+    metadata:
+      labels:
+        app: skillTest
+    spec:
+      containers:
+        - name: skillTest
+          image: christapherantony/skillTest
+          env:
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_URL
+              value: 'http://nats-srv:4222'
+            - name: NATS_CLUSTER_ID
+              value: careerconnect
+            - name: MONGO_URI
+              value: 'mongodb://skillTest-mongo-srv:27017'
+            - name: MONGO_URI_ATLAS
+              value: 'mongodb+srv://christapher012:Chris012@cluster0.1sshytz.mongodb.net/?retryWrites=true&w=majority'
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: careerconnect-jwt-secret
+                  key: JWT_KEY
+# jwt environment from kubernetees secret obj
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: skillTest-srv
+spec:
+  selector:
+    app: skillTest
+  ports:
+    - name: skillTest
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

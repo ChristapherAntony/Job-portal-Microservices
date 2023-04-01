@@ -1,0 +1,25 @@
+{
+  "name": "skilltest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "@careerconnect/common": "^1.0.2",
+    "@cygnetops/common": "^1.0.30",
+    "cookie-session": "^2.0.0",
+    "cors": "^2.8.5",
+    "express-validator": "^6.15.0",
+    "mongoose": "^7.0.0",
+    "node-nats-streaming": "^0.3.2",
+    "nodemon": "^2.0.20",
+    "xss-clean": "^0.1.1"
+  }
+}

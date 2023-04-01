@@ -38,6 +38,13 @@ spec:
                 name: profile-srv
                 port:
                   number: 3000
+          - path: /api/v1/skill-test/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: skillTest-srv
+                port:
+                  number: 3000
           - path: /?(.*)
             pathType: Prefix
             backend:
