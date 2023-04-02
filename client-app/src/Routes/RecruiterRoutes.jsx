@@ -10,6 +10,7 @@ import CandidateDetailsPage from '../Recruiter/Pages/CandidateDetailsPage';
 import { HomePageRecruiter, JobPostPage, JobsAndResponsePage, NotFoundPage, QuickProfileRecruiter, SiginUpPageRecruiter, SignInPageRecruiter } from '../Recruiter/Pages/index';
 import ViewJobApplication from '../Recruiter/Pages/ViewJobApplication';
 import SkillTestsListPage from '../Recruiter/Pages/SkillTestsListPage';
+import SkillTestsDetailspage from '../Recruiter/Pages/SkillTestsDetailspage';
 
 
 function RecruiterRoutes() {
@@ -26,11 +27,12 @@ function RecruiterRoutes() {
                 <Route path='jobs' element={<JobsAndResponsePage />} />
                 <Route path='jobs/applications/:id' element={<ViewJobApplication />} />
                 <Route path='jobs/applications/candidate/:id' element={<CandidateDetailsPage />} />
-
+                <Route path='add-skill-test' element={<AddSkillTest />} />
+                <Route path='skill-test' element={<SkillTestsListPage />} />
+                <Route path='skill-test/details/:id' element={<SkillTestsDetailspage />} />
 
             </Route>
-            <Route path='add-skill-test' element={<AddSkillTest />} />
-            <Route path='skill-test' element={<SkillTestsListPage />} />
+
 
             <Route path='*' element={<NotFoundPage />} />
         </Routes>

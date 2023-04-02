@@ -142,7 +142,48 @@ module.exports = {
             console.error(error);
             res.status(500).json({ errors: [{ msg: 'Server error' }] });
         }
-    }
+    },
+    rejectApplication: async (req, res) => {
+        try {
+            console.log('api call');
+            // check block status of user before updating job
+            const user = await Recruiter.findOne({ _id: req.currentUser.id })
+            if (user.is_blocked === true) {
+                return res.status(404).json({ errors: [{ msg: 'user blocked unable to perform this action' }] })
+            } else if (user.is_verified === false) {
+                return res.status(404).json({ errors: [{ msg: 'recruiter is not verified by admin! unable to perform this action' }] })
+            }
+
+            const status = rejected
+            const applicationId = req.params.id
+            console.log(applicationid);
+
+
+
+
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ errors: [{ msg: 'Server error' }] });
+        }
+    },
+    giveSkillTest: async (req, res) => {
+        try {
+            // check block status of user before updating job
+            const user = await Recruiter.findOne({ _id: req.currentUser.id })
+            if (user.is_blocked === true) {
+                return res.status(404).json({ errors: [{ msg: 'user blocked unable to perform this action' }] })
+            } else if (user.is_verified === false) {
+                return res.status(404).json({ errors: [{ msg: 'recruiter is not verified by admin! unable to perform this action' }] })
+            }
+
+
+
+
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ errors: [{ msg: 'Server error' }] });
+        }
+    },
 
 
 

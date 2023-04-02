@@ -4,19 +4,27 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { CANDIDATE_PROFILE } from '../../../utils/Constants'
+import { APPLICATION_REJECT, APPLICATION_SKILLTEST, CANDIDATE_PROFILE, skillTestList } from '../../../utils/Constants'
 import './css/styles.css'
 
 
 function CandidateDetails() {
     const { id } = useParams()
     const [candidate, setCandidate] = useState({})
+    const [tests, setTests] = useState([])
+
     useEffect(() => {
         axios.get(CANDIDATE_PROFILE(id)).then((response) => {
             setCandidate(response.data)
-        }).then((error) => {
+        }).catch((error) => {
             console.log(error);
         })
+        axios.get(skillTestList).then(response => {
+            setTests(response.data.skillTests)
+            console.log(tests);
+        }).catch(error => {
+            console.error(error);
+        });
     }, [])
     function downloadFile() {
         const url = candidate?.curriculum_vitae;
@@ -31,13 +39,31 @@ function CandidateDetails() {
             });
     }
     const [first, setfirst] = useState(false)
+    const [testId, setTestId] = useState('')
     const handleChange = (value) => {
         if (value !== 'Choose') {
             setfirst(true)
+            setTestId(testId)
         } else {
             setfirst(false)
+
         }
     }
+    const handleGiveSkillTest = () => {
+        axios.post(APPLICATION_SKILLTEST(id)).then((response) => {
+            console.log(response);
+        }).catch((error) => {
+            console.log(error);
+        })
+    }
+    const handleReject = () => {
+        axios.get(APPLICATION_REJECT(id)).then((response) => {
+            console.log(response);
+        }).catch((error) => {
+            console.log(error);
+        })
+    }
+
 
     return (
         <div>
@@ -93,7 +119,6 @@ function CandidateDetails() {
                             <div>
                                 <h4 className="mt-6 text-xl font-semibold">Experience :</h4>
                                 {candidate?.work_experience?.map((exp, index) => {
-                                    { console.log(exp, 'exparaay------------------') }
                                     return (
                                         <div key={index} className="flex mt-6">
                                             <div className="ltr:ml-4 rtl:mr-4">
@@ -176,17 +201,6 @@ function CandidateDetails() {
                                 })
                                 }
                             </div>
-
-
-
-
-
-
-
-
-
-
-
                         </div>
 
                         <div className="lg:col-span-4 md:col-span-5">
@@ -200,15 +214,15 @@ function CandidateDetails() {
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                                     >
                                         <option selected="">Choose </option>
-                                        <option value="Male">Node js Test</option>
-                                        <option value="Female"> General Aptitude test</option>
-                                        <option value="Other">Fluter Advanced</option>
+                                        {tests?.map((data, index) => (
+                                            <option key={index} value={data._id}>{data.test_title}</option>
+                                        ))}
                                     </select>
                                     <br />
                                     <div className='flex justify-between'>
-                                        <button type="button" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-1 text-center mr-2 mb-2">Reject</button>
+                                        <button onClick={handleReject} type="button" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-1 text-center mr-2 mb-2">Reject</button>
                                         {first ? (
-                                            <button type="button" class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-1 text-center mr-2 mb-2">Send </button>
+                                            <button onClick={handleGiveSkillTest} type="button" class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-1 text-center mr-2 mb-2">Send </button>
 
                                         ) : (null)}
                                     </div>
