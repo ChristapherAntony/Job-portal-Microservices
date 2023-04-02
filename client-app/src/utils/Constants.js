@@ -70,7 +70,8 @@ export const getApplicatons = (id)=> `/api/v1/jobs/posted-details/${id}`   //get
 //skill test
 
 export const addNewTest=`/api/v1/skill-test/add`
-  
+export const skillTestList=`/api/v1/skill-test/list`
+export const deleteTest=(id)=>`/api/v1/skill-test/${id}`
 
 
 
