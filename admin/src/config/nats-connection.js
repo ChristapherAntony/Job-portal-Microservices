@@ -1,3 +1,4 @@
+const SampleListener = require('../events/listeners/sample-listener');
 const UserCreatedListener = require('../events/listeners/user-created-listener');
 const UserUpdatedListener = require('../events/listeners/user-updated-listener');
 const { natsWrapper } = require('../nats-wrapper');
@@ -15,6 +16,7 @@ const connectNATS = async () => {
 
     new UserCreatedListener(natsWrapper.client).listen();
     new UserUpdatedListener(natsWrapper.client).listen();
+    // new SampleListener(natsWrapper.client).listen();
   } catch (error) {
     console.log(error.message);
 

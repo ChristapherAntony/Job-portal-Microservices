@@ -67,7 +67,9 @@ export const applyJob = (id)=> `/api/v1/jobs/apply/${id}`                    //p
 export const getApplicatons = (id)=> `/api/v1/jobs/posted-details/${id}`   //get
 
 
+//skill test
 
+export const addNewTest=`/api/v1/skill-test/add`
   
 
 
