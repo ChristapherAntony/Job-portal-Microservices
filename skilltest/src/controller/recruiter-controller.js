@@ -1,4 +1,5 @@
 import Recruiter from '../models/recruiter.js';
+import { SkillTest } from '../models/skill-test.js';
 
 const addSkillTest = async (req, res) => {
   try {
@@ -66,7 +67,7 @@ const deleteById = async (req, res) => {
     }
 
     // Remove the skill test with the given ID from the skill_tests array
-    await recruiter.skill_tests.deleteOne({ _id: skillTestId });
+    await recruiter.updateOne({ $pull: { skill_tests: { _id: skillTestId } } });
 
     res.status(200).json({ message: 'Skill test deleted successfully' });
   } catch (error) {
@@ -74,6 +75,7 @@ const deleteById = async (req, res) => {
     res.status(500).json({ errors: [{ msg: 'Server error' }] });
   }
 };
+
 
 
 

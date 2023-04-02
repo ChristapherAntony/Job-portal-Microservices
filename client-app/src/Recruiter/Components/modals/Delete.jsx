@@ -3,7 +3,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 
 import { toast } from 'react-toastify';
-export default function Delete({ onClose, confirm }) {
+export default function Delete({ onClose,id, confirm }) {
     const [open, setOpen] = useState(true)
     const cancelButtonRef = useRef(null)
     const handleClose = () => {
@@ -11,7 +11,7 @@ export default function Delete({ onClose, confirm }) {
         onClose()
     }
     const handleSubmit = () => {
-        confirm()
+        confirm(id)
         handleClose()
     }
     return (
