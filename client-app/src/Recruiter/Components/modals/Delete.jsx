@@ -3,7 +3,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 
 import { toast } from 'react-toastify';
-export default function Delete({ onClose, handleRemoveQuestion, index }) {
+export default function Delete({ onClose, confirm }) {
     const [open, setOpen] = useState(true)
     const cancelButtonRef = useRef(null)
     const handleClose = () => {
@@ -11,21 +11,9 @@ export default function Delete({ onClose, handleRemoveQuestion, index }) {
         onClose()
     }
     const handleSubmit = () => {
-        handleRemoveQuestion(index)
-        toast.success('Deleted', {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-        });
+        confirm()
         handleClose()
-
     }
-
     return (
         <Transition.Root show={open} as={Fragment}>
             <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={handleClose}>
@@ -64,7 +52,7 @@ export default function Delete({ onClose, handleRemoveQuestion, index }) {
                                             </Dialog.Title>
                                             <div className="mt-2">
                                                 <p className="text-sm text-gray-500">
-                                                    {`Are you sure you want to Delete this question? All of your data will be permanently removed. This action cannot be undone.`}
+                                                    {`Are you sure you want to Delete this ? All of your data will be permanently removed. This action cannot be undone.`}
                                                 </p>
                                             </div>
                                         </div>

@@ -24,31 +24,41 @@ const testSchema = new mongoose.Schema({
     questions: [{
         question: {
             type: String,
-           
+            required: true
         },
         optionA: {
             type: String,
-            
+            required: true
         },
         optionB: {
             type: String,
-            
+            required: true
         },
         optionC: {
             type: String,
-           
+            required: true
         },
         optionD: {
             type: String,
-            
+            required: true
         },
         correctAnswer: {
             type: String,
-           
+            required: true
         }
-    }]
+    }],
+    total_questions: {
+        type: Number,
+        default: 0
+    }
 }, { timestamps: true });
+
+// Define a middleware function to update the total_questions field
+testSchema.pre('save', function(next) {
+    this.total_questions = this.questions.length;
+    next();
+});
 
 const SkillTest = mongoose.model('SkillTest', testSchema);
 
-export  {SkillTest,testSchema};
+export { SkillTest, testSchema };

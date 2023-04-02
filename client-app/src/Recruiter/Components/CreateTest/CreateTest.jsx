@@ -3,19 +3,20 @@ import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-
+import { toast } from 'react-toastify';
 import axios from 'axios';
 import validationSchema from './validation';
-import { addNewTest, quickProfileUpdate, quickProfileUpdateRecruiter } from '../../../utils/Constants';
+import { addNewTest } from '../../../utils/Constants';
 import AddInstructions from './Modals/AddInstructions';
 import AddQuestions from './Modals/AddQuestions';
 import Delete from './Modals/Delete';
+import { VIEW_SKILLTEST_TABLE } from '../../../utils/ConstantRoutes';
 
 function CreateTest() {
     const navigate = useNavigate();
 
 
-    const [error, setError] = useState("")
+    const [error, setError] = useState('')
 
     const [showModalOne, setShowModalOne] = useState(false);
     const [showModalTwo, setShowModalTwo] = useState(false);
@@ -46,10 +47,10 @@ function CreateTest() {
 
     const formik = useFormik({
         initialValues: {
-            test_title: '',
-            time_per_question: '',
-            pass_percentage: '',
-            description: '',
+            test_title: 'Example Test',
+            time_per_question: '1000',
+            pass_percentage: '60',
+            description: 'This is an example test Read each question carefully before answering',
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
@@ -64,9 +65,23 @@ function CreateTest() {
 
             console.log(body);
             axios.post(addNewTest, body).then((response) => {
-                console.log();
-            }).catch((error) => {
-                console.log(error);
+                toast.success('Success', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+                navigate(VIEW_SKILLTEST_TABLE)
+            }).catch((err) => {
+                console.log(err);
+                setError(err.response.data.errors[0].msg); // Set the error state
+                setTimeout(() => {
+                    setError(null);
+                }, 8000);
             })
 
 
@@ -111,7 +126,7 @@ function CreateTest() {
                     <div className='grid grid-cols-2 space-x-2'>
                         <div>
                             <label className="text-gray-700 text-sm" >
-                                Pass Percentage
+                               Time per question in sec
                             </label>
                             <input
                                 id="time_per_question"

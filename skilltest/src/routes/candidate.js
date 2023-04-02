@@ -1,5 +1,5 @@
 import express from 'express';
-
+import { checkAuthorization } from '../middleware/check-authorization.js';
 
 const router = express.Router();
 
