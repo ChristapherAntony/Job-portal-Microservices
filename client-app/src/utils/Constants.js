@@ -1,14 +1,10 @@
 export const baseUrl = "https://careerconnect.dev";
 
-
-
-//apis from server--------------------------------------------------------------------------------------------------
 export const signUp = '/api/v1/auth/signup';
 export const signIn = '/api/v1/auth/signin';
 export const signOut = '/api/v1/auth/signout';
 export const emailVerify = '/api/v1/auth/email-verify';
 export const otpVerify = '/api/v1/auth/otp-verify';
-
 export const currentUser = '/api/v1/auth/current';
 
 // profile servies
@@ -42,7 +38,10 @@ export const certificationDelete = (id) => `/api/v1/profile/candidate/course-cer
 export const getRecruiterProfile = '/api/v1/profile/recruiter';
 export const quickProfileUpdateRecruiter = (id) => `/api/v1/profile/recruiter/${id}`
 export const CANDIDATE_PROFILE=(id) => `/api/v1/profile/recruiter/candidate/${id}`;
+export const APPLICATION_REJECT=(id) => `/api/v1/jobs/application/reject/${id}`;
+export const APPLICATION_SKILLTEST=(id) => `/api/v1/jobs/application/skill-test/${id}`;
 
+export const APPLICATION_STATUS=(id) => `/api/v1/jobs/application/${id}`;
 
 // Admin servies
 export const getUsers = '/api/v1/admin/candidates';
@@ -66,11 +65,14 @@ export const applyJob = (id)=> `/api/v1/jobs/apply/${id}`                    //p
 
 export const getApplicatons = (id)=> `/api/v1/jobs/posted-details/${id}`   //get
 
+export const appliedjobsList = '/api/v1/jobs/applied';   
+
 
 //skill test
 
 export const addNewTest=`/api/v1/skill-test/add`
 export const skillTestList=`/api/v1/skill-test/list`
+export const skillTestDetails=(id)=>`/api/v1/skill-test/list/details/${id}`
 export const deleteTest=(id)=>`/api/v1/skill-test/${id}`
 
 

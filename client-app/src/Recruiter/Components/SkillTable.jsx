@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { deleteTest, skillTestList } from '../../utils/Constants';
 import { useNavigate } from 'react-router-dom';
-import { VIEW_SKILLTEST_ADD } from '../../utils/ConstantRoutes';
+import { VIEW_SKILLTEST_ADD, VIEW_SKILLTEST_DETAILS } from '../../utils/ConstantRoutes';
 import Delete from './modals/Delete';
 import { errorTost, successTost } from './modals/tost';
 function SkillTable() {
@@ -11,7 +11,7 @@ function SkillTable() {
     const [showDelete, setShowDelete] = useState(false)
     const [confirm, setConfirm] = useState(false)
     const handleClick = (id) => {
-        console.log(id, 'view');
+        navigate(VIEW_SKILLTEST_DETAILS(id))
     }
     const handleDelete = (id) => {
         axios.delete(deleteTest(id)).then((response) => {

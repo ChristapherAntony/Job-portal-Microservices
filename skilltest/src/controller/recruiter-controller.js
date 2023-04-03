@@ -56,6 +56,29 @@ const getSkillTestsByRecruiter = async (req, res) => {
     res.status(500).json({ errors: [{ msg: 'Server error' }] });
   }
 }
+const getSkillTestsDetails = async (req, res) => {
+  try {
+    const skillTestId = req.params.id;
+
+    // Find the recruiter associated with the current user
+    const recruiter = await Recruiter.findOne({ _id: req.currentUser.id });
+    if (!recruiter) {
+      return res.status(404).json({ errors: [{ msg: 'Recruiter not found' }] });
+    }
+
+    // Find the skill test with the given ID
+    const skillTest = recruiter.skill_tests.id(skillTestId);
+    if (!skillTest) {
+      return res.status(404).json({ errors: [{ msg: 'Skill test not found' }] });
+    }
+
+    res.status(200).json({ skillTest });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ errors: [{ msg: 'Server error' }] });
+  }
+}
+
 const deleteById = async (req, res) => {
   try {
     const skillTestId = req.params.id;
@@ -79,4 +102,4 @@ const deleteById = async (req, res) => {
 
 
 
-export { addSkillTest, getSkillTestsByRecruiter,deleteById };
+export { addSkillTest, getSkillTestsByRecruiter, deleteById, getSkillTestsDetails };

@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, } from 'react-router-dom';
 import RequireAuth from '../Candidate/Components/RequireAuth';
 import { HomePage, SignInPage, AddWorkExp, EmailVerfication, OtpVerify, SignUpPage, ProfileQuickUpdate, Profile } from '../Candidate/Pages/index';
 import { NotFoundPage } from '../Recruiter/Pages';
+import MyJobsPage from '../Candidate/Pages/MyJobsPage';
 
 
 
@@ -21,6 +22,7 @@ function CandidateRoutes() {
       <Route element={<RequireAuth allowedRole={'candidate'} />} >
         <Route path='/' element={<HomePage />} />
         <Route path='profile' element={<Profile />} />
+        <Route path='my-jobs' element={<MyJobsPage />} />
       </Route>
       <Route path='*' element={<NotFoundPage />} />
 
