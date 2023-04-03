@@ -1,5 +1,5 @@
 export const VIEW_APPLICATOIONS = (id) => `applications/${id}`;
-export const VIEW_APPLIED_CANDIDATE_DETAILS = (id) => `/recruiter/jobs/applications/candidate/${id}`;
+export const VIEW_APPLIED_CANDIDATE_DETAILS = (candidateId,applicationId) => `/recruiter/jobs/applications/candidate/${candidateId}/${applicationId}`;
 
 export const VIEW_SKILLTEST_TABLE = `/recruiter/skill-test`;
 export const VIEW_SKILLTEST_DETAILS=(id) => `/recruiter/skill-test/details/${id}`;

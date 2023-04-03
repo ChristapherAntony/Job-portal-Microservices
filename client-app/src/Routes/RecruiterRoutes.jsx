@@ -26,7 +26,7 @@ function RecruiterRoutes() {
                 <Route path='post-job' element={<JobPostPage />} />
                 <Route path='jobs' element={<JobsAndResponsePage />} />
                 <Route path='jobs/applications/:id' element={<ViewJobApplication />} />
-                <Route path='jobs/applications/candidate/:id' element={<CandidateDetailsPage />} />
+                <Route path='jobs/applications/candidate/:candidateId/:applicationId' element={<CandidateDetailsPage />} />
                 <Route path='add-skill-test' element={<AddSkillTest />} />
                 <Route path='skill-test' element={<SkillTestsListPage />} />
                 <Route path='skill-test/details/:id' element={<SkillTestsDetailspage />} />

@@ -5,8 +5,10 @@ import { VIEW_APPLIED_CANDIDATE_DETAILS } from '../../../../utils/ConstantRoutes
 function TableRaw({ key, data }) {
     const navigate=useNavigate()
     const candidate = data?.candidate
+    const applicationId=data._id
+
     const handleClick=()=>{
-        navigate(VIEW_APPLIED_CANDIDATE_DETAILS(candidate._id))
+        navigate(VIEW_APPLIED_CANDIDATE_DETAILS(candidate._id,applicationId))
     }
     return (
         <tr className='cursor-pointer' onClick={handleClick}>

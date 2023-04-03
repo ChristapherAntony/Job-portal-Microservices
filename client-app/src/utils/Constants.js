@@ -38,9 +38,10 @@ export const certificationDelete = (id) => `/api/v1/profile/candidate/course-cer
 export const getRecruiterProfile = '/api/v1/profile/recruiter';
 export const quickProfileUpdateRecruiter = (id) => `/api/v1/profile/recruiter/${id}`
 export const CANDIDATE_PROFILE=(id) => `/api/v1/profile/recruiter/candidate/${id}`;
-export const APPLICATION_REJECT=(id) => `/api/v1/profile/recruiter/candidate/reject/${id}`;
-export const APPLICATION_SKILLTEST=(id) => `/api/v1/profile/recruiter/candidate/skill-test/${id}`;
+export const APPLICATION_REJECT=(id) => `/api/v1/jobs/application/reject/${id}`;
+export const APPLICATION_SKILLTEST=(id) => `/api/v1/jobs/application/skill-test/${id}`;
 
+export const APPLICATION_STATUS=(id) => `/api/v1/jobs/application/${id}`;
 
 // Admin servies
 export const getUsers = '/api/v1/admin/candidates';

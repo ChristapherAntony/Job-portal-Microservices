@@ -2,7 +2,7 @@ import React from 'react'
 import TableRaw from './Contents/TableRaw';
 
 function Applications({ applications }) {
-    console.log(applications)
+   
 
     return (
         <section className="container   md:w-5/6 px-4 mx-auto">

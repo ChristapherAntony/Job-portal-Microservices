@@ -14,7 +14,7 @@ function AdminRoutes() {
                 <Route path='candidates' element={<Candidates />} />
                 <Route path='recruiters' element={<Recruiters />} />
                 <Route path='applications' element={<RecruiterApplication />} />
-                <Route path='application/:id' element={<ApplicationDetails />} />
+                <Route path='application/:candidateId/:applicationId' element={<ApplicationDetails />} />
                 <Route path='*' element={<NotFoundPage />} />
             </Route>
             

@@ -153,19 +153,30 @@ module.exports = {
             } else if (user.is_verified === false) {
                 return res.status(404).json({ errors: [{ msg: 'recruiter is not verified by admin! unable to perform this action' }] })
             }
-
-            const status = rejected
+            const status = 'rejected'
             const applicationId = req.params.id
-            console.log(applicationid);
+            console.log(applicationId);
 
+            // Update the application status to 'rejected'
+            const updatedApplication = await Application.findOneAndUpdate(
+                { 'applications._id': applicationId },
+                { $set: { 'applications.$.application_status': status } },
+                { new: true }
+            );
 
+            if (!updatedApplication) {
+                return res.status(404).json({ errors: [{ msg: 'Application not found' }] })
+            }
 
+            console.log(updatedApplication);
+            res.json(updatedApplication);
 
         } catch (error) {
             console.error(error);
             res.status(500).json({ errors: [{ msg: 'Server error' }] });
         }
     },
+
     giveSkillTest: async (req, res) => {
         try {
             // check block status of user before updating job
@@ -175,15 +186,56 @@ module.exports = {
             } else if (user.is_verified === false) {
                 return res.status(404).json({ errors: [{ msg: 'recruiter is not verified by admin! unable to perform this action' }] })
             }
-
-
-
-
         } catch (error) {
             console.error(error);
             res.status(500).json({ errors: [{ msg: 'Server error' }] });
         }
     },
+    getApplication: async (req, res) => {
+
+        console.log(req.params.id);
+        try {
+            // Check block status of user before getting application
+            const user = await Recruiter.findOne({ _id: req.currentUser.id })
+            if (user.is_blocked === true) {
+                return res.status(404).json({ errors: [{ msg: 'User blocked unable to perform this action' }] })
+            } else if (user.is_verified === false) {
+                return res.status(404).json({ errors: [{ msg: 'Recruiter is not verified by admin! Unable to perform this action' }] })
+            }
+
+            const applicationId = req.params.id
+
+            const application = await Application.findOne(
+                {
+                    applications: {
+                        $elemMatch: {
+                            _id: applicationId
+                        }
+                    }
+                },
+                {
+                    'applications.$': 1
+                }
+            );
+
+            console.log(application.applications[0]);
+            // If application is not found
+            if (!application) {
+                return res.status(404).json({ errors: [{ msg: 'Application not found' }] })
+            }
+            currentApplication=application.applications[0]
+
+            res.status(200).json({ currentApplication })
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ errors: [{ msg: 'Server error' }] });
+        }
+    }
+
+
+
+
+
 
 
 
