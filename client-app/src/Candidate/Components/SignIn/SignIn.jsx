@@ -15,7 +15,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import { auth, provider } from "../../../utils/FireBaseConfig";
-import { RecaptchaVerifier, signInWithPhoneNumber, signInWithPopUp } from 'firebase/auth';
+import { RecaptchaVerifier, signInWithPhoneNumber, signInWithPopup } from 'firebase/auth';
 
 import { signIn } from '../../../utils/Constants';
 
@@ -49,7 +49,7 @@ export default function SignIn() {
     })
   };
   const handleGoogleSigIn = () => {
-    signInWithPopUp(auth, provider).then((data) => {
+    signInWithPopup(auth, provider).then((data) => {
       console.log(data);
  
     }).catch((err) => {
