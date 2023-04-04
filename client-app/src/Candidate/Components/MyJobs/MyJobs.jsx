@@ -40,14 +40,14 @@ function MyJobs() {
                                     </div>
                                     <a
                                         href="job-detail-two.html"
-                                        className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500 ltr:ml-3 rtl:mr-3 min-w-[180px]"
+                                        className="text-lg hover:text-blue-600 font-semibold transition-all duration-500 ltr:ml-3 rtl:mr-3 min-w-[180px]"
                                     >
                                         {data.job.job_title}
                                     </a>
                                 </div>
                                 <div className="md:block flex justify-between md:mt-0 mt-4">
                                     <span className="block">
-                                        <span className="bg-emerald-600/10 inline-block text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full">
+                                        <span className="bg-blue-600/10 inline-block text-blue-600 text-xs px-2.5 py-0.5 font-semibold rounded-full">
                                             {data.job.employment_type}
                                         </span>
                                     </span>
@@ -67,7 +67,7 @@ function MyJobs() {
 
                                     <Link
                                         to={APPLIED_JOBS_DETAILS(data.job._id)}
-                                        className="btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto"
+                                        className="btn rounded-md bg-blue-600 hover:bg-blue-700 border-blue-600 hover:border-blue-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto"
                                     >
                                         View Details
                                     </Link>

@@ -13,7 +13,7 @@ import validationSchema from './validation';
 function PostAJob() {
   const [skills, setSkills] = useState([]);
   const [education, setEducation] = useState([]);
-
+  const [employmentType, setEmploymentType] = useState('Full Time')
   const [error, setError] = useState(null)
 
   const navigate = useNavigate();
@@ -33,6 +33,14 @@ function PostAJob() {
       educationInput.value = '';
     }
   }
+  const handleRemoveSkill = (index) => {
+    const updatedSkills = skills.filter((skill, i) => i !== index);
+    setSkills(updatedSkills);
+  }
+  const handleRemoveEducation = (index) => {
+    const updatedEducation = education.filter((education, i) => i !== index);
+    setEducation(updatedEducation);
+  }
 
 
   const formik = useFormik({
@@ -44,7 +52,7 @@ function PostAJob() {
       experience_required: '',
       location: '',
       base_salary: '',
-      employment_type: '',
+      // employment_type: '',
       deadline: '',
       job_description: '',
     },
@@ -53,6 +61,7 @@ function PostAJob() {
     onSubmit: (values) => {
       values.skills_required = skills;
       values.education_required = education;
+      values.employment_type = employmentType;
       console.log(values);
 
       axios.post(postJob, values).then(res => {
@@ -74,9 +83,6 @@ function PostAJob() {
 
     },
   });
-
-
-
 
   return (
     <section className="max-w-4xl p-6 mx-auto bg-white rounded-xl shadow-md m-10">
@@ -158,6 +164,7 @@ function PostAJob() {
             {skills.map((skill, index) => (
               <span key={index} className="inline-block border-1 rounded-full bg-lightBlue px-3 py-1 text-xs font-medium text-black border-gray-600  mr-2 mb-2">
                 {skill}
+                <button type='button' onClick={() => handleRemoveSkill(index)} className="ml-2 text-xs font-medium text-red-600">X</button>
               </span>
             ))}
 
@@ -198,6 +205,8 @@ function PostAJob() {
             {education.map((education, index) => (
               <span key={index} className="inline-block border-1 rounded-full bg-lightBlue px-3 py-1 text-xs font-medium text-black border-gray-600  mr-2 mb-2">
                 {education}
+                <button type='button' onClick={() => handleRemoveEducation(index)} className="ml-2 text-xs font-medium text-red-600">X</button>
+
               </span>
             ))}
 
@@ -258,23 +267,14 @@ function PostAJob() {
             ) : null}
           </div>
           <div>
-            <label className="text-gray-700 text-sm" htmlFor="employment_type">
-              Job type
-            </label>
-            <input
-              id="employment_type"
-              name="employment_type"
-              placeholder='Type of employment'
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.employment_type}
-              type="text"
-              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
-            />
-            {formik.touched.employment_type && formik.errors.employment_type ? (
-              <div className="text-red-500 text-sm">{formik.errors.employment_type}</div>
-            ) : null}
+            <label className="text-gray-700 text-sm" htmlFor="employment_type">     Job type</label>
+            <select onChange={(e) => setEmploymentType(e.target.value)} className="form-select form-input border border-slate-100  block w-full mt-1">
+              <option value="Full Time">Full Time</option>
+              <option value="Part Time">Part Time</option>
+              <option value="Remote">Remote</option>
+            </select>
           </div>
+
           <div>
             <label className="text-gray-700 text-sm" htmlFor="deadline">
               Job Expiry
@@ -295,7 +295,7 @@ function PostAJob() {
           </div>
         </div>
         <div className=' col-span-2 p-5'>
-          <label  className="block text-sm text-gray-500">Job Description</label>
+          <label className="block text-sm text-gray-500">Job Description</label>
           <textarea
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}

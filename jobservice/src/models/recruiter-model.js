@@ -57,13 +57,6 @@ const recruiterSchema = new mongoose.Schema({
 });
 
 
-// recruiterSchema.set('toJSON', {
-//     transform: function (doc, ret) {
-//         delete ret.__v;
-//     }
-// });
-
-
 
 
 const Recruiter = mongoose.model('Recruiter', recruiterSchema);

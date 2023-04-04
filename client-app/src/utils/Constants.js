@@ -67,6 +67,11 @@ export const getApplicatons = (id)=> `/api/v1/jobs/posted-details/${id}`   //get
 
 export const appliedjobsList = '/api/v1/jobs/applied';   
 
+export const jobKeySearch =(key)=>`/api/v1/jobs/jobkey?key=${key}`
+export const placeKeySearch =(key)=>`/api/v1/jobs/placekey?key=${key}`
+export const companyKeySearch =(key)=>`/api/v1/jobs/companykey?key=${key}`
+// export const searchJobs =(jobKey,locationKey)=>`/api/v1/jobs/placekey?jobKey=${jobKey}`
+
 
 //skill test
 
