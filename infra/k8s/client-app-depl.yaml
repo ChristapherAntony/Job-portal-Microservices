@@ -15,6 +15,12 @@ spec:
       containers:
         - name: client-app
           image: christapherantony/client-app
+          env:
+            - name: FIRE_BASE_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: careerconnect-firebase-api-key
+                  key: FIRE_BASE_API_KEY
 ---
 apiVersion: v1
 kind: Service

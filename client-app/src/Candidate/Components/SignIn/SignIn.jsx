@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -8,16 +7,15 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Logo from '../../Components/Logo/Logo';
-
-import { useNavigate ,useLocation} from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
-
+import { auth, provider } from "../../../utils/FireBaseConfig";
+import { RecaptchaVerifier, signInWithPhoneNumber, signInWithPopUp } from 'firebase/auth';
 
 import { signIn } from '../../../utils/Constants';
 
@@ -49,9 +47,15 @@ export default function SignIn() {
         setError(null);
       }, 8000);
     })
-
-
   };
+  const handleGoogleSigIn = () => {
+    signInWithPopUp(auth, provider).then((data) => {
+      console.log(data);
+ 
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -122,7 +126,7 @@ export default function SignIn() {
           </Box>
         </Box>
         <div className="flex flex-col m-auto max-w-xs gap-y-5">
-          <button className="bg-white flex items-center text-gray-700  justify-center gap-x-3 text-sm sm:text-base  rounded-lg hover:bg-gray-100 duration-300 transition-colors border px-8 py-2.5">
+          <button onClick={handleGoogleSigIn} className="bg-white flex items-center text-gray-700  justify-center gap-x-3 text-sm sm:text-base  rounded-lg hover:bg-gray-100 duration-300 transition-colors border px-8 py-2.5">
             <svg
               className="w-5 h-5 sm:h-6 sm:w-6"
               viewBox="0 0 24 24"
