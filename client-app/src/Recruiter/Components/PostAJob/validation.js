@@ -19,8 +19,8 @@ const validationSchema = Yup.object().shape({
         .required('Base salary is required')
         .positive('Base salary must be positive')
         .integer('Base salary must be an integer'),
-    employment_type: Yup.string()
-        .required('Employment type is required'),
+    // employment_type: Yup.string()
+    //     .required('Employment type is required'),
     deadline: Yup.date()
         .required('Employment type is required'),
     job_description: Yup.string()

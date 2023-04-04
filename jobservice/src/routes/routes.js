@@ -1,5 +1,5 @@
 const express = require('express');
-const { getJobs, getJobDetails } = require('../controller/jobs-controller');
+const { getJobs, getJobDetails, getPlaceKeySearch, getJobKeySearch, getCompanyKeySearch } = require('../controller/jobs-controller');
 const { validatePost } = require('../middleware/job-validator');
 const router = express.Router();
 const { checkAuthorization } = require('../middleware/check-authorization');
@@ -15,6 +15,12 @@ router.get('/api/v1/jobs/details/:id', getJobDetails);
 //candidate related route
 router.post('/api/v1/jobs/apply/:id', checkAuthorization('candidate'), applyJob);
 router.get('/api/v1/jobs/applied', checkAuthorization('candidate'), viewAllApplied);
+
+router.get('/api/v1/jobs/jobkey', getJobKeySearch);
+router.get('/api/v1/jobs/placekey', getPlaceKeySearch);
+router.get('/api/v1/jobs/companykey', getCompanyKeySearch);
+
+
 
 
 

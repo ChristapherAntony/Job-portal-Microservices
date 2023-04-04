@@ -143,7 +143,7 @@ function Card({ data }) {
             <a
                 href="job-list-four.html"
                 className="btn btn-icon rounded-full bg-blue-600/5 hover:bg-blue-600 border-blue-600/10 hover:border-blue-600 text-blue-600 hover:text-white absolute top-0 right-0 m-3"
-            >  bookmark
+            >  
                 <i data-feather="bookmark" className="h-4 w-4" />
             </a>
         </div>

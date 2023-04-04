@@ -8,7 +8,9 @@ import { SearchBox } from '../Components'
 
 
 function JobFeedPage() {
-  
+  const reset=()=>{
+    
+  }
   return (
     <div className='bg-lightBlue'>
       <NavBar />  

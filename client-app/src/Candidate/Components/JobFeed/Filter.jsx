@@ -1,14 +1,44 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { companyKeySearch } from '../../../utils/Constants'
+import axios from 'axios'
+import { changeSearchKey } from '../../../Redux/searchKeyReducer'
+
+
+
 
 
 function Filter() {
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+
+    const [companyKey, setCompanyKey] = useState('')
+    const [employmentType, setEmploymentType] = useState('')
+    const [companySuggestion, setCompanySuggestion] = useState([])
+    const searchCompany = (e) => {
+        let key = e.target.value
+        setCompanyKey(key)
+        axios.get(companyKeySearch(key)).then((response) => {
+            console.log(response.data.companyNames);
+            setCompanySuggestion(response.data.companyNames)
+        }).catch((error) => {
+            console.log(error);
+        })
+    }
+
+    const handleSearch = () => {
+        setCompanySuggestion([])
+        dispatch(changeSearchKey({ companyKey, employmentType }))
+        // navigate('/jobfeed')
+    }
     return (
         <div className="lg:col-span-4 md:col-span-6">
             <div className="shadow  p-6 rounded-md bg-white  sticky top-20">
                 <form>
                     <div className="grid grid-cols-1 gap-3">
                         <div>
-                            <label htmlFor="searchname" className="font-semibold">
+                            <label className="font-semibold">
                                 Search Company
                             </label>
                             <div className="relative mt-2">
@@ -17,28 +47,36 @@ function Filter() {
                                     name="search"
                                     id="searchname"
                                     type="text"
+                                    value={companyKey}
+                                    onChange={searchCompany}
                                     className="form-input border border-slate-100  ltr:pl-10 rtl:pr-10"
                                     placeholder="Search"
                                 />
+                                {companySuggestion.length > 0 &&
+                                    <div className="absolute w-full z-10 bg-white shadow-md rounded-lg mt-2">
+                                        <ul className="py-2">
+                                            {companySuggestion.map((data, index) => (
+                                                <li
+                                                    onClick={() => {
+                                                        setCompanyKey(data);
+                                                        setCompanySuggestion([])
+                                                    }}
+                                                    key={index} className="px-4 py-2 hover:bg-gray-100">{data}</li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                }
                             </div>
                         </div>
                         <div>
-                            <label className="font-semibold">Categories</label>
-                            <select className="form-select form-input border border-slate-100  block w-full mt-1">
-                                <option value="WD">Web Designer</option>
-                                <option value="WD">Web Developer</option>
-                                <option value="UI">UI / UX Desinger</option>
+                            <label className="font-semibold">Employment Type</label>
+                            <select onChange={(e) => setEmploymentType(e.target.value)} className="form-select form-input border border-slate-100  block w-full mt-1">
+                                <option value="Full Time">Full Time</option>
+                                <option value="Part Time">Part Time</option>
+                                <option value="Remote">Remote</option>
                             </select>
                         </div>
-                        <div>
-                            <label className="font-semibold">Location</label>
-                            <select className="form-select form-input border border-slate-100  block w-full mt-1">
-                                <option value="NY">New York</option>
-                                <option value="MC">North Carolina</option>
-                                <option value="SC">South Carolina</option>
-                            </select>
-                        </div>
-                        <div>
+                        {/* <div>
                             <label className="font-semibold">Job Types</label>
                             <div className="block mt-2">
                                 <div className="flex justify-between">
@@ -158,13 +196,17 @@ function Filter() {
                                     </label>
                                 </div>
                             </div>
+                        </div> */}
+                        <div className='hidden md:block'>
+                           <img src={'https://res.cloudinary.com/dprxebwil/image/upload/v1680618176/Recruiter/11667132_20943447_brtjjh.jpg'} alt="" />
                         </div>
                         <div>
-                            <input
-                                type="submit"
+                            <button
+                                type="button"
+                                onClick={handleSearch}
                                 className="btn bg-blue-600 hover:bg-blue-700 border-blue-600 hover:border-blue-700 text-white rounded-md w-full"
-                                defaultValue="Apply Filter"
-                            />
+
+                            >Apply Filter</button>
                         </div>
                     </div>
                 </form>

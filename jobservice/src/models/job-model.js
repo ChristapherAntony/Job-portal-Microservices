@@ -37,6 +37,7 @@ const jobSchema = new mongoose.Schema({
     },
     employment_type: {////
         type: String,
+        enum: ['Full Time', 'Part Time', 'Remote'],
         required: true
     },
     base_salary: {///   
