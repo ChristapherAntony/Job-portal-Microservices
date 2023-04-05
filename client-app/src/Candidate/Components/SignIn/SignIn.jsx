@@ -15,8 +15,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 
-
 import { signIn } from '../../../utils/Constants';
+import GoogleAuth from './GoogleAuth';
 
 
 
@@ -53,8 +53,14 @@ export default function SignIn() {
     console.log('google api ');
   }
 
+ 
 
   return (
+
+
+
+
+
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -123,7 +129,7 @@ export default function SignIn() {
           </Box>
         </Box>
         <div className="flex flex-col m-auto max-w-xs gap-y-5">
-          <button onClick={handleGoogleSigIn} className="bg-white flex items-center text-gray-700  justify-center gap-x-3 text-sm sm:text-base  rounded-lg hover:bg-gray-100 duration-300 transition-colors border px-8 py-2.5">
+          {/* <button onClick={handleGoogleSigIn} className="bg-white flex items-center text-gray-700  justify-center gap-x-3 text-sm sm:text-base  rounded-lg hover:bg-gray-100 duration-300 transition-colors border px-8 py-2.5">
             <svg
               className="w-5 h-5 sm:h-6 sm:w-6"
               viewBox="0 0 24 24"
@@ -155,13 +161,14 @@ export default function SignIn() {
               </defs>
             </svg>
             <span>Sign In with Google</span>
-          </button>
-
-
+          </button> */}
+         <GoogleAuth/>
 
         </div>
 
       </Container>
     </ThemeProvider>
-  );
+
+
+  )
 }
