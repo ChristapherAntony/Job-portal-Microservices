@@ -14,10 +14,10 @@ import Logo from '../../Components/Logo/Logo';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
-import { auth, provider } from "../../../utils/FireBaseConfig";
-import { RecaptchaVerifier, signInWithPhoneNumber, signInWithPopup } from 'firebase/auth';
+
 
 import { signIn } from '../../../utils/Constants';
+
 
 
 const theme = createTheme();
@@ -48,14 +48,11 @@ export default function SignIn() {
       }, 8000);
     })
   };
+
   const handleGoogleSigIn = () => {
-    signInWithPopup(auth, provider).then((data) => {
-      console.log(data);
- 
-    }).catch((err) => {
-      console.log(err);
-    })
+    console.log('google api ');
   }
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -159,6 +156,7 @@ export default function SignIn() {
             </svg>
             <span>Sign In with Google</span>
           </button>
+
 
 
         </div>
