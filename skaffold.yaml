@@ -45,7 +45,7 @@ build:
           - src: "src/**/*.js"
             dest: .
     - image: christapherantony/jobservice
-      context: jobservice
+      context: jobservice 
       docker:
         dockerfile: Dockerfile
       sync:
