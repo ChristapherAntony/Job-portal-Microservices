@@ -15,7 +15,7 @@ spec:
       containers:
         - name: skilltest
           image: christapherantony/skilltest
-          env:
+          env:   
             - name: NATS_CLIENT_ID
               valueFrom:
                 fieldRef:
