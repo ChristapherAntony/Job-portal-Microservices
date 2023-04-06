@@ -90,7 +90,7 @@ module.exports = {
         }
     },
     googleSignIn: async (req, res) => {
-        try {
+        try {           
             const { token, role } = req.body;
             const CLIENT_ID = '100181781575-1s4h77ken84jliac3ejc87a292amokfh.apps.googleusercontent.com'
             const CLIENT_SECRET = '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'
@@ -99,7 +99,7 @@ module.exports = {
             const ticket = await client.verifyIdToken({
                 idToken: token,
                 audience: CLIENT_ID,
-            });
+            }); 
             // Get the user's email from the verified token
             const { email, name, picture, email_verified } = ticket.getPayload();
 

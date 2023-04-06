@@ -6,7 +6,7 @@ import { BsFillShieldLockFill, BsTelephoneFill } from "react-icons/bs";
 import { CgSpinner } from "react-icons/cg";
 
 import OtpInput from "otp-input-react";
-import { useState } from "react";
+
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { auth, provider } from "../../../utils/firebase.config";
@@ -17,7 +17,7 @@ import { toast, Toaster } from "react-hot-toast";
 
 import axios from 'axios'
 
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 
 export default function PhoneModal({ onClose }) {
   const [modalOne, setmodalOne] = useState(true)
@@ -39,6 +39,29 @@ export default function PhoneModal({ onClose }) {
   const handleSubmit = () => {
 
   }
+
+  function onCaptchVerify() {
+    if (!window.recaptchaVerifier) {
+      window.recaptchaVerifier = new RecaptchaVerifier(
+        "recaptcha-container",
+        {
+          size: "invisible",
+          callback: (response) => {
+            onSignup();
+          },
+          "expired-callback": () => { },
+        },
+        auth
+      );
+    }
+  }
+  const onSignup = () => {
+    console.log(ph);
+    setLoading(true);
+    onCaptchVerify();
+  }
+
+
 
 
   return (
@@ -100,15 +123,7 @@ export default function PhoneModal({ onClose }) {
                           Verify your phone number
                         </label>
                         <PhoneInput country={"in"} value={ph} onChange={setPh} />
-                        <button
-                          onClick={onSignup}
-                          className="bg-gray-600 w-full flex gap-1 items-center justify-center py-2.5 text-white rounded"
-                        >
-                          {loading && (
-                            <CgSpinner size={20} className="mt-1 animate-spin" />
-                          )}
-                          <span>Send code via SMS</span>
-                        </button>
+
                       </>
                     </div>
                   </div>
@@ -119,12 +134,13 @@ export default function PhoneModal({ onClose }) {
                   )}
                   <div className="mt-5 sm:mt-6">
                     <button
-                      type="button"
-                      className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-lightDarkBlue text-base font-medium text-white hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400 sm:text-sm disabled:opacity-50"
-                      onClick={handleSubmit}
-                    // disabled={isProcessing}
+                      onClick={onSignup}
+                      className="bg-gray-600 w-full flex gap-1 items-center justify-center py-2.5 text-white rounded"
                     >
-                      Update
+                      {loading && (
+                        <CgSpinner size={20} className="mt-1 animate-spin" />
+                      )}
+                      <span>Send code via SMS</span>
                     </button>
                     <button
                       type="button"
