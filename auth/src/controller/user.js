@@ -115,14 +115,14 @@ module.exports = {
                     role: role
                 });
                 //publish this event
-                // await new UserCreatedPublisher(natsWrapper.client).publish({
-                //     _id: user._id,
-                //     user_name: user.user_name,
-                //     email: user.email,
-                //     phone_number: user.phone_number,
-                //     role: user.role,
-                //     is_blocked: user.is_blocked
-                // })
+                await new UserCreatedPublisher(natsWrapper.client).publish({
+                    _id: user._id,
+                    user_name: user.user_name,
+                    email: user.email,
+                    phone_number: user.phone_number,
+                    role: user.role,
+                    is_blocked: user.is_blocked
+                })
                
             }
 

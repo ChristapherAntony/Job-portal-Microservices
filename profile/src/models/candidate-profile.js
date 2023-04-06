@@ -13,7 +13,6 @@ const candidateSchema = new mongoose.Schema({
     },
     phone_number: {
         type: Number,
-        required: true,
         unique: true,
     },
     role: {
