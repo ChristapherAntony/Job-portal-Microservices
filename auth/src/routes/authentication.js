@@ -1,6 +1,6 @@
 const express = require('express');
 const { sendMessage } = require('fast-two-sms');
-const { signup, signIn, signOut, current, emailVerify, otpVerify } = require('../controller/user');
+const { signup, signIn, signOut, current, emailVerify, otpVerify, googleSignIn } = require('../controller/user');
 // const fast2sms = require('fast-two-sms');
 const { validationSignup, validationSignIn } = require('../middleware/userValidation');
 
@@ -15,7 +15,7 @@ router.post('/api/v1/auth/signout', signOut);
 
 router.post('/api/v1/auth/email-verify', emailVerify);
 router.post('/api/v1/auth/otp-verify', otpVerify);
-
+router.post('/api/v1/auth/google-signin', googleSignIn);   
 
 
 

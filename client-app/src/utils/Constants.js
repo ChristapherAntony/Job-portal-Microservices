@@ -6,6 +6,8 @@ export const signOut = '/api/v1/auth/signout';
 export const emailVerify = '/api/v1/auth/email-verify';
 export const otpVerify = '/api/v1/auth/otp-verify';
 export const currentUser = '/api/v1/auth/current';
+export const googleSignIn = '/api/v1/auth/google-signin';
+
 
 // profile servies
 //----candidate

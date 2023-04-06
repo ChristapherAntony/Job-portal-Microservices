@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt');
 const { User } = require('../models/user');
-const express = require('express');
-const { validationResult } = require('express-validator');
+const { OAuth2Client } = require('google-auth-library');
 const jwt = require('jsonwebtoken')
 const { UserCreatedPublisher } = require('../events/publisher/user-created-publisher')
 const { natsWrapper } = require('../nats-wrapper');
@@ -9,6 +8,7 @@ const { sendOTP } = require('../middleware/otp');
 const { OTP } = require("../models/otp");
 const { transporter } = require('../config/nodeMailer');
 const { samplePublisher } = require('../events/publisher/sample');
+const { v4: uuidv4 } = require('uuid');
 
 module.exports = {
     signup: async (req, res) => {
@@ -89,6 +89,63 @@ module.exports = {
             res.status(500).json({ errors: [{ msg: 'Internal server error' }] });
         }
     },
+    googleSignIn: async (req, res) => {
+        try {
+            const { token, role } = req.body;
+            const CLIENT_ID = '100181781575-1s4h77ken84jliac3ejc87a292amokfh.apps.googleusercontent.com'
+            const CLIENT_SECRET = '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'
+            const client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET);
+            // Verify the Google token
+            const ticket = await client.verifyIdToken({
+                idToken: token,
+                audience: CLIENT_ID,
+            });
+            // Get the user's email from the verified token
+            const { email, name, picture, email_verified } = ticket.getPayload();
+
+            // Check if the user exists in the database
+            let user = await User.findOne({ email });
+            if (!user) {
+                // If the user doesn't exist, create a new user with the email
+                const password = await bcrypt.hash(uuidv4(), 10);
+                user = await User.create({
+                    user_name: name,
+                    email: email,
+                    password: password,
+                    role: role
+                });
+                //publish this event
+                // await new UserCreatedPublisher(natsWrapper.client).publish({
+                //     _id: user._id,
+                //     user_name: user.user_name,
+                //     email: user.email,
+                //     phone_number: user.phone_number,
+                //     role: user.role,
+                //     is_blocked: user.is_blocked
+                // })
+               
+            }
+
+
+
+            // Generate JWT
+            const userJwt = jwt.sign(
+                { id: user._id, email: user.email, role: user.role },
+                process.env.JWT_KEY,
+                { expiresIn: '1h' }
+            );
+            // Store it on session object
+            req.session = {
+                jwt: userJwt,
+            };
+
+            res.status(200).send(user);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ errors: [{ msg: 'Internal server error' }] });
+        }
+    },
+
     current: async (req, res) => {
         try {
 
