@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -9,6 +9,12 @@ import validationSchema from './validation';
 import { quickProfileUpdate } from '../../../utils/Constants';
 
 function QuickProfile() {
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const username = queryParams.get("user_name");
+    const email = queryParams.get("email");
+    const phone = queryParams.get("phone");
+
     const navigate = useNavigate();
     const [skills, setSkills] = useState([]);
     const [image, setImage] = useState(null);
@@ -42,11 +48,11 @@ function QuickProfile() {
 
     const formik = useFormik({
         initialValues: {
-            user_name: 'Christapher',
+            user_name: username,
             profile_image: undefined,
             about: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. At iste a, necessitatibus conr sit amet, consectetur adipisicing elit. At iste r sit amet, consectetur adipisicing elit.',
-            phone_number: '9446655316',
-            email: 'christapher012@gmail.com',
+            phone_number: phone,
+            email: email,
             curriculum_vitae: undefined,
             bio: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. AtLorem ipsum dolor sit amet, consectetur adipisicing elit. AtLorem ipsum dolor sit amet, consectetur adipisicing elit. AtLorem ipsum dolor sit amet, consectetur adipisicing elit. At iste a, necessitatibus conr sit amet, consectetur adipisicing elit. At iste r sit amet, consectetur adipisicing elit. iste a, necessitatibus conr sit amet, consectetur adipisicing elit. At iste r sit amet, consectetur adipisicing elit. iste a, necessitatibus conr sit amet, consectetur adipisicing elit. At iste r sit amet, consectetur adipisicing elit. iste a, necessitatibus conr sit amet, consectetur adipisicing elit. At iste r sit amet, consectetur adipisicing elit.',
         },
@@ -63,6 +69,7 @@ function QuickProfile() {
             formData.append('bio', values.bio);
             
             axios.patch(quickProfileUpdate(id), formData).then(res => {
+                console.log(res);
                 navigate(`/candidate/quick-experience/${id}`);
             }).catch((err) => {
                 console.log(err.response.data.errors[0].msg);

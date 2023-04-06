@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -9,6 +9,12 @@ import validationSchema from './validation';
 import { quickProfileUpdate, quickProfileUpdateRecruiter } from '../../../utils/Constants';
 
 function QuickProfile() {
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const username = queryParams.get("user_name");
+    const email = queryParams.get("email");
+    const phone = queryParams.get("phone");
+
     const navigate = useNavigate();
     //for storing the file of profile image and logo
     const [image, setImage] = useState(null);
@@ -37,9 +43,9 @@ function QuickProfile() {
 
     const formik = useFormik({
         initialValues: {
-            user_name: 'John Doe',
-            email: 'johndoe@gmail.com',
-            phone_number: '8547486704',
+            user_name: username,
+            email: email,
+            phone_number: phone,
             current_position: 'Software Developer',
             profile_image: null,
             company_name: 'Acme Corporation',

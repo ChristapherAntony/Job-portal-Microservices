@@ -22,6 +22,7 @@ const RequireAuth = ({ allowedRole }) => {
                 setError(err.message);
             });
     }, [allowedRole]);
+    
 
     if (auth) {
         return <Outlet />;
