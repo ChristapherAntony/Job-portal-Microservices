@@ -66,14 +66,14 @@ function CandidateDetails() {
     const handleChange = (value) => {
         if (value !== 'Choose') {
             setfirst(true)
-            setTestId(testId)
+            setTestId(value)
         } else {
             setfirst(false)
 
         }
     }
     const handleGiveSkillTest = () => {
-        axios.post(APPLICATION_SKILLTEST(applicationId)).then((response) => {
+        axios.post(APPLICATION_SKILLTEST(applicationId,testId)).then((response) => {
             console.log(response);
             getApplicaitonStatus()
         }).catch((error) => {

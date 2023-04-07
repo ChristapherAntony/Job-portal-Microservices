@@ -178,6 +178,7 @@ module.exports = {
     emailVerify: async (req, res) => {
         try {
             const { email } = req.body;
+
             const existingUser = await User.findOne({ email });
             if (!existingUser) return res.status(404).json({ errors: [{ msg: 'Invalid email address! User not registered' }] });
             if (existingUser.is_blocked === true) return res.status(404).json({ errors: [{ msg: 'Unable to signin user is blocked ' }] });
@@ -187,12 +188,35 @@ module.exports = {
             const otpGenerated = Math.floor(100000 + Math.random() * 900000);
             // Hash the OTP with bcrypt
             const otp = await bcrypt.hash(otpGenerated.toString(), 10);
-
+            console.log(existingUser);
+            
             const mailOptions = {
                 from: 'christapher316@gmail.com',
                 to: email,
                 subject: 'OTP for email verification',
-                html: `<p>Your OTP is ${otpGenerated}. Please enter this OTP to verify your email address.</p>`,
+                // html: `<p>Your OTP is ${otpGenerated}. Please enter this OTP to verify your email address.</p>`,
+                html: `
+
+                <div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
+                <div style="margin:50px auto;width:70%;padding:20px 0">
+                  <div style="border-bottom:1px solid #eee">
+                    <a href="" style="font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600">careerconnect</a>
+              <!--       <image h- src='https://res.cloudinary.com/dprxebwil/image/upload/v1680618176/Recruiter/11667132_20943447_brtjjh.jpg'/>  -->
+                  </div>
+                  <p style="font-size:1.1em">Hi, ${existingUser.user_name}</p>
+                  <p>. Use the following OTP to complete your Sign Up procedures. OTP is valid for 1 minutes</p>
+                  <h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">${otpGenerated}</h2>
+                  <p style="font-size:0.9em;">Regards,<br />careerconnect</p>
+                  <hr style="border:none;border-top:1px solid #eee" />
+                  <div style="float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300">
+                    <p>careerconnect</p>
+                    <p>1600 Amphitheatre Parkway</p>
+                    <p>California</p>
+                  </div>
+                </div>
+              </div>
+                
+                `
             };
 
             await transporter.sendMail(mailOptions);

@@ -60,6 +60,7 @@ function Card({ data }) {
 
 
     return (
+        
         <div className="group relative overflow-hidden bg-white shadow hover:shadow-md  hover:-mt-2 rounded-md transition-all duration-500 h-fit">
             <div className="p-6">
                 <div className="flex items-center">
@@ -116,23 +117,6 @@ function Card({ data }) {
                         <i className="mdi mdi-check-decagram mdi-18px text-blue-500 ltr:mr-1 rtl:ml-1" />
                         {data.recruiter.company_name}
                     </span>
-                    {/* <ul className="list-none inline-block ltr:mr-1 rtl:ml-1 text-yellow-400">
-                        <li className="inline">
-                            <i className="mdi mdi-star text-lg" />
-                        </li>
-                        <li className="inline">
-                            <i className="mdi mdi-star text-lg" />
-                        </li>
-                        <li className="inline">
-                            <i className="mdi mdi-star text-lg" />
-                        </li>
-                        <li className="inline">
-                            <i className="mdi mdi-star text-lg" />
-                        </li>
-                        <li className="inline">
-                            <i className="mdi mdi-star text-lg" />
-                        </li>
-                    </ul> */}
                     <span className="inline-block ltr:mr-1 rtl:ml-1 text-slate-400">
                         <i className="uil uil-map-marker text-[18px] text-slate-900  ltr:mr-1 rtl:ml-1" />
                         {data.location}

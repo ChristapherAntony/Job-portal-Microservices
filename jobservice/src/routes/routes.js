@@ -32,7 +32,7 @@ router.get('/api/v1/jobs/posted-details/:id', checkAuthorization('recruiter'), g
 
 
 router.post('/api/v1/jobs/application/reject/:id', checkAuthorization('recruiter'), rejectApplication)
-router.post('/api/v1/jobs/application/skill-test/:id', checkAuthorization('recruiter'), giveSkillTest)
+router.post('/api/v1/jobs/application/skill-test', checkAuthorization('recruiter'), giveSkillTest)
 router.get('/api/v1/jobs/application/:id', checkAuthorization('recruiter'), getApplication)
 
 
