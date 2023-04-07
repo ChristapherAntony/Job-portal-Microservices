@@ -8,6 +8,11 @@ import { applyJob } from '../../../utils/Constants';
 
 
 function Card({ data }) {
+    console.log(data);
+
+
+
+
     const jobPostedDate = moment(data.created_at);
     // const currentDate = moment();
     // const daysAgo = currentDate.diff(jobPostedDate, 'days');
@@ -133,12 +138,17 @@ function Card({ data }) {
                         {data.location}
                     </span>
                 </div>
-                <div onClick={() => handleApply(data._id)}
+                {data.hasApplied ? (
+                    <p className='text-blue-600'>Applied</p>
+                ):(
+                    <div onClick={() => handleApply(data._id)}
 
                     className="cursor-pointer btn btn-sm rounded-md bg-blue-600 hover:bg-blue-700 border-blue-600 hover:border-blue-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto"
                 >
-                    Apply Now
+                    Apply Now 
                 </div>
+                )}
+
             </div>
             <a
                 href="job-list-four.html"
@@ -146,7 +156,7 @@ function Card({ data }) {
             >  
                 <i data-feather="bookmark" className="h-4 w-4" />
             </a>
-        </div>
+        </div >
     )
 }
 

@@ -52,6 +52,10 @@ function GoogleAuth() {
 
     const handleLoginFailure = (err) => {
         console.log('Login failed:', err);
+        setError('Something went wrong..'); // Set the error state
+        setTimeout(() => {
+            setError(null);
+        }, 8000);
 
     };
     return (
@@ -60,6 +64,7 @@ function GoogleAuth() {
                 <GoogleLogin
                     onSuccess={handleLoginSuccess}
                     onError={handleLoginFailure}
+                    useOneTap
                 />
             </GoogleOAuthProvider>
             {error && (

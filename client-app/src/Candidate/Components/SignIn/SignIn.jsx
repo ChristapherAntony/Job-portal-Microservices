@@ -17,7 +17,7 @@ import axios from 'axios';
 
 import { signIn } from '../../../utils/Constants';
 import GoogleAuth from './GoogleAuth';
-import PhoneModal from './PhoneModal';
+// import PhoneModal from './PhoneModal';
 
 
 
@@ -113,7 +113,7 @@ export default function SignIn() {
             </Button>
             <Grid container>
               {/* onClick={() => navigate('/candidate/email-verification')} */}
-              <Grid item xs style={{ cursor: 'pointer' }} >
+              <Grid item xs style={{ cursor: 'pointer' }} onClick={() => navigate('/candidate/email-verification')}>
                 <Link variant="body2">
                   Forgot password?
                 </Link>
@@ -126,12 +126,12 @@ export default function SignIn() {
                 </Link>
               </Grid>
             </Grid>
-            <Grid  >
+            {/* <Grid  >
               <button  onClick={handleClick} type='button'>OTP Login via phone</button> <br />
               <button type='button'> OTP Login via email</button>
 
             </Grid>
-            {showModal && <PhoneModal onClose={handleClose} />}
+            {showModal && <PhoneModal onClose={handleClose} />} */}
             {error && (
               <Typography component="p" variant="subtitle1" color="error">
                 {error}

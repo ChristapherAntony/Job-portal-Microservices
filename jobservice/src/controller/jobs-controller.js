@@ -1,3 +1,4 @@
+const { Application } = require("../models/application-model");
 const { Job } = require("../models/job-model");
 const { Recruiter } = require("../models/recruiter-model");
 
@@ -10,7 +11,6 @@ module.exports = {
             const { jobKey, locationKey, companyKey, employmentType } = req.query;
             console.log(jobKey, locationKey, companyKey);
             const filters = {};
-    
             if (jobKey) {
                 filters.job_title = new RegExp(jobKey, 'i');
             }
@@ -20,13 +20,20 @@ module.exports = {
             if (employmentType) {
                 filters.employment_type = employmentType;
             }
-    
-            const jobs = await Job.find(filters)
+            let jobs = await Job.find(filters)
                 .populate({
                     path: 'recruiter',
-                    select: '-_id user_name email phone_number current_position company_name company_logo company_state company_country company_website company_email location company_description'
+                    select: '-_id user_name email phone_number current_position company_name company_logo company_state company_country company_website company_email location company_description hasApplied'
                 });
-    
+            // Iterate through each job and add an `applied` field indicating if the current user has applied for the job
+
+            for (let job of jobs) {
+                const hasApplied = await Application.exists({
+                    'job': job._id,
+                    'applications.candidate': req?.currentUser?.id
+                });
+                job.hasApplied = hasApplied ? true : false; // Add the `hasApplied` field to the job object
+            }
             if (companyKey) {
                 const filteredJobs = jobs.filter(job => job.recruiter.company_name.match(new RegExp(companyKey, 'i')));
                 res.status(200).json(filteredJobs);
@@ -44,12 +51,17 @@ module.exports = {
             const job = await Job.findOne({ _id: req.params.id })
                 .populate({
                     path: 'recruiter',
-                    select: '-_id user_name email phone_number current_position company_name company_logo company_state company_country company_location company_country company_website company_email location company_description'
+                    select: '-_id user_name email phone_number current_position company_name company_logo company_state company_country company_location company_country company_website company_email location company_description hasApplied'
                 });
 
             if (!job) {
                 return res.status(404).json({ errors: [{ msg: 'Job not found' }] });
             }
+            const hasApplied = await Application.exists({
+                'job': job._id,
+                'applications.candidate': req?.currentUser?.id
+            });
+            job.hasApplied = hasApplied ? true : false; // Add the `hasApplied` field to the job object
             console.log(job);
 
             res.status(200).json(job);
