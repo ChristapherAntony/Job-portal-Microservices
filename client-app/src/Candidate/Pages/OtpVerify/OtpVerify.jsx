@@ -77,8 +77,6 @@ function OtpVerify() {
                 }, 8000);
             });
     };
-
-
     return (
         <div className='signup' >
             <NavBar />
@@ -96,7 +94,6 @@ function OtpVerify() {
                                     alignItems: 'center',
                                 }}
                             >
-
                                 <Typography component="h1" variant="h5">
                                     Enter OTP received on Your Registered email address
                                 </Typography>

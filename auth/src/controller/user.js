@@ -10,6 +10,10 @@ const { transporter } = require('../config/nodeMailer');
 const { samplePublisher } = require('../events/publisher/sample');
 const { v4: uuidv4 } = require('uuid');
 
+
+
+
+
 module.exports = {
     signup: async (req, res) => {
         try {
@@ -90,7 +94,7 @@ module.exports = {
         }
     },
     googleSignIn: async (req, res) => {
-        try {           
+        try {
             const { token, role } = req.body;
             const CLIENT_ID = '100181781575-1s4h77ken84jliac3ejc87a292amokfh.apps.googleusercontent.com'
             const CLIENT_SECRET = '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'
@@ -99,7 +103,7 @@ module.exports = {
             const ticket = await client.verifyIdToken({
                 idToken: token,
                 audience: CLIENT_ID,
-            }); 
+            });
             // Get the user's email from the verified token
             const { email, name, picture, email_verified } = ticket.getPayload();
 
@@ -123,7 +127,7 @@ module.exports = {
                     role: user.role,
                     is_blocked: user.is_blocked
                 })
-               
+
             }
 
 
@@ -246,4 +250,21 @@ module.exports = {
             res.status(500).json({ errors: [{ msg: 'Internal server error' }] });
         }
     },
+    phoneVerify: async (req, res) => {
+        try {
+            const { phone_number } = req.body;
+            const existingUser = await User.findOne({ phone_number });
+            if (!existingUser) return res.status(404).json({ errors: [{ msg: 'Invalid phone number! User not registered' }] });
+            if (existingUser.is_blocked === true) return res.status(404).json({ errors: [{ msg: 'Unable to signin user is blocked ' }] });
+
+
+
+
+            res.status(200).json({ message: 'OTP sent to your phone number' });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ errors: [{ msg: 'Internal server error' }] });
+        }
+    },
+
 };

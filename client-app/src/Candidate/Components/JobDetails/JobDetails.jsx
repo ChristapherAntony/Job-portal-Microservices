@@ -47,7 +47,7 @@ function JobDetails() {
                             </div>
 
                         </div>
-                        <RelatedVacancies />
+                        {/* <RelatedVacancies /> */}
 
                     </div>
                 }

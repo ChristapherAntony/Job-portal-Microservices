@@ -5,6 +5,7 @@ import InfoBox from './Boxes/InfoBox'
 import Duties from './Duties'
 import JobDescription from './JobDescription'
 import SkillsAndQulifications from './SkillsAndQulification'
+import ApplicationDetails from './ApplicationDetails'
 
 
 function Description({ data }) {
@@ -27,8 +28,8 @@ function Description({ data }) {
             console.log(err.response.data.errors[0].msg,);
             Swal.fire({
                 title: 'Oops...',
-                text:  err.response.data.errors[0].msg,
-              })
+                text: err.response.data.errors[0].msg,
+            })
         })
     }
 
@@ -55,6 +56,51 @@ function Description({ data }) {
         <div>
             <div>
                 <h5 className="text-lg font-semibold">{data.job_title}</h5>
+                {data.hasApplied ? (
+                    <p className='text-blue-600 font-bold'>Applied</p>
+                ) : (
+                    <div onClick={() => handleApply(data._id)} className="mt-5 cursor-pointer">
+                        <a
+                            className="btn rounded-md text-sm p-1 bg-blue-600 hover:bg-blue-700 border-blue-600 hover:border-blue-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto"
+                        >
+                            Apply Now
+                        </a>
+                    </div>
+                )}
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <ul className="list-none mt-5 space-x-2">
+                <InfoBox title={'Employee Type'} data={data.employment_type} />
+                <InfoBox title={'Location'} data={data.location} />
+                <InfoBox title={'Job Type'} data={data.job_title} />
+                <InfoBox title={'Experience'} data={data.experience_required} />
+                {/* <InfoBox title={'Qualifications'} data={'MCA'} /> */}
+                <InfoBox title={'Salary'} data={data.base_salary} />
+                <InfoBox title={'Date posted'} data={formattedDate} />
+
+            </ul>
+
+            {data.hasApplied && <ApplicationDetails jobId={data._id}/>}
+
+
+            <JobDescription data={data.job_description} />
+            <Duties />
+            <SkillsAndQulifications skills={data.skills_required} qualifications={data.education_required} />
+            {data.hasApplied ? (
+                null
+            ) : (
                 <div onClick={() => handleApply(data._id)} className="mt-5 cursor-pointer">
                     <a
                         className="btn rounded-md text-sm p-1 bg-blue-600 hover:bg-blue-700 border-blue-600 hover:border-blue-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto"
@@ -62,28 +108,8 @@ function Description({ data }) {
                         Apply Now
                     </a>
                 </div>
-                <ul className="list-none mt-5 space-x-2">
-                    <InfoBox title={'Employee Type'} data={data.employment_type} />
-                    <InfoBox title={'Location'} data={data.location} />
-                    <InfoBox title={'Job Type'} data={data.job_title} />
-                    <InfoBox title={'Experience'} data={data.experience_required} />
-                    {/* <InfoBox title={'Qualifications'} data={'MCA'} /> */}
-                    <InfoBox title={'Salary'} data={data.base_salary} />
-                    <InfoBox title={'Date posted'} data={formattedDate} />
+            )}
 
-                </ul>
-            </div>
-            <JobDescription data={data.job_description} />
-            <Duties />
-            <SkillsAndQulifications skills={data.skills_required} qualifications={data.education_required} />
-            <div className="mt-5 cursor-pointer" onClick={() => handleApply(data._id)}>
-                <a
-                  
-                    className="btn rounded-md text-sm p-1 bg-blue-600 hover:bg-blue-700 border-blue-600 hover:border-blue-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto"
-                >
-                    Apply Now
-                </a>
-            </div>
 
         </div>
     )

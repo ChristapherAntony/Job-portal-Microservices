@@ -48,6 +48,11 @@ const jobSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
+    hasApplied: {
+        type: Boolean,
+        default:false,
+        
+    },
     number_applied: {
         type: Number,
         default:0,
