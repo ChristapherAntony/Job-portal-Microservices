@@ -1,4 +1,6 @@
+const { transporter } = require("../config/nodeMailer");
 const { Application } = require("../models/application-model");
+const { Candidate } = require("../models/candidate-model");
 const { Job } = require("../models/job-model");
 const { Recruiter } = require("../models/recruiter-model");
 
@@ -176,21 +178,136 @@ module.exports = {
             res.status(500).json({ errors: [{ msg: 'Server error' }] });
         }
     },
-
     giveSkillTest: async (req, res) => {
         try {
             // check block status of user before updating job
-            const user = await Recruiter.findOne({ _id: req.currentUser.id })
+            const user = await Recruiter.findOne({ _id: req.currentUser.id });
             if (user.is_blocked === true) {
-                return res.status(404).json({ errors: [{ msg: 'user blocked unable to perform this action' }] })
+                return res.status(404).json({ errors: [{ msg: 'user blocked unable to perform this action' }] });
             } else if (user.is_verified === false) {
-                return res.status(404).json({ errors: [{ msg: 'recruiter is not verified by admin! unable to perform this action' }] })
+                return res.status(404).json({ errors: [{ msg: 'recruiter is not verified by admin! unable to perform this action' }] });
             }
+            
+            const { applicationId, testId } = req.query;
+            console.log('api call ', applicationId, testId);
+            
+            const application = await Application.findOne({ "applications._id": applicationId });
+            if (!application) {
+                return res.status(404).json({ errors: [{ msg: 'application not found' }] });
+            }
+            
+            const candidate = await Candidate.findOne({ _id: application.applications.find(app => app._id.toString() === applicationId).candidate });
+            if (!candidate) {
+                return res.status(404).json({ errors: [{ msg: 'candidate not found' }] });
+            }
+            
+            application.applications.forEach(app => {
+                if (app._id.toString() === applicationId) {
+                    app.skillTest_date = Date.now();
+                }
+            });
+            // await application.save();
+
+            const url=`https://careerconnect.dev/candidate/take-test?applicationId=${applicationId}&testId=${testId}`
+            
+            //send email to candidate regarding skill test
+            const email = candidate.email;
+            const mailOptions = {
+                from: 'careerconnect012@gmail.com',
+                to: email,
+                subject: 'Skill test ',
+                html: `
+
+                <!DOCTYPE html>
+                <html>
+                
+                <head>
+                  <meta charset="UTF-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  <title>Shortlisted for Job Application</title>
+                  <style>
+                    body {
+                      font-family: Arial, sans-serif;
+                      font-size: 16px;
+                      line-height: 1.5;
+                      margin: 0;
+                      padding: 0;
+                    }
+                
+                    .container {
+                      max-width: 600px;
+                      margin: 0 auto;
+                      padding: 20px;
+                      border: 1px solid #ccc;
+                      border-radius: 10px;
+                    }
+                
+                    h1 {
+                      font-size: 24px;
+                      color: #00000;
+                      font-weight: bold;
+                      margin-bottom: 20px;
+                    }
+                
+                    p {
+                      font-size: 18px;
+                      margin-bottom: 10px;
+                    }
+                
+                    .cta {
+                      display: inline-block;
+                      padding: 10px 20px;
+                      background-color: #00466a;
+                      color: #fff;
+                      font-size: 18px;
+                      font-weight: bold;
+                      border-radius: 5px;
+                      text-decoration: none;
+                      margin-top: 20px;
+                    }
+                
+                    .signature {
+                      margin-top: 50px;
+                      text-align: right;
+                      font-size: 14px;
+                      color: #aaa;
+                    }
+                  </style>
+                </head>
+                
+                <body>
+                  <div class="container">
+                    <h1>Congratulations! You have been shortlisted for your applied job</h1>
+                    <p>Dear ${candidate.user_name},</p>
+                    <p>We are pleased to inform you that you have been shortlisted for the job that you applied for on careerconnect.com. To proceed with your application, please complete the skill test by clicking the button below:</p>
+                    <a href=${url} class="cta">Take Skill Test</a>
+                    <p>If you have any questions or concerns, please do not hesitate to contact us.</p>
+                    <div class="signature">
+                      <p>Best regards,</p>
+                      <p>careerconnect</p>
+                      <p>1600 Amphitheatre Parkway, California</p>
+                    </div>
+                  </div>
+                </body>
+                
+                </html>
+                
+                
+                `                
+            };
+
+            await transporter.sendMail(mailOptions);
+
+
+            
+            
+            res.status(200).json({ message: 'skill test given successfully' });
         } catch (error) {
             console.error(error);
             res.status(500).json({ errors: [{ msg: 'Server error' }] });
         }
     },
+    
     getApplication: async (req, res) => {
 
         console.log(req.params.id);

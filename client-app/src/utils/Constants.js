@@ -36,12 +36,14 @@ export const certificationAdd  = '/api/v1/profile/candidate/course-certification
 export const certificationUpdate = (id) => `/api/v1/profile/candidate/course-certification/${id}` //put
 export const certificationDelete = (id) => `/api/v1/profile/candidate/course-certification/${id}` //delete
 
+
+
 //----recruiter
 export const getRecruiterProfile = '/api/v1/profile/recruiter';
-export const quickProfileUpdateRecruiter = (id) => `/api/v1/profile/recruiter/${id}`
+export const quickProfileUpdateRecruiter = (id) => `/api/v1/profile/recruiter/${id}`;
 export const CANDIDATE_PROFILE=(id) => `/api/v1/profile/recruiter/candidate/${id}`;
 export const APPLICATION_REJECT=(id) => `/api/v1/jobs/application/reject/${id}`;
-export const APPLICATION_SKILLTEST=(id) => `/api/v1/jobs/application/skill-test/${id}`;
+export const APPLICATION_SKILLTEST=(applicationId,testId) => `/api/v1/jobs/application/skill-test?applicationId=${applicationId}&testId=${testId}`;
 
 export const APPLICATION_STATUS=(id) => `/api/v1/jobs/application/${id}`;
 

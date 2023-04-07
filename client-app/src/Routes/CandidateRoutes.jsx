@@ -4,6 +4,7 @@ import RequireAuth from '../Candidate/Components/RequireAuth';
 import { HomePage, SignInPage, AddWorkExp, EmailVerfication, OtpVerify, SignUpPage, ProfileQuickUpdate, Profile } from '../Candidate/Pages/index';
 import { NotFoundPage } from '../Recruiter/Pages';
 import MyJobsPage from '../Candidate/Pages/MyJobsPage';
+import SkillTestPages from '../Candidate/Pages/SkillTestPages';
 
 
 
@@ -23,6 +24,7 @@ function CandidateRoutes() {
         <Route path='/' element={<HomePage />} />
         <Route path='profile' element={<Profile />} />
         <Route path='my-jobs' element={<MyJobsPage />} />
+        <Route path='take-test' element={<SkillTestPages />} />
       </Route>
       <Route path='*' element={<NotFoundPage />} />
 

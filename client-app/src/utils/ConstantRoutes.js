@@ -10,3 +10,4 @@ export const APPLIED_JOBS = '/candidate/my-jobs';
 export const APPLIED_JOBS_DETAILS=(id) => `/candidate/my-jobs/${id}`;
 
 
+export const getTestQuestions = (testId,recruiterId) => `/candidate/take-test` //delete

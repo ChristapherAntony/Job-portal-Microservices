@@ -77,7 +77,7 @@ export default function JobFeed() {
                     </div>
 
                     <div className="grid bg-white  rounded-xl md:grid-cols-12 grid-cols-1 gap-[30px]">
-                        <Filter  />
+                        <Filter />
 
                         <Jobs jobs={jobs} />
                     </div>
