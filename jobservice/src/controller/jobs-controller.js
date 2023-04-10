@@ -7,6 +7,8 @@ const { natsWrapper } = require("../nats-wrapper");
 
 module.exports = {
     getJobs: async (req, res) => {
+            console.log("all jobs" + process.env.HOSTNAME);
+
         try {
             const { jobKey, locationKey, companyKey, employmentType } = req.query;
             console.log(jobKey, locationKey, companyKey);

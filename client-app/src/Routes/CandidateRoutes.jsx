@@ -24,7 +24,7 @@ function CandidateRoutes() {
         <Route path='/' element={<HomePage />} />
         <Route path='profile' element={<Profile />} />
         <Route path='my-jobs' element={<MyJobsPage />} />
-        <Route path='take-test' element={<SkillTestPages />} />
+        <Route path='take-test/:applicationId' element={<SkillTestPages />} />
       </Route>
       <Route path='*' element={<NotFoundPage />} />
 

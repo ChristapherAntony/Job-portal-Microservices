@@ -27,7 +27,10 @@ spec:
             - name: MONGO_URI
               value: 'mongodb://profile-mongo-srv:27017'
             - name: MONGO_URI_ATLAS
-              value: 'mongodb+srv://christapher012:Chris012@cluster0.1sshytz.mongodb.net/?retryWrites=true&w=majority'
+              valueFrom:
+                secretKeyRef:
+                  name: careerconnect-mongo-uri
+                  key: MONGO_URI_ATLAS
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:

@@ -10,7 +10,7 @@ const ObjectId = mongoose.Types.ObjectId;
 
 module.exports = {
     viewProfile: async (req, res) => {
-
+        console.log("view all" + process.env.HOSTNAME);
         try {
             // NOTE---checked for user authorized , role  status in router level---middleware
             //check block status of user before updating user profile
@@ -18,6 +18,7 @@ module.exports = {
             if (user.is_blocked === true) {
                 return res.status(404).json({ errors: [{ msg: 'user blocked unable to perform this action' }] })
             }
+            console.log("view all response" + process.env.HOSTNAME);
             res.status(200).json(user)
         } catch (error) {
             console.error(error);
@@ -281,6 +282,8 @@ module.exports = {
         }
     },
     updateAbout: async (req, res) => {
+        console.log("about update" + process.env.HOSTNAME);
+
         try {
             // NOTE---checked for user authorized , role  status in router level---middleware
             //check block status of user before updating user profile
@@ -301,6 +304,7 @@ module.exports = {
                 },
                 { new: true }
             );
+            console.log("update reposne" + process.env.HOSTNAME);
             res.status(200).json({ message: 'User About  updated successfully', updatedUser: updatedUser });
         } catch (error) {
             console.log(error);

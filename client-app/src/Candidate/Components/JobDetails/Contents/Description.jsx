@@ -8,7 +8,7 @@ import SkillsAndQulifications from './SkillsAndQulification'
 import ApplicationDetails from './ApplicationDetails'
 
 
-function Description({ data }) {
+function Description({ data, handleRefresh }) {
 
 
     const date = new Date(data.created_at);
@@ -16,14 +16,13 @@ function Description({ data }) {
     const formattedDate = date.toLocaleDateString('en-US', options)
         .replace(/\b(\d{1,2})\b/g, (match) => match + (["th", "st", "nd", "rd"][+match > 0 && (+match < 4 || +match > 20) && +match % 10] || "th"));
 
-
-
     const apply = (id) => {
         axios.post(applyJob(id)).then((res) => {
             Swal.fire(
                 'Applied!',
                 'success'
             )
+            handleRefresh();
         }).catch((err) => {
             console.log(err.response.data.errors[0].msg,);
             Swal.fire({
@@ -31,10 +30,8 @@ function Description({ data }) {
                 text: err.response.data.errors[0].msg,
             })
         })
+
     }
-
-
-
     const handleApply = (id) => {
         Swal.fire({
             title: 'Are you sure?',
@@ -48,7 +45,6 @@ function Description({ data }) {
                 apply(id)
             }
         })
-
     }
 
 
@@ -92,7 +88,7 @@ function Description({ data }) {
 
             </ul>
 
-            {data.hasApplied && <ApplicationDetails jobId={data._id}/>}
+            {data.hasApplied && <ApplicationDetails jobId={data._id} />}
 
 
             <JobDescription data={data.job_description} />

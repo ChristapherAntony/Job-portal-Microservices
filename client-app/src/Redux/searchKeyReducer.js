@@ -15,5 +15,4 @@ const searchKeyReducer = createSlice({
     }
 });
 export const { changeSearchKey } = searchKeyReducer.actions
-
 export default searchKeyReducer.reducer;

@@ -3,7 +3,9 @@ import { SkillTest } from '../models/skill-test.js';
 
 const getSkillTest = async (req, res) => { 
   try {
+    
     const {testId,recruiterId}=req.query
+
     // Find the recruiter associated with the current user
     const recruiter = await Recruiter.findOne({ _id: recruiterId });
     if (!recruiter) {

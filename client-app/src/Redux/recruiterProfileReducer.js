@@ -12,5 +12,4 @@ const recruiterProfileReducer = createSlice({
 })
 
 export const { changeRecruiterProfile } = recruiterProfileReducer.actions
-
 export default recruiterProfileReducer.reducer;

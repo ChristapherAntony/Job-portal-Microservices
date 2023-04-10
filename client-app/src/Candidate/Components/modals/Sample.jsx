@@ -34,13 +34,13 @@ export default function Sample({ onClose, about, keySkills }) {
     onClose();
   }
   const handleSubmit = () => {
-    console.log(newabout, skills);
     const body = {
       about: newabout,
       key_skills: skills
     }
 
     axios.patch(updateAbout, body).then(res => {
+      console.log(res);
       toast.success('Success.', {
         position: "top-right",
         autoClose: 5000,

@@ -23,7 +23,7 @@ class Listener {
     );
 
     subscription.on('message', (msg) => {
-      console.log(`Message received: ${this.subject} / ${this.queueGroupName}`);
+      console.log(`Message received: ${this.subject} / ${this.queueGroupName} 📥📥📥`);
 
       const parsedData = this.parseMessage(msg);
       this.onMessage(parsedData, msg);

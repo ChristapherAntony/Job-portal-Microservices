@@ -1,16 +1,16 @@
 import React from 'react'
 import { Footer, NavBar } from '../Components'
-import { useLocation } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import Questions from '../Components/SkillTest/Questions';
 
 function SkillTestPages() {
-    const queryParams = new URLSearchParams(location.search);
-    const testId = queryParams.get("testId");
-    const applicationId = queryParams.get("applicationId");
    
+
     return (
         <div>
             <NavBar />
-            <p>dsdsad{testId} and appid {applicationId}</p>
+            {/* <p>dsdsad{testId} and appid {applicationId}</p> */}
+            <Questions />
             <Footer />
         </div>
     )

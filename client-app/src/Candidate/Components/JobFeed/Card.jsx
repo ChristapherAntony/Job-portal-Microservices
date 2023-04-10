@@ -4,21 +4,16 @@ import moment from 'moment'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { applyJob } from '../../../utils/Constants';
+import { useDispatch } from 'react-redux';
+import { componentRefresh } from '../../../Redux/componentRefreshReducer';
 
 
-
-function Card({ data }) {
-    console.log(data);
-
-
-
-
+function Card({ data, handleRefresh }) {
+    const dispatch = useDispatch();
     const jobPostedDate = moment(data.created_at);
     // const currentDate = moment();
     // const daysAgo = currentDate.diff(jobPostedDate, 'days');
     const formattedDate = jobPostedDate.fromNow(); // E.g. "2 days ago"
-
-
     const apply = (id) => {
         axios.post(applyJob(id)).then((res) => {
             console.log(res);
@@ -33,6 +28,7 @@ function Card({ data }) {
                 text: err.response.data.errors[0].msg,
             })
         })
+        handleRefresh();
     }
     const handleApply = (id) => {
         Swal.fire({
@@ -57,10 +53,8 @@ function Card({ data }) {
         navigate(`/job-details/${data._id}`)
     }
 
-
-
     return (
-        
+
         <div className="group relative overflow-hidden bg-white shadow hover:shadow-md  hover:-mt-2 rounded-md transition-all duration-500 h-fit">
             <div className="p-6">
                 <div className="flex items-center">
@@ -124,20 +118,20 @@ function Card({ data }) {
                 </div>
                 {data.hasApplied ? (
                     <p className='text-blue-600'>Applied</p>
-                ):(
+                ) : (
                     <div onClick={() => handleApply(data._id)}
 
-                    className="cursor-pointer btn btn-sm rounded-md bg-blue-600 hover:bg-blue-700 border-blue-600 hover:border-blue-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto"
-                >
-                    Apply Now 
-                </div>
+                        className="cursor-pointer btn btn-sm rounded-md bg-blue-600 hover:bg-blue-700 border-blue-600 hover:border-blue-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto"
+                    >
+                        Apply Now
+                    </div>
                 )}
 
             </div>
             <a
                 href="job-list-four.html"
                 className="btn btn-icon rounded-full bg-blue-600/5 hover:bg-blue-600 border-blue-600/10 hover:border-blue-600 text-blue-600 hover:text-white absolute top-0 right-0 m-3"
-            >  
+            >
                 <i data-feather="bookmark" className="h-4 w-4" />
             </a>
         </div >

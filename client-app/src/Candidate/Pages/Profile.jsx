@@ -15,6 +15,7 @@ function Profile() {
 
     axios.get(getProfile)
       .then(response => {
+        console.log(response,"test")
         dispatch(changeCandidateProfile(response.data))
       })
       .catch(error => {

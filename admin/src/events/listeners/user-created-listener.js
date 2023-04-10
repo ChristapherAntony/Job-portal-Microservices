@@ -15,6 +15,7 @@ class UserCreatedListener extends Listener {
 
   async onMessage(data, msg) {
     console.log(data)
+    
     try {
       if (data.role === 'recruiter') {
         let response = await Recruiter.create({

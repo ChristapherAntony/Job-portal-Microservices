@@ -30,18 +30,27 @@ const ApplicationSchema = new mongoose.Schema({
         },
         skillTest_date: {
             type: Date,
-            default: Date.now,
         },
-        skill_tet_id: {
-            type: String
+        skillTest_lastDate: {
+            type: Date,
+        },
+        skill_test_id: {
+            type: mongoose.Schema.Types.ObjectId,
+        },
+        skill_test_URL: {
+            type: String,
         },
         skillTest_submitted_date: {
             type: Date,
-            default: Date.now,
+        },
+        percentage_obtained: {
+            type: Number,
+        },
+        is_passed: {
+            type: Boolean,
         },
         accepted_date: {
             type: Date,
-            default: Date.now,
         },
     }]
 });
