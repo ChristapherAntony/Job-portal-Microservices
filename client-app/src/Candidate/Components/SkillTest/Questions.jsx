@@ -20,8 +20,6 @@ function Questions() {
         fetchTestQuestions(applicationId)
     }, [])
 
-
-
     // const skillTest = {
     //     "test_title": "General IQ test",
     //     "time_per_question": 60000,
@@ -79,6 +77,7 @@ function Questions() {
     //     "createdAt": "2023-04-02T19:01:09.503Z",
     //     "updatedAt": "2023-04-02T19:01:09.503Z"
     // }
+    
     const examTime = skillTest.time_per_question * skillTest.questions.length
     const [currentIndex, setCurrentIndex] = useState(0);
     const [answers, setAnswers] = useState([])

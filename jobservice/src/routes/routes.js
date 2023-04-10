@@ -4,7 +4,7 @@ const { validatePost } = require('../middleware/job-validator');
 const router = express.Router();
 const { checkAuthorization } = require('../middleware/check-authorization');
 const { postJob, updateJob, getPostedJobs, getApplicationDetails, rejectApplication,getApplication, giveSkillTest } = require('../controller/for-recruiter');
-const { applyJob, viewAllApplied } = require('../controller/for-candidate');
+const { applyJob, viewAllApplied, getJobApplication } = require('../controller/for-candidate');
 
 
 //routes
@@ -16,6 +16,7 @@ router.get('/api/v1/jobs/details/:id', getJobDetails);
 router.post('/api/v1/jobs/apply/:id', checkAuthorization('candidate'), applyJob);
 router.get('/api/v1/jobs/applied', checkAuthorization('candidate'), viewAllApplied);
 
+router.get('/api/v1/jobs/applied/:jobId/details', checkAuthorization('candidate'), getJobApplication);
 router.get('/api/v1/jobs/jobkey', getJobKeySearch);
 router.get('/api/v1/jobs/placekey', getPlaceKeySearch);
 router.get('/api/v1/jobs/companykey', getCompanyKeySearch);

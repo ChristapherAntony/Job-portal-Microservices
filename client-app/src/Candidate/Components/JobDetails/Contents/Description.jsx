@@ -9,7 +9,7 @@ import ApplicationDetails from './ApplicationDetails'
 
 
 function Description({ data, handleRefresh }) {
-
+    console.log(data,'this is the data');
 
     const date = new Date(data.created_at);
     const options = { day: 'numeric', month: 'short', year: 'numeric' };
@@ -64,18 +64,6 @@ function Description({ data, handleRefresh }) {
                     </div>
                 )}
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
             <ul className="list-none mt-5 space-x-2">
                 <InfoBox title={'Employee Type'} data={data.employment_type} />

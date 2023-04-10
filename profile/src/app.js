@@ -10,7 +10,7 @@ const candidateRoutes = require('./routes/candidate');
 const recruiterRoutes = require('./routes/recruiter');
 
 const app = express();
-console.log('hello i am forem app js');
+
 
 app.use(cors());
 app.set('trust proxy', true);  //https 
@@ -52,13 +52,9 @@ app.use((err, req, res, next) => {
 
 // Start server
 const start = async () => {
-
   connectDB();
   connectNATS();
   
-  
-   
-
   app.listen(3000, () => {
     console.log('Profile service listening on port 3000...✅');
   });

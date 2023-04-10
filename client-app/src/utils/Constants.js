@@ -69,7 +69,11 @@ export const applyJob = (id)=> `/api/v1/jobs/apply/${id}`                    //p
 
 export const getApplicatons = (id)=> `/api/v1/jobs/posted-details/${id}`   //get
 
+
 export const appliedjobsList = '/api/v1/jobs/applied';   
+
+export const getJobApplication=(jobId) => `/api/v1/jobs/applied/${jobId}/details`;
+
 
 export const jobKeySearch =(key)=>`/api/v1/jobs/jobkey?key=${key}`
 export const placeKeySearch =(key)=>`/api/v1/jobs/placekey?key=${key}`
