@@ -1,5 +1,6 @@
 
 import SampleListener from "../events/listener/sample-listener.js";
+import SkillTestAssignedListener from "../events/listener/skillTest-assigned-listener.js";
 import UserUpdatedListener from "../events/listener/user-updated-listener.js";
 import natsWrapper from "../nats-wrapper.js";
 
@@ -16,7 +17,9 @@ const connectNATS = async () => {
     });
     process.on('SIGINT', () => natsWrapper.client.close());
     process.on('SIGTERM', () => natsWrapper.client.close());
+    
     new UserUpdatedListener(natsWrapper.client).listen();
+    new SkillTestAssignedListener(natsWrapper.client).listen();
 
     
   } catch (error) {

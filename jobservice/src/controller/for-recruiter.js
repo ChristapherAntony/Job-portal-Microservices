@@ -1,4 +1,5 @@
 const { transporter } = require("../config/nodeMailer");
+const { SkillTestAssignedPublisher } = require("../events/publisher/skillTest-assigned-publisher");
 const { Application } = require("../models/application-model");
 const { Candidate } = require("../models/candidate-model");
 const { Job } = require("../models/job-model");
@@ -42,6 +43,7 @@ module.exports = {
                 recruiter: req.currentUser.id,
                 job: newJob._id
             });
+
             await application.save();
 
             res.status(200).json(newJob)
@@ -187,29 +189,30 @@ module.exports = {
             } else if (user.is_verified === false) {
                 return res.status(404).json({ errors: [{ msg: 'recruiter is not verified by admin! unable to perform this action' }] });
             }
-            
             const { applicationId, testId } = req.query;
-            console.log('api call ', applicationId, testId);
-            
             const application = await Application.findOne({ "applications._id": applicationId });
             if (!application) {
                 return res.status(404).json({ errors: [{ msg: 'application not found' }] });
             }
-            
+
             const candidate = await Candidate.findOne({ _id: application.applications.find(app => app._id.toString() === applicationId).candidate });
             if (!candidate) {
                 return res.status(404).json({ errors: [{ msg: 'candidate not found' }] });
             }
-            
+
             application.applications.forEach(app => {
                 if (app._id.toString() === applicationId) {
                     app.skillTest_date = Date.now();
+                    app.skillTest_lastDate = Date.now() + (5 * 24 * 60 * 60 * 1000); // add 5 days in milliseconds;
+                    app.skill_test_id = testId,
+                        app.skill_test_URL = `https://careerconnect.dev/candidate/take-test/${applicationId}`
                 }
             });
-            // await application.save();
+            await application.save();   
 
-            const url=`https://careerconnect.dev/candidate/take-test?applicationId=${applicationId}&testId=${testId}`
-            
+            const url = `https://careerconnect.dev/candidate/take-test/${applicationId}`
+            // https://careerconnect.dev/candidate/take-test?applicationId=4324324324&testId=3242343243
+
             //send email to candidate regarding skill test
             const email = candidate.email;
             const mailOptions = {
@@ -293,21 +296,43 @@ module.exports = {
                 </html>
                 
                 
-                `                
+                `
             };
+            await transporter.sendMail(mailOptions);    
 
-            await transporter.sendMail(mailOptions);
+
+            // to get candiate application details from collection of applications
+            let candidateApplication;
+            application.applications.forEach((data) => {
+                if (data.candidate.toString() === candidate._id.toString()) {
+                    candidateApplication = data;
+                }
+            });
+           
+
+           
+
+            //publish this event (application created )
+            await new SkillTestAssignedPublisher(natsWrapper.client).publish({
+                candidate_application_id:candidateApplication._id,
+                job_id: application.job,
+                candidate_id: candidateApplication.candidate,
+                recruiter_id: application.recruiter,
+                skill_test_id:testId,
+                application_status: candidateApplication.application_status,
+                skillTest_date:candidateApplication.skillTest_date,
+                skillTest_lastDate:candidateApplication.skillTest_lastDate
+            })
 
 
-            
-            
+
             res.status(200).json({ message: 'skill test given successfully' });
         } catch (error) {
             console.error(error);
             res.status(500).json({ errors: [{ msg: 'Server error' }] });
         }
     },
-    
+
     getApplication: async (req, res) => {
 
         console.log(req.params.id);
@@ -340,7 +365,7 @@ module.exports = {
             if (!application) {
                 return res.status(404).json({ errors: [{ msg: 'Application not found' }] })
             }
-            currentApplication=application.applications[0]
+            currentApplication = application.applications[0]
 
             res.status(200).json({ currentApplication })
         } catch (error) {

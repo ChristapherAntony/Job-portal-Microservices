@@ -1,0 +1,16 @@
+import { createSlice } from '@reduxjs/toolkit'
+
+const componentRefreshReducer = createSlice({
+    name: 'componentrefresh',
+    initialState: 'hello',
+    reducers: {
+        componentRefresh: (state, action) => {
+            return action.payload
+
+        }
+    }
+})
+
+export const { componentRefresh } = componentRefreshReducer.actions
+export default componentRefreshReducer.reducer;
+

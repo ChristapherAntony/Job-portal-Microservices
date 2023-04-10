@@ -1,3 +1,4 @@
+const { ApplicationReceivedPublisher } = require("../events/publisher/skillTest-assigned-publisher");
 const { Application } = require("../models/application-model");
 const { Candidate } = require("../models/candidate-model");
 const { Job } = require("../models/job-model");
@@ -13,7 +14,7 @@ module.exports = {
 
             // Check block status of user before updating user profile
             const user = await Candidate.findOne({ _id: req.currentUser.id });
-            console.log(user);
+
             if (user.is_blocked === true) {
                 return res.status(404).json({ errors: [{ msg: 'User is blocked and unable to perform this action' }] });
             }
@@ -26,7 +27,7 @@ module.exports = {
 
 
             let application = await Application.findOne({ job: jobId });
-            // Check if candidate already app;ied
+            // Check if candidate already applied
             const hasApplied = application.applications.some((app) => app.candidate.equals(req.currentUser.id));
             if (hasApplied) {
                 return res.status(400).json({ errors: [{ msg: 'You have already applied to this job' }] });
@@ -36,7 +37,6 @@ module.exports = {
                 candidate: req.currentUser.id,
                 application_status: 'pending'
             });
-            // }
 
             await application.save();
             res.json({ message: 'Job application submitted successfully' });
@@ -50,6 +50,8 @@ module.exports = {
         }
     },
     viewAllApplied: async (req, res) => {
+        console.log("view all applied  " + process.env.HOSTNAME);
+
         try {
             const candidateId = req.currentUser.id;
             const applications = await Application.find({ 'applications.candidate': candidateId })

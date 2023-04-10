@@ -8,7 +8,8 @@ const router = express.Router();
 // routes
 
 
-router.get('/api/v1/skill-test/test-questions', checkAuthorization('candidate'),getSkillTest );
+router.get(`/api/v1/skill-test/test-questions/:applicationId`, checkAuthorization('candidate'),getSkillTest );
+
 
 
 

@@ -19,6 +19,13 @@ export default function JobFeed() {
     const handleReset = () => {
         dispatch(changeSearchKey({ jobKey: '', locationKey: '', companyKey: '', employmentType: '' }));
     }
+    // const currentValue = useSelector(state => state.componentRefresh);
+    // console.log(currentValue);
+
+    const [refresh, setRefresh] = useState(false);  //for refreshing tehe page and fetch new dta from server
+    const handleRefresh = () => {
+        setRefresh(!refresh);
+    }
 
     const [jobs, setJobs] = useState([]);
     useEffect(() => {
@@ -28,7 +35,7 @@ export default function JobFeed() {
             console.log(error);
         });
 
-    }, [searchKey])
+    }, [searchKey, refresh])
 
 
     return (
@@ -79,7 +86,7 @@ export default function JobFeed() {
                     <div className="grid bg-white  rounded-xl md:grid-cols-12 grid-cols-1 gap-[30px]">
                         <Filter />
 
-                        <Jobs jobs={jobs} />
+                        <Jobs jobs={jobs} handleRefresh={handleRefresh} />
                     </div>
                 </div>
 

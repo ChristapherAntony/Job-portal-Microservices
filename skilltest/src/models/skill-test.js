@@ -6,11 +6,11 @@ const testSchema = new mongoose.Schema({
         required: true
     },
     time_per_question: {
-        type: String,
+        type: Number,
         required: true
     },
     pass_percentage: {
-        type: String,
+        type: Number,
         required: true
     },
     description: {

@@ -16,6 +16,10 @@ function JobDetails() {
     const [job, setJob] = useState({})
     const { id } = useParams();
 
+    const [refresh, setRefresh] = useState(false);
+    const handleRefresh = () => {
+        setRefresh(!refresh);
+    }
 
     useEffect(() => {
         axios.get(jobDetails(id)).then((response) => {
@@ -23,7 +27,7 @@ function JobDetails() {
         }).catch((err) => {
             console.log(err);
         })
-    }, [id])
+    }, [id,refresh])
 
     return (
 
@@ -40,7 +44,7 @@ function JobDetails() {
                                 </div>
                                 {/*end col*/}
                                 <div className="lg:col-span-8 md:col-span-6">
-                                    <Description data={job} />
+                                    <Description data={job} handleRefresh={handleRefresh} />
 
                                 </div>
 

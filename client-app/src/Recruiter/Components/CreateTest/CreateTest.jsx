@@ -48,7 +48,7 @@ function CreateTest() {
     const formik = useFormik({
         initialValues: {
             test_title: 'Example Test',
-            time_per_question: '1000',
+            time_per_question: '60000',
             pass_percentage: '60',
             description: 'This is an example test Read each question carefully before answering',
         },
@@ -126,7 +126,7 @@ function CreateTest() {
                     <div className='grid grid-cols-2 space-x-2'>
                         <div>
                             <label className="text-gray-700 text-sm" >
-                               Time per question in sec
+                               Time per question millisecond
                             </label>
                             <input
                                 id="time_per_question"

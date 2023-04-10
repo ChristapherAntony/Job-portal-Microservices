@@ -5,7 +5,10 @@ const addSkillTest = async (req, res) => {
   try {
     req.body.total_questions = req.body.questions.length;
     // Create a new test document using the request body
+    req.body.time_per_question=parseInt(req.body.time_per_question)
+    req.body.pass_percentage=parseInt(req.body.pass_percentage)
     const newTest = req.body;
+    console.log(newTest);
 
     // Find the recruiter associated with the current user
     const recruiter = await Recruiter.findOne({ _id: req.currentUser.id });
@@ -57,6 +60,7 @@ const getSkillTestsByRecruiter = async (req, res) => {
   }
 }
 const getSkillTestsDetails = async (req, res) => {
+  console.log("details" + process.env.HOSTNAME);
   try {
     const skillTestId = req.params.id;
 

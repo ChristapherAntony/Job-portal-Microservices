@@ -12,5 +12,4 @@ const candidateprofileSlice = createSlice({
 })
 
 export const { changeCandidateProfile } = candidateprofileSlice.actions
-
 export default candidateprofileSlice.reducer;

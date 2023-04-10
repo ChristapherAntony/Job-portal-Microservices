@@ -2,12 +2,12 @@ import React from 'react'
 import Card from './Card'
 
 
-function Jobs({ jobs }) {
+function Jobs({ jobs ,handleRefresh }) {
     console.log(jobs,"from jobs card");
     return (
         <div className="lg:col-span-8 md:col-span-6">
             <div className="grid grid-cols-1 gap-[30px]">
-                {jobs.map((data, index) => <Card data={data} index={index} />)}
+                {jobs.map((data, index) => <Card data={data} index={index} handleRefresh={handleRefresh} />)}
             </div>
             {/*end grid job card*/}
             <div className="grid md:grid-cols-12 grid-cols-1 mt-8">

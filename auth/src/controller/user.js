@@ -204,7 +204,7 @@ module.exports = {
               <!--       <image h- src='https://res.cloudinary.com/dprxebwil/image/upload/v1680618176/Recruiter/11667132_20943447_brtjjh.jpg'/>  -->
                   </div>
                   <p style="font-size:1.1em">Hi, ${existingUser.user_name}</p>
-                  <p>. Use the following OTP to complete your Sign Up procedures. OTP is valid for 1 minutes</p>
+                  <p>. Use the following OTP to complete your Sign in. OTP is valid for 1 minutes</p>
                   <h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">${otpGenerated}</h2>
                   <p style="font-size:0.9em;">Regards,<br />careerconnect</p>
                   <hr style="border:none;border-top:1px solid #eee" />
