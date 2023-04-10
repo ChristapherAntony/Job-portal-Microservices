@@ -4,17 +4,17 @@ import { useParams } from 'react-router-dom'
 import Questions from '../Components/SkillTest/Questions';
 import TestInstructions from '../Components/SkillTest/TestInstructions';
 
-function SkillTestPages() {
+function SkillTestExamPage() {
    
 
     return (
         <div>
             <NavBar />
             {/* <p>dsdsad{testId} and appid {applicationId}</p> */}
-            <TestInstructions />
+            <Questions />
             <Footer />
         </div>
     )
 }
 
-export default SkillTestPages
+export default SkillTestExamPage

@@ -91,9 +91,6 @@ export const deleteTest=(id)=>`/api/v1/skill-test/${id}`
 export const TAKE_SKILL_TEST=(applicationId)=>`/api/v1/skill-test/test-questions/${applicationId}`
 
 
-
-
-
 /*=========REACT ROUTES============ */
 
 

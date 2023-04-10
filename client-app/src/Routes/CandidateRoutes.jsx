@@ -5,6 +5,8 @@ import { HomePage, SignInPage, AddWorkExp, EmailVerfication, OtpVerify, SignUpPa
 import { NotFoundPage } from '../Recruiter/Pages';
 import MyJobsPage from '../Candidate/Pages/MyJobsPage';
 import SkillTestPages from '../Candidate/Pages/SkillTestPages';
+import TestInstructions from '../Candidate/Components/SkillTest/TestInstructions';
+import SkillTestExamPage from '../Candidate/Pages/SkillTestExamPage';
 
 
 
@@ -24,7 +26,8 @@ function CandidateRoutes() {
         <Route path='/' element={<HomePage />} />
         <Route path='profile' element={<Profile />} />
         <Route path='my-jobs' element={<MyJobsPage />} />
-        <Route path='take-test/:applicationId' element={<SkillTestPages />} />
+        <Route path='start-test/:applicationId' element={<SkillTestExamPage />} />
+        <Route path='take-test/:applicationId' element={< SkillTestPages />} />
       </Route>
       <Route path='*' element={<NotFoundPage />} />
 
