@@ -4,7 +4,7 @@ const { Application } = require("../models/application-model");
 const { Candidate } = require("../models/candidate-model");
 const { Job } = require("../models/job-model");
 const { Recruiter } = require("../models/recruiter-model");
-
+const moment = require('moment')
 
 const { natsWrapper } = require("../nats-wrapper");
 
@@ -111,6 +111,7 @@ module.exports = {
         }
     },
     getApplicationDetails: async (req, res) => {
+
         try {
             // check block status of user before updating job
             const user = await Recruiter.findOne({ _id: req.currentUser.id })
@@ -122,7 +123,7 @@ module.exports = {
 
             const jobId = req.params.id
 
-            const applicationDetails = await Application.findOne({ job: jobId })
+            const currentApplication = await Application.findOne({ job: jobId })
                 .populate({
                     path: 'recruiter',
                     select: '-_id company_name company_logo company_state company_country company_location company_country  location '
@@ -133,11 +134,11 @@ module.exports = {
                     select: '-__v -password'
                 });
 
-            if (!applicationDetails) {
+            if (!currentApplication) {
                 return res.status(404).json({ errors: [{ msg: 'Application not found' }] });
             }
 
-            res.json(applicationDetails);
+            res.json(currentApplication);
 
         } catch (error) {
             if (error.name === 'CastError' && error.kind === 'ObjectId') {
@@ -208,7 +209,7 @@ module.exports = {
                         app.skill_test_URL = `https://careerconnect.dev/candidate/take-test/${applicationId}`
                 }
             });
-            await application.save();   
+            await application.save();
 
             const url = `https://careerconnect.dev/candidate/take-test/${applicationId}`
             // https://careerconnect.dev/candidate/take-test?applicationId=4324324324&testId=3242343243
@@ -298,30 +299,30 @@ module.exports = {
                 
                 `
             };
-            await transporter.sendMail(mailOptions);    
+            await transporter.sendMail(mailOptions);
 
 
             // to get candiate application details from collection of applications
-            let candidateApplication;
+            let currentApplication;
             application.applications.forEach((data) => {
                 if (data.candidate.toString() === candidate._id.toString()) {
-                    candidateApplication = data;
+                    currentApplication = data;
                 }
             });
-           
 
-           
+
+
 
             //publish this event (application created )
             await new SkillTestAssignedPublisher(natsWrapper.client).publish({
-                candidate_application_id:candidateApplication._id,
+                candidate_application_id: currentApplication._id,
                 job_id: application.job,
-                candidate_id: candidateApplication.candidate,
+                candidate_id: currentApplication.candidate,
                 recruiter_id: application.recruiter,
-                skill_test_id:testId,
-                application_status: candidateApplication.application_status,
-                skillTest_date:candidateApplication.skillTest_date,
-                skillTest_lastDate:candidateApplication.skillTest_lastDate
+                skill_test_id: testId,
+                application_status: currentApplication.application_status,
+                skillTest_date: currentApplication.skillTest_date,
+                skillTest_lastDate: currentApplication.skillTest_lastDate
             })
 
 
@@ -334,7 +335,6 @@ module.exports = {
     },
 
     getApplication: async (req, res) => {
-
         console.log(req.params.id);
         try {
             // Check block status of user before getting application
@@ -366,7 +366,7 @@ module.exports = {
                 return res.status(404).json({ errors: [{ msg: 'Application not found' }] })
             }
             currentApplication = application.applications[0]
-
+            
             res.status(200).json({ currentApplication })
         } catch (error) {
             console.error(error);

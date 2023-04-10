@@ -31,6 +31,21 @@ spec:
                 secretKeyRef:
                   name: careerconnect-mongo-uri
                   key: MONGO_URI_ATLAS
+            - name: CLOUDINARY_CLOUD_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: careerconnect-cloudinary-config
+                  key: CLOUD_NAME
+            - name: CLOUDINARY_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: careerconnect-cloudinary-config
+                  key: API_KEY
+            - name: CLOUDINARY_API_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: careerconnect-cloudinary-config
+                  key: API_SECRET
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:

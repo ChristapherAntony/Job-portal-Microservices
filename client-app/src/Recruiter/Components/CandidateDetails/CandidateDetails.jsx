@@ -9,14 +9,17 @@ import './css/styles.css'
 
 
 function CandidateDetails() {
+
     const { candidateId, applicationId } = useParams()
     const [candidate, setCandidate] = useState({})
     const [tests, setTests] = useState([])
     const [application, setApplication] = useState({})
+    const [refresh, setRefresh] = useState(false)
 
     const getCandidateProfile = () => {
         axios.get(CANDIDATE_PROFILE(candidateId)).then((response) => {
             setCandidate(response.data)
+            setRefresh(false)
             console.log(candidate);
         }).catch((error) => {
             console.log(error);
@@ -32,6 +35,7 @@ function CandidateDetails() {
     }
     const getApplicaitonStatus = () => {
         axios.get(APPLICATION_STATUS(applicationId)).then((response) => {
+            console.log(response.data.currentApplication, '@@@@@@@@@@@@@');
             setApplication(response.data.currentApplication)
         }).catch((error) => {
             console.log(error.response.data.errors[0].msg);
@@ -41,13 +45,13 @@ function CandidateDetails() {
 
 
     useEffect(() => {
+        console.log('api call for refersh useeffect');
         getCandidateProfile()
         getApplicaitonStatus()
         getSkillTest()
+    }, [refresh])
 
-    }, [])
 
-    console.log(application.application_status, '222222222222222222222');
     function downloadFile() {
         const url = candidate?.curriculum_vitae;
         const fileName = 'file.pdf';
@@ -73,22 +77,20 @@ function CandidateDetails() {
         }
     }
     const handleGiveSkillTest = () => {
-        axios.post(APPLICATION_SKILLTEST(applicationId,testId)).then((response) => {
-            console.log(response);
-            getApplicaitonStatus()
+        axios.post(APPLICATION_SKILLTEST(applicationId, testId)).then((response) => {
+            setRefresh(true)
+            setfirst(false)
         }).catch((error) => {
             console.log(error);
         })
     }
     const handleReject = () => {
         axios.post(APPLICATION_REJECT(applicationId)).then((response) => {
-            console.log(response);
-            getApplicaitonStatus()
+            setRefresh(true)
         }).catch((error) => {
             console.log(error.response.data.errors[0].msg);
         })
     }
-
 
     return (
         <div>
@@ -230,33 +232,101 @@ function CandidateDetails() {
                         <div className="lg:col-span-4 md:col-span-5">
                             <div className="bg-slate-50  rounded-md shadow  p-6  top-20">
                                 <h5 className="text-lg font-semibold">Action</h5>
-
-                                {application.application_status === 'pending' ? (
-                                    <div>
-                                        Give Skill Test
-                                        <select
-                                            id="countries"
-                                            onChange={(e) => handleChange(e.target.value)}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                                        >
-                                            <option selected="">Choose </option>
-                                            {tests?.map((data, index) => (
-                                                <option key={index} value={data._id}>{data.test_title}</option>
-                                            ))}
-                                        </select>
-                                        <br />
-                                        <div className='flex justify-between'>
-                                            <button onClick={handleReject} type="button" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-1 text-center mr-2 mb-2">Reject</button>
-                                            {first ? (
-                                                <button onClick={handleGiveSkillTest} type="button" class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-1 text-center mr-2 mb-2">Send </button>
-
-                                            ) : (null)}
-                                        </div>
-
-                                    </div>
+                                {application.application_status === 'rejected' ? (
+                                    <p>Application status: <span className='text-red-600 font-semibold'>{application.application_status}</span> </p>
                                 ) : (
-                                    <div className='text-red-700'>Application Rejected</div>
+                                    <p>Application status: <span className=' font-semibold'>{application.application_status}</span> </p>
+
+                                )}
+
+
+                                <ol className="relative text-gray-500 border-l border-gray-200 py-3 ">
+
+                                    {application.application_date &&
+                                        <li className="mb-10 ml-6">
+                                            <span className="absolute flex items-center justify-center w-8 h-8 bg-green-200 rounded-full -left-4 ring-4 ring-white  ">
+                                                <svg
+                                                    aria-hidden="true"
+                                                    className="w-5 h-5 text-green-500 "
+                                                    fill="currentColor"
+                                                    viewBox="0 0 20 20"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <path
+                                                        fillRule="evenodd"
+                                                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                                        clipRule="evenodd"
+                                                    />
+                                                </svg>
+                                            </span>
+                                            <h3 className="font-medium leading-tight">Applied</h3>
+                                            <p className="text-sm">{new Date(application.application_date).toLocaleDateString()}</p>
+                                        </li>
+                                    }
+
+
+                                    {application.skillTest_date ? (
+
+                                        <li className="mb-10 ml-6">
+                                            <span className="absolute flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full -left-4 ring-4 ring-white  ">
+                                                <svg
+                                                    aria-hidden="true" F
+                                                    className="w-5 h-5 text-green-500 "
+                                                    fill="currentColor"
+                                                    viewBox="0 0 20 20"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <path
+                                                        fillRule="evenodd"
+                                                        d="M10 2a1 1 0 00-1 1v1a1 1 0 002 0V3a1 1 0 00-1-1zM4 4h3a3 3 0 006 0h3a2 2 0 012 2v9a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2zm2.5 7a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm2.45 4a2.5 2.5 0 10-4.9 0h4.9zM12 9a1 1 0 100 2h3a1 1 0 100-2h-3zm-1 4a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1z"
+                                                        clipRule="evenodd"
+                                                    />
+                                                </svg>
+                                            </span>
+                                            <h3 className="font-medium leading-tight">Skill test given</h3>
+                                            <p className="text-sm">{new Date(application.skillTest_date).toLocaleDateString()}</p>
+                                        </li>
+
+
+                                    ) : (
+                                        <>
+                                            {application.application_status === 'pending' ? (
+                                                <div>
+                                                    Give Skill Test
+                                                    <select
+                                                        id="countries"
+                                                        onChange={(e) => handleChange(e.target.value)}
+                                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                                                    >
+                                                        <option selected="">Choose </option>
+                                                        {tests?.map((data, index) => (
+                                                            <option key={index} value={data._id}>{data.test_title}</option>
+                                                        ))}
+                                                    </select>
+
+
+                                                </div>
+                                            ) : (
+                                                null 
+                                            )}
+                                        </>
                                     )}
+                                    <br />
+                                    <div className='flex justify-between'>
+                                        {application.application_status !== 'rejected' && application.application_status !== 'accepted' &&
+                                            <button onClick={handleReject} type="button" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-1 text-center mr-2 mb-2">Reject</button>
+
+                                        }
+                                        {first ? (
+                                            <button onClick={handleGiveSkillTest} type="button" class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-1 text-center mr-2 mb-2">Send </button>
+
+                                        ) : (null)}
+                                    </div>
+
+
+
+                                </ol>
+
 
                             </div>
                             <div className="bg-slate-50  rounded-md shadow  p-6 sticky top-20">

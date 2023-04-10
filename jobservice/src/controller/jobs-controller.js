@@ -49,7 +49,6 @@ module.exports = {
     },
     getJobDetails: async (req, res) => {
         try {
-            console.log("api call for detailed page");
             const job = await Job.findOne({ _id: req.params.id })
                 .populate({
                     path: 'recruiter',
@@ -64,7 +63,7 @@ module.exports = {
                 'applications.candidate': req?.currentUser?.id
             });
             job.hasApplied = hasApplied ? true : false; // Add the `hasApplied` field to the job object
-            console.log(job);
+          
 
             res.status(200).json(job);
         } catch (error) {
