@@ -32,6 +32,9 @@ const testApplicationSchema = new mongoose.Schema({
     skillTest_lastDate: {
         type: Date,
     },
+    skillTest_started_date: {
+        type: Date,
+    },
     skillTest_submitted_date: {
         type: Date,
     },

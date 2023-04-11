@@ -9,10 +9,10 @@ function SkillTestPages() {
 
     return (
         <div>
-            <NavBar />
+            {/* <NavBar /> */}
             {/* <p>dsdsad{testId} and appid {applicationId}</p> */}
             <TestInstructions />
-            <Footer />
+            {/* <Footer /> */}
         </div>
     )
 }

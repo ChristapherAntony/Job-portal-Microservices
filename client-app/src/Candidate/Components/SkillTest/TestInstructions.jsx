@@ -3,27 +3,28 @@ import background from './assets/index';
 import axios from 'axios';
 import { TAKE_SKILL_TEST } from '../../../utils/Constants';
 import { useNavigate, useParams } from 'react-router-dom';
+import { errorTost } from '../modals/tost';
 function TestInstructions() {
     const { applicationId } = useParams();
     const [skillTest, setSkillTest] = useState()
     const [time, setTime] = useState()
-    const navigate=useNavigate()
+    const navigate = useNavigate()
 
     const fetchTestQuestions = (applicationId) => {
         axios.get(TAKE_SKILL_TEST(applicationId)).then((response) => {
             setSkillTest(response.data.skillTest)
-
             setTime(response.data.skillTest.time_per_question * response.data.skillTest.questions.length)
             console.log(response)
         }).catch((err) => {
             console.log(err)
         });
     }
+    
     useEffect(() => {
         fetchTestQuestions(applicationId)
     }, [])
 
-    const handleStart=()=>{
+    const handleStart = () => {
         navigate(`/candidate/start-test/${applicationId}`)
     }
     return (
@@ -85,12 +86,12 @@ function TestInstructions() {
                     </div>
 
                     <div className='mt-10 flex justify-center'>
-                        <button 
-                        onClick={()=>navigate('/candidate')}
-                        type="button" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-1 text-center mr-2 mb-2">Cancel</button>
                         <button
-                        onClick={handleStart}
-                        type="button" class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-1 text-center mr-2 mb-2">Start</button>
+                            onClick={() => navigate('/candidate')}
+                            type="button" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-1 text-center mr-2 mb-2">Cancel</button>
+                        <button
+                            onClick={handleStart}
+                            type="button" class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-1 text-center mr-2 mb-2">Start</button>
                     </div>
                 </div>
             </div>

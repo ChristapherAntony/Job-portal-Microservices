@@ -10,8 +10,6 @@ function SkillTestDetails() {
     useEffect(() => {
         axios.get(skillTestDetails(id)).then((response) => {
             console.log(response.data.skillTest.test_title);
-
-
             setSkillTests(response.data.skillTest)
             // setSkillQuestions
         }).catch((error) => {

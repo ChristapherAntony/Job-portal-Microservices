@@ -15,9 +15,7 @@ import { VIEW_SKILLTEST_TABLE } from '../../../utils/ConstantRoutes';
 function CreateTest() {
     const navigate = useNavigate();
 
-
     const [error, setError] = useState('')
-
     const [showModalOne, setShowModalOne] = useState(false);
     const [showModalTwo, setShowModalTwo] = useState(false);
     const [showModalDelete, setShowModalDelete] = useState(false);
@@ -63,7 +61,9 @@ function CreateTest() {
                 questions: questions
             };
 
-            console.log(body);
+
+
+            console.log(body, 'body-------======');
             axios.post(addNewTest, body).then((response) => {
                 toast.success('Success', {
                     position: "top-right",
@@ -126,7 +126,7 @@ function CreateTest() {
                     <div className='grid grid-cols-2 space-x-2'>
                         <div>
                             <label className="text-gray-700 text-sm" >
-                               Time per question millisecond
+                                Time per question millisecond
                             </label>
                             <input
                                 id="time_per_question"

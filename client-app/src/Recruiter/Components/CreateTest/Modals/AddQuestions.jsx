@@ -102,17 +102,14 @@ export default function AddQuestions({ onClose, addQuestion }) {
                         <input type="text" id="optionA" ref={optionARef} className="border-black-300 focus:border-blue-500 focus:ring-0 focus:outline-none rounded-md w-full px-4 py-2 mt-2 ml-2" placeholder="Enter option A" />
                       </div>
                       <div className="flex items-center mt-2">
-                        {/* <input type="radio" id="correctAnswerB" name="correctAnswer" value="B" ref={correctAnswerBRef} className="mr-2" /> */}
                         <label htmlFor="correctAnswerB"> B</label>
                         <input type="text" id="optionB" ref={optionBRef} className="border-black-300 focus:border-blue-500 focus:ring-0 focus:outline-none rounded-md w-full px-4 py-2 mt-2 ml-2" placeholder="Enter option B" />
                       </div>
                       <div className="flex items-center mt-2">
-                        {/* <input type="radio" id="correctAnswerC" name="correctAnswer" value="C" ref={correctAnswerCRef} className="mr-2" /> */}
                         <label htmlFor="correctAnswerC"> C</label>
                         <input type="text" id="optionC" ref={optionCRef} className="border-black-300 focus:border-blue-500 focus:ring-0 focus:outline-none rounded-md w-full px-4 py-2 mt-2 ml-2" placeholder="Enter option C" />
                       </div>
                       <div className="flex items-center mt-2">
-                        {/* <input type="radio" id="correctAnswerD" name="correctAnswer" value="D" ref={correctAnswerDRef} className="mr-2" /> */}
                         <label htmlFor="correctAnswerD"> D</label>
                         <input type="text" id="optionD" ref={optionDRef} className="border-black-300 focus:border-blue-500 focus:ring-0 focus:outline-none rounded-md w-full px-4 py-2 mt-2 ml-2" placeholder="Enter option D" />
                       </div>
