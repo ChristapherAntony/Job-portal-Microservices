@@ -21,7 +21,6 @@ function SkillTestDetails() {
     return (
         <section className="max-w-4xl p-6 mx-auto bg-white rounded-xl shadow-md m-10">
             <h2 className="text-lg font-semibold text-gray-700 capitalize">
-
             </h2>
             <div>
                 <div className="grid grid-cols-1 gap-y-1 gap-x-5 mt-4 sm:grid-cols-2 p-5">
@@ -72,11 +71,6 @@ function SkillTestDetails() {
 
                         </div>
                     </div>
-
-
-
-
-
                 </div>
                 <div className=' col-span-2 p-5'>
                     <div>

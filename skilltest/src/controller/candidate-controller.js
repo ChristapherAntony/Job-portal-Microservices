@@ -101,15 +101,13 @@ const getSkillTest = async (req, res) => {
 
 const submitTest = async (req, res) => {
   try {
+
     const applicationId = req.params.applicationId
-    console.log(applicationId, '--------submit appliation test');
     const answers = req.body
 
-    console.log(applicationId);
     const testApplication = await TestApplication.findOne({ candidate_application_id: applicationId })
-    console.log(testApplication);
     const { skill_test_id, recruiter_id } = testApplication
-    console.log(skill_test_id, 'test id------------------', recruiter_id, 'recruier');
+
     // Find the recruiter associated with the current user
     const recruiter = await Recruiter.findOne({ _id: recruiter_id });
     if (!recruiter) {
@@ -121,17 +119,8 @@ const submitTest = async (req, res) => {
     if (!skillTest) {
       return res.status(404).json({ errors: [{ msg: 'Skill test not found' }] });
     }
-
-
     const questions = skillTest.questions
-
-
-
-    console.log(questions);
-    console.log(answers,);
-
-
-
+    //matching alogoritham to eveluate
     let correctAnswers = 0
     questions.forEach(question => {
       const answer = answers.find(answer => answer.questionId === String(question._id))
@@ -139,13 +128,15 @@ const submitTest = async (req, res) => {
         correctAnswers++
       }
     })
+    const grade = (correctAnswers / questions.length) * 100
+    const is_passed = grade >= skillTest.pass_percentage ? true : false;
 
-
-    
-    console.log(correctAnswers);
-
-
-
+    //save data to data base
+    testApplication.skillTest_submitted_date=new Date()
+    testApplication.result_sheet=answers
+    testApplication.percentage_obtained=grade
+    testApplication.is_passed=is_passed
+    await testApplication.save()
 
     res.status(200)
   } catch (error) {

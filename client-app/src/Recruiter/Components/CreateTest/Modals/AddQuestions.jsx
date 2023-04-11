@@ -3,6 +3,10 @@ import { Dialog, Transition } from '@headlessui/react'
 import { toast } from 'react-toastify';
 
 export default function AddQuestions({ onClose, addQuestion }) {
+  const [optionA, setOptionA] = useState()
+  const [optionB, setOptionB] = useState()
+  const [optionC, setOptionC] = useState()
+  const [optionD, setOptionD] = useState()
 
   const [open, setOpen] = useState(true)
 
@@ -12,20 +16,32 @@ export default function AddQuestions({ onClose, addQuestion }) {
   const optionBRef = useRef(null)
   const optionCRef = useRef(null)
   const optionDRef = useRef(null)
-  const correctAnswerRef = useRef(null);
-
+  
   const handleClose = () => {
     setOpen(false);
     onClose();
   }
 
   const handleAdd = () => {
+    // to get the value fo selected correct options
+    const radioButtons = document.getElementsByName("correctAnswer");
+    let selectedValue;
+    for (const radioButton of radioButtons) {
+      if (radioButton.checked) {
+        selectedValue = radioButton.value;
+        break;
+      }
+    }
+
+
+
     const question = inputRef.current.value;
     const answerA = optionARef.current.value;
     const answerB = optionBRef.current.value;
     const answerC = optionCRef.current.value;
     const answerD = optionDRef.current.value;
-    const correctAnswer = correctAnswerRef.current.value;
+    const correctAnswer = selectedValue
+
     if (!question || !answerA || !answerB || !answerC || !answerD || !correctAnswer) {
       toast.error("Please fill in all fields.", {
         position: "top-right",
@@ -47,13 +63,13 @@ export default function AddQuestions({ onClose, addQuestion }) {
       optionD: answerD,
       correctAnswer: correctAnswer
     };
+
     addQuestion(data)
     handleClose()
-
   };
 
 
-
+  
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -84,45 +100,44 @@ export default function AddQuestions({ onClose, addQuestion }) {
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                 <div className="bg-white  px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                   <div className="sm:flex sm:items-start">
-                    {/* <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                      </svg>
-                    </div> */}
                     <div className="mt-3 text-center w-full sm:ml-4 sm:mt-0 sm:text-left">
                       <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
                         Add Question
                       </Dialog.Title>
                       <div className="mt-2">
-                        <textarea type="text"  id="question" ref={inputRef} className="border-black-300 focus:border-blue-500 focus:ring-0 focus:outline-none rounded-md w-full px-4 py-2 mt-2 h-24" placeholder="Enter question here" />
+                        <textarea type="text" id="question" ref={inputRef} className="border-black-300 focus:border-blue-500 focus:ring-0 focus:outline-none rounded-md w-full px-4 py-2 mt-2 h-24" placeholder="Enter question here" />
                       </div>
                       <div>Add 4 options to this question</div>
                       <div className="flex items-center mt-2">
                         <label htmlFor="correctAnswerA"> A</label>
-                        <input type="text" id="optionA" ref={optionARef} className="border-black-300 focus:border-blue-500 focus:ring-0 focus:outline-none rounded-md w-full px-4 py-2 mt-2 ml-2" placeholder="Enter option A" />
+                        <input type="text" id="optionA" ref={optionARef} onChange={(e) => setOptionA(e.target.value)} className="border-black-300 focus:border-blue-500 focus:ring-0 focus:outline-none rounded-md w-full px-4 py-2 mt-2 ml-2" placeholder="Enter option A" />
                       </div>
                       <div className="flex items-center mt-2">
                         <label htmlFor="correctAnswerB"> B</label>
-                        <input type="text" id="optionB" ref={optionBRef} className="border-black-300 focus:border-blue-500 focus:ring-0 focus:outline-none rounded-md w-full px-4 py-2 mt-2 ml-2" placeholder="Enter option B" />
+                        <input type="text" id="optionB" ref={optionBRef} onChange={(e) => setOptionB(e.target.value)} className="border-black-300 focus:border-blue-500 focus:ring-0 focus:outline-none rounded-md w-full px-4 py-2 mt-2 ml-2" placeholder="Enter option B" />
                       </div>
                       <div className="flex items-center mt-2">
                         <label htmlFor="correctAnswerC"> C</label>
-                        <input type="text" id="optionC" ref={optionCRef} className="border-black-300 focus:border-blue-500 focus:ring-0 focus:outline-none rounded-md w-full px-4 py-2 mt-2 ml-2" placeholder="Enter option C" />
+                        <input type="text" id="optionC" ref={optionCRef} onChange={(e) => setOptionC(e.target.value)} className="border-black-300 focus:border-blue-500 focus:ring-0 focus:outline-none rounded-md w-full px-4 py-2 mt-2 ml-2" placeholder="Enter option C" />
                       </div>
                       <div className="flex items-center mt-2">
                         <label htmlFor="correctAnswerD"> D</label>
-                        <input type="text" id="optionD" ref={optionDRef} className="border-black-300 focus:border-blue-500 focus:ring-0 focus:outline-none rounded-md w-full px-4 py-2 mt-2 ml-2" placeholder="Enter option D" />
+                        <input type="text" id="optionD" ref={optionDRef} onChange={(e) => setOptionD(e.target.value)} className="border-black-300 focus:border-blue-500 focus:ring-0 focus:outline-none rounded-md w-full px-4 py-2 mt-2 ml-2" placeholder="Enter option D" />
                       </div>
                       <div>Choose Correct answer</div>
 
-                      <label htmlFor="correctAnswerA pl-1"> Option A </label>
-                      <input type="radio" id="correctAnswerA" name="correctAnswer" value="A" ref={correctAnswerRef} className="mr-2" />
-                      <label htmlFor="correctAnswerA pl-1"> Option B </label>
-                      <input type="radio" id="correctAnswerA" name="correctAnswer" value="B" ref={correctAnswerRef} className="mr-2" />
-                      <label htmlFor="correctAnswerA pl-1"> Option C </label>
-                      <input type="radio" id="correctAnswerA" name="correctAnswer" value="C" ref={correctAnswerRef} className="mr-2" />
-                      <label htmlFor="correctAnswerA pl-1"> Option D </label>
-                      <input type="radio" id="correctAnswerA" name="correctAnswer" value="D" ref={correctAnswerRef} className="mr-2" />
+                      <label htmlFor="correctAnswerA"> Option A </label>
+                      <input type="radio" id="correctAnswerA" name="correctAnswer" value={optionA}  className="mr-2" />
+
+                      <label htmlFor="correctAnswerB"> Option B </label>
+                      <input type="radio" id="correctAnswerB" name="correctAnswer" value={optionB}  className="mr-2" />
+
+                      <label htmlFor="correctAnswerC"> Option C </label>
+                      <input type="radio" id="correctAnswerC" name="correctAnswer" value={optionC}  className="mr-2" />
+
+                      <label htmlFor="correctAnswerD"> Option D </label>
+                      <input type="radio" id="correctAnswerD" name="correctAnswer" value={optionD}  className="mr-2" />
+
 
                     </div>
                   </div>

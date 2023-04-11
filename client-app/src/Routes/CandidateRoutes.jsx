@@ -7,6 +7,7 @@ import MyJobsPage from '../Candidate/Pages/MyJobsPage';
 import SkillTestPages from '../Candidate/Pages/SkillTestPages';
 import TestInstructions from '../Candidate/Components/SkillTest/TestInstructions';
 import SkillTestExamPage from '../Candidate/Pages/SkillTestExamPage';
+import Completed from '../Candidate/Components/SkillTest/Completed';
 
 
 
@@ -28,6 +29,7 @@ function CandidateRoutes() {
         <Route path='my-jobs' element={<MyJobsPage />} />
         <Route path='start-test/:applicationId' element={<SkillTestExamPage />} />
         <Route path='take-test/:applicationId' element={< SkillTestPages />} />
+        <Route path='skill-test/completed/:applicationId' element={< Completed />} />
       </Route>
       <Route path='*' element={<NotFoundPage />} />
 

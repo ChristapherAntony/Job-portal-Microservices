@@ -50,7 +50,5 @@ const testApplicationSchema = new mongoose.Schema({
 }, { _id: false });
 
 testApplicationSchema.index({ candidate_application_id: 1 }, { unique: true });
-
 const TestApplication = mongoose.model('TestApplication', testApplicationSchema);
-
 export { TestApplication };

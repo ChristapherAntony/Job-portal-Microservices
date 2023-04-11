@@ -32,9 +32,6 @@ function Questions() {
         });
     }
 
-
-
-
     const handleOptionChange = (event) => {
         const questionId = currentQuestion._id;
         const selectedAns = event.target.value;
@@ -71,7 +68,7 @@ function Questions() {
             console.log('catch');
             // errorTost()
         })
-        successTost('success')
+
     }
     
 
