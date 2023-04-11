@@ -1,4 +1,5 @@
 const blockStatusUpdatedListener = require('../events/listener/block-status-updated-listener');
+const SkillTestCompletedListener = require('../events/listener/sample-listiner');
 const UserUpdatedListener = require('../events/listener/user-updated-listener');
 const { natsWrapper } = require('../nats-wrapper');
 
@@ -18,7 +19,7 @@ const connectNATS = async () => {
     process.on('SIGTERM', () => natsWrapper.client.close());
 
     new UserUpdatedListener(natsWrapper.client).listen();
-    new blockStatusUpdatedListener(natsWrapper.client).listen();
+    new blockStatusUpdatedListener(natsWrapper.client).listen()
     
   } catch (error) {
     console.log(error.message);

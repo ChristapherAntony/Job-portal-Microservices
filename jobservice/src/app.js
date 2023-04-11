@@ -7,7 +7,6 @@ const cors=require('cors')
 const authorize  = require('@careerconnect/common').authorize;
 const Routes = require('./routes/routes');
 
-console.log("Hello from instance " + process.env.HOSTNAME);
 
 const app = express();
 

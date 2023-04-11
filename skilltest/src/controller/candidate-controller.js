@@ -1,3 +1,6 @@
+import natsWrapper from '../nats-wrapper.js';
+import SkillTestCompletedPublisher from "../events/publisher/skillTest-completed-publisher.js";
+
 import Recruiter from '../models/recruiter.js';
 import { SkillTest } from '../models/skill-test.js';
 import { TestApplication } from '../models/test-application.js';
@@ -48,8 +51,7 @@ const startTest = async (req, res) => {
     // testApplication.skillTest_started_date = new Date()
     // await testApplication.save()
 
-    console.log(skillTestWithoutAnswers, 'lets check===============================');
-
+    
     res.status(200).json({ skillTest: skillTestWithoutAnswers });
 
 
@@ -132,11 +134,18 @@ const submitTest = async (req, res) => {
     const is_passed = grade >= skillTest.pass_percentage ? true : false;
 
     //save data to data base
-    testApplication.skillTest_submitted_date=new Date()
-    testApplication.result_sheet=answers
-    testApplication.percentage_obtained=grade
-    testApplication.is_passed=is_passed
+    testApplication.skillTest_submitted_date = new Date()
+    testApplication.result_sheet = answers
+    testApplication.percentage_obtained = grade
+    testApplication.is_passed = is_passed
     await testApplication.save()
+
+    //need ot publish an event to job service indicating that skill test is complted and detials of the test
+    await new SkillTestCompletedPublisher(natsWrapper.client).publish({
+      skillTest_submitted_date: testApplication.skillTest_submitted_date,
+      percentage_obtained: testApplication.percentage_obtained,
+      is_passed: testApplication.is_passed,
+    })
 
     res.status(200)
   } catch (error) {

@@ -1,4 +1,6 @@
 const blockStatusUpdatedListener = require('../events/listener/block-status-updated-listener');
+const SkillTestCompletedListener = require('../events/listener/skillTest-completed-listener');
+
 const UserUpdatedListener = require('../events/listener/user-updated-listener');
 const verifiedStatusUpdatedListener = require('../events/listener/verified-status-updated-listener');
 const { natsWrapper } = require('../nats-wrapper');
@@ -18,6 +20,8 @@ const connectNATS = async () => {
     new UserUpdatedListener(natsWrapper.client).listen();
     new blockStatusUpdatedListener(natsWrapper.client).listen();
     new verifiedStatusUpdatedListener(natsWrapper.client).listen();
+    new SkillTestCompletedListener(natsWrapper.client).listen();
+
   } catch (error) {
     console.log(error.message);
 
