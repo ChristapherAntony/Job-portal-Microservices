@@ -11,7 +11,6 @@ import Completed from '../Candidate/Components/SkillTest/Completed';
 
 
 
-
 function CandidateRoutes() {
   return (
     <Routes>
@@ -27,10 +26,13 @@ function CandidateRoutes() {
         <Route path='/' element={<HomePage />} />
         <Route path='profile' element={<Profile />} />
         <Route path='my-jobs' element={<MyJobsPage />} />
+
         <Route path='start-test/:applicationId' element={<SkillTestExamPage />} />
         <Route path='take-test/:applicationId' element={< SkillTestPages />} />
         <Route path='skill-test/completed/:applicationId' element={< Completed />} />
+
       </Route>
+
       <Route path='*' element={<NotFoundPage />} />
 
     </Routes>

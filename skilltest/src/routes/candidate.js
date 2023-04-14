@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.get(`/api/v1/skill-test/test-questions/:applicationId`, checkAuthorization('candidate'), getSkillTest);
 
-router.get(`/api/v1/skill-test/start-test/:applicationId`, checkAuthorization('candidate'),startTest );
+router.post(`/api/v1/skill-test/start-test/:applicationId`, checkAuthorization('candidate'),startTest );
 
 router.post(`/api/v1/skill-test/submit-test/:applicationId`, checkAuthorization('candidate'),submitTest );
 

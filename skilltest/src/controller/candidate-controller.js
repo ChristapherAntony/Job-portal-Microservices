@@ -15,7 +15,7 @@ const startTest = async (req, res) => {
     console.log(testApplication, 'this is test application------------------');
 
     //reject the attempt to take test if he is already tried to attempted
-    if (testApplication.skillTest_started_date || testApplication.skillTest_started_date) {
+    if (testApplication.skillTest_started_date ) {
       return res.status(404).json({ errors: [{ msg: 'This test has already been attempted by you. You cannot retake it.' }] });
     }
     const currentDate = new Date()
@@ -48,8 +48,8 @@ const startTest = async (req, res) => {
 
 
     // maked the test is initiated
-    // testApplication.skillTest_started_date = new Date()
-    // await testApplication.save()
+    testApplication.skillTest_started_date = new Date()
+    await testApplication.save()
 
     
     res.status(200).json({ skillTest: skillTestWithoutAnswers });
@@ -142,12 +142,13 @@ const submitTest = async (req, res) => {
 
     //need ot publish an event to job service indicating that skill test is complted and detials of the test
     await new SkillTestCompletedPublisher(natsWrapper.client).publish({
+      candidate_application_id:testApplication.candidate_application_id,
       skillTest_submitted_date: testApplication.skillTest_submitted_date,
       percentage_obtained: testApplication.percentage_obtained,
       is_passed: testApplication.is_passed,
     })
 
-    res.status(200)
+    res.status(200).json({message:'test completed'})
   } catch (error) {
     console.error(error);
     res.status(500).json({ errors: [{ msg: 'Server error' }] });

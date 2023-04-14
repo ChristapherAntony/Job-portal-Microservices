@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import background from './assets/index';
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { START_SKILL_TEST, SUBMIT_TEST, TAKE_SKILL_TEST } from '../../../utils/Constants';
-import { errorTost,successTost } from '../modals/tost';
+import { errorTost, successTost } from '../modals/tost';
+import { TEST_COMPLETED } from '../../../utils/ConstantRoutes';
 function Questions() {
 
     const navigate = useNavigate()
@@ -16,19 +17,20 @@ function Questions() {
 
     const [error, setError] = useState(null)
 
-
+    const location = useLocation();
     const currentQuestion = skillTest.test_title ? skillTest.questions[currentIndex] : null;
     const currentQuestionId = skillTest.test_title ? skillTest.questions[currentIndex]?._id : null;
 
     const fetchTestQuestions = (applicationId) => {
-        axios.get(START_SKILL_TEST(applicationId)).then((response) => {
+        console.log('fetching data from backend--------------');
+        axios.post(START_SKILL_TEST(applicationId)).then((response) => {
             setSkillTest(response.data.skillTest)
             const examTime = response.data.skillTest.time_per_question * response.data.skillTest.questions?.length
             setTimeRemaining(examTime)
             setError(null)
         }).catch((err) => {
+            console.log(err);
             setError(err.response.data.errors[0].msg)
-
         });
     }
 
@@ -49,7 +51,7 @@ function Questions() {
         }
 
     };
-    
+
 
     const handleNext = () => {
         setCurrentIndex(currentIndex + 1);
@@ -59,28 +61,21 @@ function Questions() {
     }
 
     const handleSubmit = () => {
-        console.log(applicationId,'id=====================');
-        axios.post(SUBMIT_TEST(applicationId), answers).then((response)=>{
-            console.log(response,'success');
+        console.log(applicationId, 'id1111111111')
+        axios.post(SUBMIT_TEST(applicationId), answers).then((response) => {
+          
             successTost('success')
-            navigate('/candidate')
-        }).catch((err)=>{
-            console.log('catch');
-            // errorTost()
+            navigate(TEST_COMPLETED(applicationId))
+        }).catch((err) => {
+            console.log('catchwwwwwwwwwww');
+            errorTost()
         })
 
     }
-    
-
-
-
     useEffect(() => {
         const selectedAns = answers.find(item => item.questionId === currentQuestionId)?.selectedAns;
         setSelectedAnswer(selectedAns);
     }, [handleOptionChange]);
-
-
-
     useEffect(() => {
         if (timeRemaining > 0) {
             const timerId = setTimeout(() => {
@@ -91,8 +86,6 @@ function Questions() {
             handleSubmit();
         }
     }, [timeRemaining]);
-
-   
     useEffect(() => {
         fetchTestQuestions(applicationId)
     }, [])
@@ -102,6 +95,7 @@ function Questions() {
         const seconds = Math.floor((time % 60000) / 1000);
         return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
     }
+
     return (
         <main className="overflow-hidden">
             <div
