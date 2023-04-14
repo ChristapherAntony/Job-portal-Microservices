@@ -90,10 +90,8 @@ export const deleteTest=(id)=>`/api/v1/skill-test/${id}`
 
 export const TAKE_SKILL_TEST=(applicationId)=>`/api/v1/skill-test/test-questions/${applicationId}`
 
-
-
-
-
+export const START_SKILL_TEST=(applicationId)=>`/api/v1/skill-test/start-test/${applicationId}`
+export const SUBMIT_TEST=(applicationId)=>`/api/v1/skill-test/submit-test/${applicationId}`
 /*=========REACT ROUTES============ */
 
 

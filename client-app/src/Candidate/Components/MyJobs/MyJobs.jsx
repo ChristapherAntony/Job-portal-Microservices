@@ -25,11 +25,11 @@ function MyJobs() {
 
         <section className="relative -mt-[42px] md:pb-24 pb-16">
             <div className="mycontainer mt-10">
-                <div className="grid grid-cols-1 gap-[30px]">
-
+                <h1 className='font-semibold py-5 text-lg' >Applied Jobs</h1>
+                <div className="grid grid-cols-1 gap-[15px]">
                     {jobs.length > 0 ? (
                         jobs.map((data, index) => (
-                            <div key={index} className="group bg-white relative overflow-hidden md:flex justify-between items-center rounded shadow hover:shadow-md  transition-all duration-500 p-5">
+                            <div key={index} className="group bg-white relative overflow-hidden md:flex justify-between items-center rounded shadow hover:shadow-md  transition-all duration-500 p-3">
                                 <div className="flex items-center">
                                     <div className="w-14 h-14 flex items-center justify-center bg-white  shadow  rounded-md">
                                         <img
@@ -66,7 +66,8 @@ function MyJobs() {
                                 <div className="md:mt-0 mt-4">
 
                                     <Link
-                                        to={APPLIED_JOBS_DETAILS(data.job._id)}
+                                    
+                                        to={`/job-details/${data.job._id}`}
                                         className="btn rounded-md bg-blue-600 hover:bg-blue-700 border-blue-600 hover:border-blue-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto"
                                     >
                                         View Details

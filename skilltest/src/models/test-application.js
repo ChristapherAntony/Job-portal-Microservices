@@ -32,6 +32,9 @@ const testApplicationSchema = new mongoose.Schema({
     skillTest_lastDate: {
         type: Date,
     },
+    skillTest_started_date: {
+        type: Date,
+    },
     skillTest_submitted_date: {
         type: Date,
     },
@@ -47,7 +50,5 @@ const testApplicationSchema = new mongoose.Schema({
 }, { _id: false });
 
 testApplicationSchema.index({ candidate_application_id: 1 }, { unique: true });
-
 const TestApplication = mongoose.model('TestApplication', testApplicationSchema);
-
 export { TestApplication };

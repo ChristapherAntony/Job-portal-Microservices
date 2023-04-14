@@ -7,8 +7,6 @@ const { natsWrapper } = require("../nats-wrapper");
 
 module.exports = {
     getJobs: async (req, res) => {
-            console.log("all jobs" + process.env.HOSTNAME);
-
         try {
             const { jobKey, locationKey, companyKey, employmentType } = req.query;
             console.log(jobKey, locationKey, companyKey);
@@ -36,12 +34,37 @@ module.exports = {
                 });
                 job.hasApplied = hasApplied ? true : false; // Add the `hasApplied` field to the job object
             }
+            let filteredJobs = jobs;
             if (companyKey) {
-                const filteredJobs = jobs.filter(job => job.recruiter.company_name.match(new RegExp(companyKey, 'i')));
-                res.status(200).json(filteredJobs);
-            } else {
-                res.status(200).json(jobs);
+                filteredJobs = jobs.filter(job => job.z.company_name.match(new RegExp(companyKey, 'i')));
             }
+            const page = parseInt(req.query.page) || 1;
+            let pageSize = parseInt(req.query.limit) || 4;
+            const skip = (page - 1) * pageSize;
+            const total = filteredJobs.length;
+            const pages = Math.ceil(total / pageSize);
+
+            if (page > pages) {
+                return res.status(404).json({
+                    status: "fail",
+                    message: "No page found",
+                });
+            }
+
+            if (filteredJobs.length < pageSize) {
+                pageSize = filteredJobs.length;
+            }
+
+            const result = filteredJobs.slice(skip, skip + pageSize);
+
+            res.status(200).json({
+                status: "success",
+                count: result.length,
+                page,
+                pages,
+                data: result,
+            });
+
         } catch (error) {
             console.error(error);
             res.status(500).json({ errors: [{ msg: 'Server error' }] });
@@ -63,7 +86,7 @@ module.exports = {
                 'applications.candidate': req?.currentUser?.id
             });
             job.hasApplied = hasApplied ? true : false; // Add the `hasApplied` field to the job object
-          
+
 
             res.status(200).json(job);
         } catch (error) {
@@ -120,14 +143,5 @@ module.exports = {
             console.error(error);
             res.status(500).json({ errors: [{ msg: 'Server error' }] });
         }
-    },
-
-
-
-
-
-
-
-
-
+    }
 };

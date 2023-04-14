@@ -92,7 +92,7 @@ const deleteById = async (req, res) => {
     if (!recruiter) {
       return res.status(404).json({ errors: [{ msg: 'Recruiter not found' }] });
     }
-
+    
     // Remove the skill test with the given ID from the skill_tests array
     await recruiter.updateOne({ $pull: { skill_tests: { _id: skillTestId } } });
 

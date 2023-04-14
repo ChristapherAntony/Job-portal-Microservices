@@ -19,7 +19,7 @@ module.exports = {
             } else if (user.is_verified === false) {
                 return res.status(404).json({ errors: [{ msg: 'recruiter is not verified by admin! unable to perform this action' }] })
             }
-
+            
             const jobData = {
                 recruiter: req.currentUser.id,
                 job_title: req.body.job_title,
@@ -173,7 +173,6 @@ module.exports = {
                 return res.status(404).json({ errors: [{ msg: 'Application not found' }] })
             }
 
-            console.log(updatedApplication);
             res.json(updatedApplication);
 
         } catch (error) {
@@ -310,9 +309,6 @@ module.exports = {
                 }
             });
 
-
-
-
             //publish this event (application created )
             await new SkillTestAssignedPublisher(natsWrapper.client).publish({
                 candidate_application_id: currentApplication._id,
@@ -335,7 +331,6 @@ module.exports = {
     },
 
     getApplication: async (req, res) => {
-        console.log(req.params.id);
         try {
             // Check block status of user before getting application
             const user = await Recruiter.findOne({ _id: req.currentUser.id })
@@ -359,8 +354,6 @@ module.exports = {
                     'applications.$': 1
                 }
             );
-
-            console.log(application.applications[0]);
             // If application is not found
             if (!application) {
                 return res.status(404).json({ errors: [{ msg: 'Application not found' }] })
@@ -373,15 +366,4 @@ module.exports = {
             res.status(500).json({ errors: [{ msg: 'Server error' }] });
         }
     }
-
-
-
-
-
-
-
-
-
-
-
 };

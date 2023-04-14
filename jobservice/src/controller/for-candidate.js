@@ -25,7 +25,6 @@ module.exports = {
                 return res.status(404).json({ errors: [{ msg: 'Requested job not found' }] });
             }
 
-
             let application = await Application.findOne({ job: jobId });
             // Check if candidate already applied
             const hasApplied = application.applications.some((app) => app.candidate.equals(req.currentUser.id));
@@ -97,14 +96,12 @@ module.exports = {
             }
 
             const candidateApplication = application[0].applications[0];
-            console.log('==================');
             candidateApplication.application_date = moment(candidateApplication.application_date).format('DD-MMM-YYYY');
             candidateApplication.skillTest_date = moment(candidateApplication.skillTest_date).format('DD-MMM-YYYY');
             candidateApplication.skillTest_lastDate = moment(candidateApplication.skillTest_lastDate).format('DD-MMM-YYYY');
             candidateApplication.skillTest_submitted_date = moment(candidateApplication.skillTest_submitted_date).format('DD-MMM-YYYY');
             candidateApplication.accepted_date = moment(candidateApplication.accepted_date).format('DD-MMM-YYYY');
 
-            console.log(candidateApplication);
             res.status(200).json(candidateApplication);
         } catch (error) {
             console.error(error);
