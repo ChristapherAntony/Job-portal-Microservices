@@ -16,11 +16,6 @@ app.use(cookieSession({ signed: false, secure: true }))
 app.use(xss()); //  xss-clean 
 app.use(authorize); // jwt verifying middleware
 
-
-
-
-
-
 app.use(adminRoutes)
 
 // Error handling middleware

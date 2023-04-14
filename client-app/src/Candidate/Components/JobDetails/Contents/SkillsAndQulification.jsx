@@ -10,7 +10,7 @@ function SkillsAndQulifications({ skills,qualifications }) {
                
             </p>
             <ul className="myList">
-                {skills.map((skill, index) => {
+                {skills?.map((skill, index) => {
                     return (
                         <li key={index} className="text-slate-600 mt-2">
                             <i className="uil uil-arrow-right text-emerald-600 ltr:mr-1 rtl:ml-1" />
@@ -23,7 +23,7 @@ function SkillsAndQulifications({ skills,qualifications }) {
 
             </ul>
             <ul className="myList">
-                {qualifications.map((data, index) => {
+                {qualifications?.map((data, index) => {
                     return (
                         <li key={index} className="text-slate-600 mt-2">
                             <i className="uil uil-arrow-right text-emerald-600 ltr:mr-1 rtl:ml-1" />

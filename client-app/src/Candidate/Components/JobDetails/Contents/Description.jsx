@@ -6,10 +6,13 @@ import Duties from './Duties'
 import JobDescription from './JobDescription'
 import SkillsAndQulifications from './SkillsAndQulification'
 import ApplicationDetails from './ApplicationDetails'
+import { useSelector } from 'react-redux'
+import LineSkeleton from '../../Skeleton/LineSkeleton'
 
 
 function Description({ data, handleRefresh }) {
-    console.log(data,'this is the data');
+    const isLoading = useSelector(state => state.loading)
+
 
     const date = new Date(data.created_at);
     const options = { day: 'numeric', month: 'short', year: 'numeric' };
@@ -65,16 +68,23 @@ function Description({ data, handleRefresh }) {
                 )}
             </div>
 
-            <ul className="list-none mt-5 space-x-2">
-                <InfoBox title={'Employee Type'} data={data.employment_type} />
-                <InfoBox title={'Location'} data={data.location} />
-                <InfoBox title={'Job Type'} data={data.job_title} />
-                <InfoBox title={'Experience'} data={data.experience_required} />
-                {/* <InfoBox title={'Qualifications'} data={'MCA'} /> */}
-                <InfoBox title={'Salary'} data={data.base_salary} />
-                <InfoBox title={'Date posted'} data={formattedDate} />
 
-            </ul>
+            {isLoading ? (
+                <LineSkeleton count={5} />
+            ) : (
+                <ul className="list-none mt-5 space-x-2">
+                    <InfoBox title={'Employee Type'} data={data.employment_type} />
+                    <InfoBox title={'Location'} data={data.location} />
+                    <InfoBox title={'Job Type'} data={data.job_title} />
+                    <InfoBox title={'Experience'} data={data.experience_required} />
+                    {/* <InfoBox title={'Qualifications'} data={'MCA'} /> */}
+                    <InfoBox title={'Salary'} data={data.base_salary} />
+                    <InfoBox title={'Date posted'} data={formattedDate} />
+
+                </ul>
+            )}
+
+
 
             {data.hasApplied && <ApplicationDetails jobId={data._id} />}
 

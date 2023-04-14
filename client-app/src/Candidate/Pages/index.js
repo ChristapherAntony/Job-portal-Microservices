@@ -9,3 +9,6 @@ export { default as Profile } from './Profile';
 export { default as OtpVerify } from './OtpVerify/OtpVerify';
 export { default as AddWorkExp } from './AddWorkExp';
 export { default as EmailVerfication } from './EmailVerfication/EmailVerfication';
+
+export { default as JobFeedPage } from './JobFeedPage';
+export { default as JobDetailsPage } from './JobDetailsPage';

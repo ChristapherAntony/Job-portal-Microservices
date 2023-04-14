@@ -4,7 +4,7 @@ const { Candidate } = require("../models/candidate-model");
 const { Job } = require("../models/job-model");
 const { Recruiter } = require("../models/recruiter-model");
 const mongoose = require('mongoose');
-const moment =require('moment')
+const moment = require('moment')
 
 
 module.exports = {
@@ -51,6 +51,10 @@ module.exports = {
     viewAllApplied: async (req, res) => {
         try {
             const candidateId = req.currentUser.id;
+            const page = parseInt(req.query.page) || 1;
+            const pageSize = parseInt(req.query.limit) || 10;
+            const startIndex = (page - 1) * pageSize;
+
             const applications = await Application.find({ 'applications.candidate': candidateId })
                 .populate({
                     path: 'job',
@@ -61,14 +65,26 @@ module.exports = {
                     },
                 })
                 .select('job applications.$')
+                .skip(startIndex)
+                .limit(pageSize)
                 .exec();
 
-            res.json(applications);
+            const total = await Application.countDocuments({ 'applications.candidate': candidateId });
+            const pages = Math.ceil(total / pageSize);
+
+            res.json({
+                status: 'success',
+                count: applications.length,
+                page,
+                pages,
+                data: applications,
+            });
         } catch (error) {
             console.error(error);
             res.status(500).json({ errors: [{ msg: 'Server error' }] });
         }
     },
+
     getJobApplication: async (req, res) => {
         try {
             const jobId = req.params.jobId;

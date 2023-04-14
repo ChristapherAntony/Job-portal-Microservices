@@ -11,8 +11,7 @@ import { changeLoading } from '../../Redux/loadingReducer';
 function Profile() {
 
   const dispatch = useDispatch()
-  //const [profileData, setProfileData] = useState({});
-  const [profileLoading, setProfileLoading] = useState(false);
+ 
 
 
   useEffect(() => {

@@ -8,10 +8,8 @@ function ProfileQuickUpdate() {
 
         <div className='bg-lightBlue overflow-hidden'>
             <NavBar />
-
             <QuickProfile />
             <Footer />
-
         </div>
 
     )

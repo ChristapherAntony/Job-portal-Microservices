@@ -50,7 +50,7 @@ function Card({ data, handleRefresh }) {
 
     const navigate = useNavigate()
     const handleClick = () => {
-        navigate(`/job-details/${data._id}`)
+        navigate(`/candidate/job-details/${data._id}`)
     }
 
     return (
