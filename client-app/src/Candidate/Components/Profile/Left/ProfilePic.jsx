@@ -5,13 +5,16 @@ import { deleteProfileImage, updateProfileImage } from '../../../../utils/Consta
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
 import { changeCandidateProfile } from '../../../../Redux/candidateProfileReducer'
+import Spinner from '../../Spinner'
+import ImageSkeleton from '../../Skeleton/ImageSkeleton'
 
 
 function ProfilePic() {
+  const isLoading = useSelector(state => state.loading)
   const profile = useSelector((state) => state.candidateprofile)
   const dispatch = useDispatch()
   const [status, setStatus] = useState(false)//for toggle 
-  
+
 
   const update = async () => {
     const { value: file } = await Swal.fire({
@@ -84,7 +87,7 @@ function ProfilePic() {
         }).catch((err) => {
           console.log(err);
         })
-        
+
 
         Swal.fire(
           'Deleted!',
@@ -151,28 +154,28 @@ function ProfilePic() {
 
       </div>
 
+      {isLoading ? (
+        <ImageSkeleton />
+      ) : (
+        <div className="flex flex-col items-center pb-10">
+          <img
+            className="w-24 h-24 mb-3 rounded-full shadow-lg"
+            src={profile.profile_image}
+            alt="Bonnie image"
+          />
+          <h5 className="mb-1 text-xl font-medium text-gray-900">
+            {profile.user_name}
+          </h5>
+          <span className="text-sm text-gray-500 ">
+            {/* {profile.user_name} */}
+          </span>
+
+        </div>
+      )
+      }
 
 
-
-
-
-
-
-      <div className="flex flex-col items-center pb-10">
-        <img
-          className="w-24 h-24 mb-3 rounded-full shadow-lg"
-          src={profile.profile_image}
-          alt="Bonnie image"
-        />
-        <h5 className="mb-1 text-xl font-medium text-gray-900">
-          {profile.user_name}
-        </h5>
-        <span className="text-sm text-gray-500 ">
-          {/* {profile.user_name} */}
-        </span>
-
-      </div>
-    </div>
+    </div >
 
 
   )

@@ -2,11 +2,13 @@ import React, { useState } from 'react'
 import EditPenButton from '../../buttons/EditPenButton'
 import BioModal from '../../modals/BioModal'
 import { useSelector, useDispatch } from 'react-redux'
+import LineSkeleton from '../../Skeleton/LineSkeleton'
 
 
 
 function Bio() {
   const profile = useSelector((state) => state.candidateprofile)
+  const isLoading = useSelector(state => state.loading)
 
   const [showModal, setShowModal] = useState(false);
   const handleClick = () => {
@@ -24,10 +26,16 @@ function Bio() {
           <EditPenButton />
         </span>
       </div>
-      {/* show this modal on editpenbutton click */}
+
       {showModal && <BioModal onClose={handleClose} bio={profile.bio} />}
       <hr className="h-px my-4 bg-gray-200 border-0" />
-      <p className='text-myGray '>{profile.bio}</p>
+      
+      {isLoading ? (
+        <LineSkeleton count={6} />
+      ) : (
+        <p className='text-myGray '>{profile.bio}</p>
+      )}
+
 
     </div>
   )

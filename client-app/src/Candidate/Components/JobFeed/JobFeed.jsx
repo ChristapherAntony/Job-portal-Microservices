@@ -9,6 +9,8 @@ import axios from "axios";
 
 import { useDispatch, useSelector } from 'react-redux'
 import { changeSearchKey } from "../../../Redux/searchKeyReducer";
+import Pagination from "../Pagination/Pagination";
+import CardLoading from "./CardLoading";
 
 
 export default function JobFeed() {
@@ -16,11 +18,15 @@ export default function JobFeed() {
     const { jobKey, locationKey, companyKey, employmentType } = searchKey
     const dispatch = useDispatch();
 
+
+    // const pageNumber = match.params.pageNumber || 1;
+    const pageNumber = 1;
+    const [page, setPage] = useState(pageNumber);
+    const [pages, setPages] = useState(1);
+    const [loading, setLoading] = useState(false);
     const handleReset = () => {
         dispatch(changeSearchKey({ jobKey: '', locationKey: '', companyKey: '', employmentType: '' }));
     }
-    // const currentValue = useSelector(state => state.componentRefresh);
-    // console.log(currentValue);
 
     const [refresh, setRefresh] = useState(false);  //for refreshing tehe page and fetch new dta from server
     const handleRefresh = () => {
@@ -28,14 +34,20 @@ export default function JobFeed() {
     }
 
     const [jobs, setJobs] = useState([]);
+
     useEffect(() => {
-        axios.get(`/api/v1/jobs?jobKey=${jobKey}&locationKey=${locationKey}&companyKey=${companyKey}&employmentType=${employmentType}`).then(response => {
-            setJobs(response.data);
+        setLoading(true);
+        axios.get(`/api/v1/jobs?jobKey=${jobKey}&locationKey=${locationKey}&companyKey=${companyKey}&employmentType=${employmentType}&page=${page}&limit=${8}`).then(response => {
+            console.log('api call' ,response.data.page);
+            setJobs(response.data.data);
+            setPages(response.data.pages)
+            setLoading(false);
         }).catch(error => {
             console.log(error);
+            setLoading(false);
         });
 
-    }, [searchKey, refresh])
+    }, [searchKey, refresh, page])
 
 
     return (
@@ -86,8 +98,12 @@ export default function JobFeed() {
                     <div className="grid bg-white  rounded-xl md:grid-cols-12 grid-cols-1 gap-[30px]">
                         <Filter />
 
-                        <Jobs jobs={jobs} handleRefresh={handleRefresh} />
+                        <Jobs page={page} pages={pages} changePage={setPage} jobs={jobs} handleRefresh={handleRefresh} loading={loading} />
+                        
+                        
+
                     </div>
+                    
                 </div>
 
 

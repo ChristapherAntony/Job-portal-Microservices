@@ -4,6 +4,7 @@ import candidateProfileReducer from './candidateProfileReducer'
 import recruiterProfileReducer from './recruiterProfileReducer';
 import searchKeyReducer from './searchKeyReducer';
 import componentRefreshReducer from './componentRefreshReducer';
+import loadingReducer from './loadingReducer';
 // import  userImageReducer from './userImageReducer'
 
 
@@ -12,7 +13,8 @@ const store=configureStore({
         candidateprofile:candidateProfileReducer,
         recruiterprofile:recruiterProfileReducer,
         searchkey:searchKeyReducer,
-        componentrefresh:componentRefreshReducer
+        componentrefresh:componentRefreshReducer,
+        loading:loadingReducer
     }    
 })
 
