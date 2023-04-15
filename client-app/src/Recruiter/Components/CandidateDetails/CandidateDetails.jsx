@@ -260,7 +260,7 @@ function CandidateDetails() {
                                                 </svg>
                                             </span>
                                             <h3 className="font-medium leading-tight">Applied</h3>
-                                            <p className="text-sm">{new Date(application.application_date).toLocaleDateString()}</p>
+                                            <p className="text-sm">{ new Date(application.application_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
                                         </li>
                                     }
 
@@ -284,7 +284,7 @@ function CandidateDetails() {
                                                 </svg>
                                             </span>
                                             <h3 className="font-medium leading-tight">Skill test given</h3>
-                                            <p className="text-sm">{new Date(application.skillTest_date).toLocaleDateString()}</p>
+                                            <p className="text-sm">{ new Date(application.skillTest_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
                                         </li>
 
 
@@ -307,11 +307,32 @@ function CandidateDetails() {
 
                                                 </div>
                                             ) : (
-                                                null 
+                                                null
                                             )}
                                         </>
                                     )}
-                                    <br />
+                                    {application.skillTest_submitted_date &&
+                                        <li className="mb-10 ml-6">
+                                            <span className="absolute flex items-center justify-center w-8 h-8 bg-green-200 rounded-full -left-4 ring-4 ring-white  ">
+                                                <svg
+                                                    aria-hidden="true"
+                                                    className="w-5 h-5 text-green-500 "
+                                                    fill="currentColor"
+                                                    viewBox="0 0 20 20"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                >
+                                                    <path
+                                                        fillRule="evenodd"
+                                                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                                        clipRule="evenodd"
+                                                    />
+                                                </svg>
+                                            </span>
+                                            <h3 className="font-medium leading-tight">Test Submitted</h3>
+                                            <p className="text-sm">{ new Date(application.skillTest_submitted_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
+                                        </li>
+                                    }
+                                    < br />
                                     <div className='flex justify-between'>
                                         {application.application_status !== 'rejected' && application.application_status !== 'accepted' &&
                                             <button onClick={handleReject} type="button" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-1 text-center mr-2 mb-2">Reject</button>

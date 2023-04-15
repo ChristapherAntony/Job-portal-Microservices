@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import { quickExperienceUpdate } from '../../utils/Constants';
 import Swal from 'sweetalert2';
 import axios from 'axios';
-
+import { toast } from 'react-toastify';
 
 
 
@@ -18,14 +18,14 @@ function QuickExperience() {
 
   const formik = useFormik({
     initialValues: {
-      designation: 'Software Engineer',
-      company_name: 'ABC Company',
+      designation: '',
+      company_name: '',
       current_status: currentStatus,
-      location: 'Mumbai',
+      location: '',
       start_date: '',
       notice_period: undefined,
       end_date: undefined,
-      job_description: 'Responsible for designing and developing software applicationsResponsible for designing and developing software applicationsResponsible for designing and developing software applicationsResponsible for designing and developing software applications',
+      job_description: '',
     },
     validationSchema: Yup.object({
       designation: Yup.string().required('Required'),
@@ -45,23 +45,36 @@ function QuickExperience() {
     }),
 
     onSubmit: (values) => {
+      
       values.current_status = currentStatus;
-      console.log(values);
-
-      axios.post(quickExperienceUpdate(id), values).then(res => {
-        Swal.fire({
-          position: 'top-end',
-          text: 'Success',
-          showConfirmButton: false,
-          timer: 1500
+      const uploadPromise = new Promise((resolve, reject) => {
+        axios.post(quickExperienceUpdate(id), values).then(res => {
+          resolve(res.data);
+        }).catch((err) => {
+          console.log(err.response.data.errors[0].msg);
+          reject(err.response.data.errors[0].msg);
         })
-      }).catch((err) => {
-        console.log(err.response.data.errors[0].msg);
-        setError(err.response.data.errors[0].msg); // Set the error state
+      });
+
+      toast.promise(uploadPromise, {
+        pending: 'Loading...',
+        success: 'Experience added',
+        error: 'Something went wrong.'
+      });
+
+      uploadPromise.then(() => {
+       
+      }).catch((error) => {
+        setError(error); // Set the error state
         setTimeout(() => {
           setError(null);
         }, 8000);
-      })
+      });
+
+
+
+
+
 
     },
   });
