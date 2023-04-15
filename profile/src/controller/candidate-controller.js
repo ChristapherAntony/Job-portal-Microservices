@@ -38,7 +38,7 @@ module.exports = {
            
             // update the user profile 
             const updatedUser = await Candidate.findByIdAndUpdate(
-                id, // user ID to update
+                id, // user ID to update  
                 {
                     $set: {
                         user_name: req.body.user_name,
@@ -53,11 +53,12 @@ module.exports = {
                 },
                 { new: true } // return the updated document
             );
-
+            
             //publish this event
             await new UserUpdatedPublisher(natsWrapper.client).publish(
                 updatedUser
             )
+
             res.status(200).json({ message: 'User updated successfully', user: updatedUser });
 
 

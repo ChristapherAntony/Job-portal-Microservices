@@ -33,7 +33,7 @@ function ApplicationDetails({ jobId }) {
         <>
             <h5 className="text-lg font-semibold text-blue-700 py-2">Application Details</h5>
             <ol className="relative text-gray-500 border-l border-gray-200 ">
-                {application.application_status === 'pending' &&
+                {application.application_date &&
                     <li className="mb-10 ml-6">
                         <span className="absolute flex items-center justify-center w-8 h-8 bg-green-200 rounded-full -left-4 ring-4 ring-white  ">
                             <svg

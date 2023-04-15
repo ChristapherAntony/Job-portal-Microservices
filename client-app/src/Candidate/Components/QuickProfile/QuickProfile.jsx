@@ -2,12 +2,11 @@
 import React, { useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
-
 import axios from 'axios';
 import validationSchema from './validation';
 import { quickProfileUpdate } from '../../../utils/Constants';
-
+import Spinner from '../Spinner';
+import { toast } from 'react-toastify';
 function QuickProfile() {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
@@ -22,16 +21,16 @@ function QuickProfile() {
     const [pdf, setPdf] = useState(null);
     const [error, setError] = useState("")
     const { id } = useParams();
-
+    const [loading, setLoading] = useState(false)
     const handleAddSkill = () => {
-        
+
         const skillInput = document.getElementById('skills');
         const newSkill = skillInput.value.toLowerCase();
         if (newSkill) {
             setSkills(prevState => [...prevState, newSkill]);
             skillInput.value = '';
         }
-        
+
     };
     const [file, setFile] = useState(null);
 
@@ -44,7 +43,10 @@ function QuickProfile() {
         const selectedFile = event.target.files[0];
         setPdf(selectedFile)
     };
-
+    const handleRemoveSkill = (index) => {
+        const updatedSkills = skills.filter((skill, i) => i !== index);
+        setSkills(updatedSkills);
+      }
 
     const formik = useFormik({
         initialValues: {
@@ -67,17 +69,42 @@ function QuickProfile() {
             formData.append('curriculum_vitae', pdf);
             formData.append('key_skills', skills);
             formData.append('bio', values.bio);
-            
-            axios.patch(quickProfileUpdate(id), formData).then(res => {
-                console.log(res);
+            setLoading(true)
+
+
+            const uploadPromise = new Promise((resolve, reject) => {
+                axios.patch(quickProfileUpdate(id), formData).then(res => {
+                    console.log(res);
+                    resolve(res.data);
+                }).catch((err) => {  
+                    reject(err.response.data.errors[0].msg);
+                })
+            });
+
+            toast.promise(uploadPromise, {
+                pending: 'Loading...',
+                success: 'Profile updated',
+                error: 'Something went wrong.'
+            });
+
+            uploadPromise.then(() => {
                 navigate(`/candidate/quick-experience/${id}`);
-            }).catch((err) => {
-                console.log(err.response.data.errors[0].msg);
-                setError(err.response.data.errors[0].msg); // Set the error state
+                setLoading(false)
+            }).catch((error) => {
+                setError(error); // Set the error state
                 setTimeout(() => {
                     setError(null);
                 }, 8000);
-            })
+            });
+
+
+
+
+
+
+
+
+
         },
     });
 
@@ -281,11 +308,14 @@ function QuickProfile() {
                             data-te-ripple-init>
                             Add
                         </button>
+
                         {skills.map((skill, index) => (
-                            <span key={index} className="inline-block border-1 rounded-full bg-lightBlue px-3 py-1 text-xs font-medium text-black border-gray-600  mr-2 mb-2">
-                                {skill}
-                            </span>
-                        ))}
+                        <span key={index} className="inline-block border-1 rounded-full bg-lightBlue px-3 py-1 text-xs font-medium text-black border-gray-600  mr-2 mb-2">
+                          {skill}
+                          <button onClick={() => handleRemoveSkill(index)} className="ml-2 text-xs font-medium text-red-600">X</button>
+                        </span>
+                      ))}
+                        
 
                     </div>
 
@@ -316,6 +346,7 @@ function QuickProfile() {
                         {error}
                     </p>
                 )}
+             
                 <div className="flex justify-end mt-6">
                     <button type="submit" className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
                         Next

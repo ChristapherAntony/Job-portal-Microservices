@@ -6,8 +6,6 @@ const mongoose = require('mongoose');
 module.exports = {
     addWorkExperience: async (req, res) => {
         try {
-            // NOTE---checked for user authorized , role  status in router level---middleware
-            //check block status of user before updating user profile
             const user = await Candidate.findOne({ _id: req.currentUser.id })
             if (user.is_blocked === true) {
                 return res.status(404).json({ errors: [{ msg: 'user blocked unable to perform this action' }] })
@@ -27,16 +25,12 @@ module.exports = {
                 notice_period: req.body.notice_period ? req.body.notice_period : null,
                 job_description: req.body.job_description
             };
-
-
             // Push the new work experience object to the work_experience array using the $push operator
             const updatedUser = await Candidate.findByIdAndUpdate(
                 req.currentUser.id,
                 { $push: { work_experience: newWorkExperience } },
                 { new: true }
             );
-            console.log('6666666666666666666666666');
-            console.log(updatedUser);
 
             res.status(200).json({ message: 'Work experience added successfully', user: updatedUser });
         } catch (error) {
@@ -89,7 +83,8 @@ module.exports = {
                 { $push: { work_experience: newWorkExperience } },
                 { new: true }
             );
-            console.log(updatedUser);
+
+           
 
             res.status(200).json({ message: 'Work experience added successfully', user: updatedUser });
         } catch (error) {
