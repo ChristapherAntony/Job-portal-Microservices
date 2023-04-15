@@ -68,7 +68,6 @@ module.exports = {
                 .skip(startIndex)
                 .limit(pageSize)
                 .exec();
-
             const total = await Application.countDocuments({ 'applications.candidate': candidateId });
             const pages = Math.ceil(total / pageSize);
 
@@ -87,6 +86,7 @@ module.exports = {
 
     getJobApplication: async (req, res) => {
         try {
+           
             const jobId = req.params.jobId;
             const candidateId = req.currentUser.id;
 
@@ -112,11 +112,13 @@ module.exports = {
             }
 
             const candidateApplication = application[0].applications[0];
-            candidateApplication.application_date = moment(candidateApplication.application_date).format('DD-MMM-YYYY');
-            candidateApplication.skillTest_date = moment(candidateApplication.skillTest_date).format('DD-MMM-YYYY');
-            candidateApplication.skillTest_lastDate = moment(candidateApplication.skillTest_lastDate).format('DD-MMM-YYYY');
-            candidateApplication.skillTest_submitted_date = moment(candidateApplication.skillTest_submitted_date).format('DD-MMM-YYYY');
-            candidateApplication.accepted_date = moment(candidateApplication.accepted_date).format('DD-MMM-YYYY');
+            // candidateApplication.application_date = moment(candidateApplication.application_date).format('DD-MMM-YYYY');
+            // candidateApplication.skillTest_date = moment(candidateApplication.skillTest_date).format('DD-MMM-YYYY');
+            // candidateApplication.skillTest_lastDate = moment(candidateApplication.skillTest_lastDate).format('DD-MMM-YYYY');
+            // candidateApplication.skillTest_submitted_date = moment(candidateApplication.skillTest_submitted_date).format('DD-MMM-YYYY');
+            // candidateApplication.accepted_date = moment(candidateApplication.accepted_date).format('DD-MMM-YYYY');
+
+            console.log(candidateApplication);
 
             res.status(200).json(candidateApplication);
         } catch (error) {

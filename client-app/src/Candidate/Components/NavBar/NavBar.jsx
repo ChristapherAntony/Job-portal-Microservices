@@ -3,7 +3,7 @@ import { Fragment } from 'react'
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom'
 import Logo from '../Logo/Logo'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { Menu, Transition } from '@headlessui/react'
 import React, { useEffect, useState } from 'react'
 import { currentUser, signOut } from '../../../utils/Constants';
 import { APPLIED_JOBS } from '../../../utils/ConstantRoutes';
@@ -21,8 +21,10 @@ function classNames(...classes) {
 
 function NavBar() {
     const navigate = useNavigate();
-    const [user, setUser] = useState(false)
 
+    const [user, setUser] = useState(true)
+    const [userImage, setUserImage] = useState(true)
+    const [userName, setUsername] = useState('')
     const [isOpen, setIsOpen] = useState(false);
     const logout = () => {
         axios.post(signOut).then(res => {
@@ -32,18 +34,29 @@ function NavBar() {
         })
     }
 
-    useEffect(() => {
-        document.title = "Careerconnect-landing page"
-        axios
-            .get(currentUser)
-            .then((res) => {
-                setUser(true)
-            })
-            .catch((err) => {
-                setUser(false)
-            });
+    const getUser = () => {
+        axios.get(currentUser).then((res) => {
+            setUsername(res.data.user_name)
+            setUser(true)
+        }).catch((err) => {
+            setUser(false)
+        });
+    }
 
-    }, [logout])
+    const getProfilePic = () => {
+        axios.get(`/api/v1/profile/candidate/profile-picture`).then((res) => {
+            setUserImage(res.data.profile_image)
+
+        }).catch((err) => {
+
+        });
+    }
+
+    useEffect(() => {
+        getUser()
+        getProfilePic()
+
+    }, [])
 
 
 
@@ -112,7 +125,9 @@ function NavBar() {
                                     <Link to={'/candidate/jobfeed'} className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Jobs </Link>
                                     {/* <Link to={'/job-details'} className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Companies</Link> */}
                                     <Link to={APPLIED_JOBS} className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">My jobs</Link>
-                                    {/* <a href="#" className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Experts</a> */}
+                                    <Link className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Community</Link>
+                                    <Link to={'/candidate/profile'} className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 block lg:hidden">Profile</Link>
+                                    <Link onClick={logout} className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 block lg:hidden"> Sign out</Link>
 
 
                                 </div>
@@ -136,14 +151,15 @@ function NavBar() {
                                             />
                                         </svg>
                                     </button>
-                                 
+                                    <span className='text-gray-200 hidden lg:block'>{userName}</span>
+
                                     <Menu as="div" className="relative ml-3 hidden lg:block">
                                         <div>
                                             <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                                                 <span className="sr-only">Open user menu</span>
                                                 <img
                                                     className="h-8 w-8 rounded-full"
-                                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                    src={userImage}
                                                     alt=""
                                                 />
                                             </Menu.Button>
@@ -201,8 +217,8 @@ function NavBar() {
 
 
                             <div className='flex flex-col -mx-6 lg:flex-row lg:items-center lg:mx-8'>
-                                <button onClick={() => navigate('/candidate/signin')} className=' text-white px-2 lg:font-bold'>For Candidate</button>
-                                <button onClick={() => navigate('/recruiter/signin')} className=' text-white px-2 lg:font-bold'>For Recruiter</button>
+                                <button onClick={() => navigate('/candidate/signin')} className=' text-white px-2 py-3 lg:py-0  lg:font-bold'>For Candidate</button>
+                                <button onClick={() => navigate('/recruiter/signin')} className=' text-white px-2 py-3  lg:py-0 lg:font-bold'>For Recruiter</button>
                             </div>
                         )}
 
