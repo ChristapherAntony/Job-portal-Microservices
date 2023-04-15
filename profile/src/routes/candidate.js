@@ -1,6 +1,6 @@
 const express = require('express');
 const { addEducation, updateEducation, deleteEducation } = require('../controller/candidate-education');
-const { viewProfile, updateProfile, updatePersonalInfo, updateProfilePicture, deleteProfilePicture, updateCV, deleteCV, updateBio, updateSocialLinks, deleteSocialLink, addLanguage, deleteLanguage, updateAbout } = require('../controller/candidate-controller');
+const { viewProfile, updateProfile, updatePersonalInfo, updateProfilePicture, deleteProfilePicture,getProfilePicture, updateCV, deleteCV, updateBio, updateSocialLinks, deleteSocialLink, addLanguage, deleteLanguage, updateAbout } = require('../controller/candidate-controller');
 const { addWorkExperience, addQuickWorkExperience, deleteWorkExperience, updateWorkExperience } = require('../controller/candidate-experience');
 const { validateProfileQuickUpdate, validatePersonalInfo, validateEducation, validateExperience, validateCourse, validateLanguage } = require('../middleware/candidate-validation');
 const { checkAuthorization } = require('../middleware/check-authorization');
@@ -28,6 +28,7 @@ router.delete('/api/v1/profile/candidate/education/:id', checkAuthorization('can
 //update and delete profile picture
 router.patch('/api/v1/profile/candidate/profile-picture', checkAuthorization('candidate'), upload.fields([{ name: 'profile_image', maxCount: 1 }]), updateProfilePicture)
 router.delete('/api/v1/profile/candidate/profile-picture', checkAuthorization('candidate'), deleteProfilePicture)
+router.get('/api/v1/profile/candidate/profile-picture', checkAuthorization('candidate'), getProfilePicture)
 //update and delete cv
 router.patch('/api/v1/profile/candidate/curriculum-vitae', checkAuthorization('candidate'), upload.fields([ { name: 'curriculum_vitae', maxCount: 1 }]), updateCV)
 router.delete('/api/v1/profile/candidate/curriculum-vitae', checkAuthorization('candidate'), deleteCV)

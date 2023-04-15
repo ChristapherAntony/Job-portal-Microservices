@@ -2,11 +2,14 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 import EditPenButton from '../../buttons/EditPenButton'
 import PersonalInfoModal from '../../modals/PersonalInfoModal';
+import LineSkeleton from '../../Skeleton/LineSkeleton';
+import CardLoading from '../../JobFeed/CardLoading';
 
 
 
 
 function Personal() {
+    const isLoading = useSelector(state => state.loading)
     const profile = useSelector((state) => state.candidateprofile)
     const [showModal, setShowModal] = useState(false);
     const handleClick = () => {
@@ -28,7 +31,11 @@ function Personal() {
             </div>
 
             <hr className="h-px my-4 bg-gray-200 border-0" />
-            <div>
+            
+            {isLoading ?(
+                <LineSkeleton count={8}/>
+            ):(
+                <div>
                 <form>
                     <div className="grid grid-cols-1 gap-y-1 gap-x-5 mt-4 sm:grid-cols-2 p-5 pro-text">
                         <div>
@@ -109,6 +116,8 @@ function Personal() {
 
                 </form>
             </div>
+            )}
+            
         </div>
     )
 }

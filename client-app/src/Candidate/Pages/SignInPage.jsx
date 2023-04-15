@@ -10,7 +10,6 @@ function SignInPage() {
       <NavBar />
       <div className="md:w-3/5 py-8 m-20 mx-auto bg-white rounded-xl">
         <div className="flex flex-col-reverse md:flex-row justify-between">
-          
           <div className="md:w-1/2">
             <SignIn />
           </div>

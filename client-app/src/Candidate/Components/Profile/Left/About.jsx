@@ -4,8 +4,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import { changeCandidateProfile } from '../../../../Redux/candidateProfileReducer'
 import Sample from '../../modals/Sample'
 import EditPenButton from '../../buttons/EditPenButton'
+import LineSkeleton from '../../Skeleton/LineSkeleton'
 
 function About() {
+  const isLoading = useSelector(state => state.loading)
+
   const profile = useSelector((state) => state.candidateprofile)
 
   const [showModal, setShowModal] = useState(false);
@@ -30,10 +33,15 @@ function About() {
           </span>
         </div>
 
-       
+
         {showModal && <Sample onClose={handleClose} keySkills={profile.key_skills} about={profile.about} />}
         <p className="mt-2 text-sm pro-text ">
-          {profile.about}
+          {isLoading ? (
+            <LineSkeleton count={2} />
+          ) : (
+            profile.about
+          )}
+
         </p>
       </div>
       <hr />

@@ -1,33 +1,34 @@
 import { lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route, } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Unauthorized from './Admin/Components/Unauthorized';
-import { LandingPage } from './Candidate/Pages/index';
-import JobDetailsPage from './Candidate/Pages/JobDetailsPage';
-import JobFeedPage from './Candidate/Pages/JobFeed';
 import { NotFoundPage } from './Recruiter/Pages';
-import AdminRoutes from './Routes/AdminRoutes';
-import CandidateRoutes from './Routes/CandidateRoutes';
-import RecruiterRoutes from './Routes/RecruiterRoutes';
+import BoltLoader from './Admin/Components/BoltLoader/Boltloader';
 
-
-
+const CandidateRoutes = lazy(() => import('./Routes/CandidateRoutes'));
+const AdminRoutes = lazy(() => import('./Routes/AdminRoutes'));
+const RecruiterRoutes = lazy(() => import('./Routes/RecruiterRoutes'));
+const LandingPage = lazy(() => import('./Candidate/Pages/index').then(module => ({ default: module.LandingPage })));
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<LandingPage />} />
-          <Route path='/jobfeed' element={<JobFeedPage />} />
-          <Route path='/job-details/:id' element={<JobDetailsPage />} />
+          <Route path='/' element={<Suspense fallback={<BoltLoader />}><LandingPage /></Suspense>} />
+
           <Route path="/unauthorized" element={<Unauthorized />} />
-          <Route path='/candidate/*' element={<CandidateRoutes />} />
-          <Route path='/admin/*' element={<AdminRoutes />} />
-          <Route path='/recruiter/*' element={<RecruiterRoutes />} />
+
+          <Route path='/candidate/*' element={<Suspense fallback={<BoltLoader />}><CandidateRoutes /></Suspense>} />
+
+          <Route path='/admin/*' element={<Suspense fallback={<BoltLoader />}><AdminRoutes /></Suspense>} />
+
+          <Route path='/recruiter/*' element={<Suspense fallback={<BoltLoader />}><RecruiterRoutes /></Suspense>} />
+
           <Route path='*' element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     </div>
   );
 }
-export default App
+
+export default App;

@@ -87,7 +87,7 @@ module.exports = {
             });
             job.hasApplied = hasApplied ? true : false; // Add the `hasApplied` field to the job object
 
-
+            
             res.status(200).json(job);
         } catch (error) {
             console.error(error);

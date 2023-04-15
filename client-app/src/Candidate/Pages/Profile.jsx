@@ -6,20 +6,26 @@ import { About, CV, ProfilePic, SocialProfiles } from '../Components/Profile/Lef
 import { Bio, CourseAndCertification, Education, Language, Personal, WorkExperience } from '../Components/Profile/Right/index'
 import { useSelector, useDispatch } from 'react-redux'
 import { changeCandidateProfile } from '../../Redux/candidateProfileReducer';
+import Spinner from '../Components/Spinner';
+import { changeLoading } from '../../Redux/loadingReducer';
 function Profile() {
 
   const dispatch = useDispatch()
-  //const [profileData, setProfileData] = useState({});
+ 
+
 
   useEffect(() => {
-
+   dispatch(changeLoading(true))
     axios.get(getProfile)
       .then(response => {
-        console.log(response,"test")
+        console.log(response, "test")
         dispatch(changeCandidateProfile(response.data))
+        dispatch(changeLoading(false))
       })
       .catch(error => {
+        dispatch(changeLoading(false))
         console.error(error);
+       
       });
 
   }, [dispatch]);
@@ -28,28 +34,34 @@ function Profile() {
   return (
     <div className='bg-lightBlue'>
       <NavBar />
-      <div className='container w-4/5 m-5 mx-auto bg-lightBlue gap-2  grid grid-cols-1 md:grid-cols-12 '>
+      {/* {loading ? (
+        <Spinner />
+      ) : ( */}
+        <div className='container w-4/5 m-5 mx-auto bg-lightBlue gap-2  grid grid-cols-1 md:grid-cols-12 '>
 
-        <div className='bg-lightBlue  md:col-span-4 space-y-5 '>
+          <div className='bg-lightBlue  md:col-span-4 space-y-5 '>
 
-          <ProfilePic />
-          <About />
-          <CV />
-          {/* <SocialProfiles/> */}
+            <ProfilePic  />
+            <About />
+            <CV />
+            {/* <SocialProfiles/> */}
+
+          </div>
+          <div className='bg-lightBlue  md:col-span-8 grid gap-5 '>
+
+            <Bio />
+            <Personal />
+            <WorkExperience />
+            <Education />
+            <CourseAndCertification />
+            {/* <Language/> */}
+
+          </div>
 
         </div>
-        <div className='bg-lightBlue  md:col-span-8 grid gap-5 '>
+      {/* )} */}
 
-          <Bio />
-          <Personal />
-          <WorkExperience />
-          <Education />
-          <CourseAndCertification />
-          {/* <Language/> */}
 
-        </div>
-
-      </div>
       <Footer />
     </div>
   )

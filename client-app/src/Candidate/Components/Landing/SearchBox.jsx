@@ -43,7 +43,7 @@ function SearchBox() {
         dispatch(changeSearchKey({ jobKey, locationKey }))
         // setJobKey('')
         // setLocationKey('')
-        navigate('/jobfeed')
+        navigate('/candidate/jobfeed')
     }
 
 

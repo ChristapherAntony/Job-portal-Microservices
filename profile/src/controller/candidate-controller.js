@@ -182,10 +182,24 @@ module.exports = {
             res.status(500).json({ errors: [{ msg: 'Server error' }] });
         }
     },
+    getProfilePicture: async (req, res) => {
+        try {
+            
+            const user = await Candidate.findOne({ _id: req.currentUser.id })
+                .select('profile_image');
+            if (user.is_blocked === true) {
+                return res.status(404).json({ errors: [{ msg: 'user blocked unable to perform this action' }] })
+            }
+
+            res.status(200).json({ message: 'User profile picture retrieved successfully', profile_image: user.profile_image });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ errors: [{ msg: 'Server error' }] });
+        }
+    },
+
     deleteProfilePicture: async (req, res) => {
         try {
-            // NOTE---checked for user authorized , role  status in router level---middleware
-            //check block status of user before updating user profile
             const user = await Candidate.findOne({ _id: req.currentUser.id })
             if (user.is_blocked === true) {
                 return res.status(404).json({ errors: [{ msg: 'user blocked unable to perform this action' }] })
