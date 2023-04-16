@@ -1,8 +1,13 @@
-import React, { useState } from 'react'
+
 import { useSelector, useDispatch } from 'react-redux'
+import React from 'react';
 import EditPenButton from '../../buttons/EditPenButton'
-import AddCertification from '../../modals/AddCertification'
+// import AddCertification from '../../modals/AddCertification'
 import Delete from '../../modals/Delete'
+import { useState, lazy, Suspense } from 'react';
+import BoltLoader from '../../../../Admin/Components/BoltLoader/Boltloader';
+const AddCertification = lazy(() => import('../../modals/AddCertification'));
+
 function CourseAndCertification() {
   const profile = useSelector((state) => state.candidateprofile)
   const show = profile.courseAnd_certification?.length > 0
@@ -15,10 +20,6 @@ function CourseAndCertification() {
   const handleClickEdit = () => {
     setShowModalDel(true);
   };
-
-
-
-
 
   const handleClose = () => {
     setShowModal(false);
@@ -34,7 +35,9 @@ function CourseAndCertification() {
           add +
         </span>
       </div>
-      {showModal && <AddCertification onClose={handleClose} />}
+      <Suspense fallback={<BoltLoader />}>
+        {showModal && <AddCertification onClose={handleClose} />}
+      </Suspense>
       <hr className="h-px my-4 bg-gray-200 border-0" />
 
       {show ? (

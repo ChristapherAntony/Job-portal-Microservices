@@ -11,6 +11,7 @@ import { HomePageRecruiter, JobPostPage, JobsAndResponsePage, NotFoundPage, Quic
 import ViewJobApplication from '../Recruiter/Pages/ViewJobApplication';
 import SkillTestsListPage from '../Recruiter/Pages/SkillTestsListPage';
 import SkillTestsDetailspage from '../Recruiter/Pages/SkillTestsDetailspage';
+import SkillTestResultPage from '../Recruiter/Pages/SkillTestResultPage';
 
 
 function RecruiterRoutes() {
@@ -30,6 +31,7 @@ function RecruiterRoutes() {
                 <Route path='add-skill-test' element={<AddSkillTest />} />
                 <Route path='skill-test' element={<SkillTestsListPage />} />
                 <Route path='skill-test/details/:id' element={<SkillTestsDetailspage />} />
+                <Route path='skill-test/results' element={<SkillTestResultPage />} />
 
             </Route>
 

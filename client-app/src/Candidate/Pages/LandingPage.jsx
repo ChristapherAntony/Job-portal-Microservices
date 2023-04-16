@@ -10,6 +10,7 @@ import Recruiter from '../Components/Landing/small-box/Recruiter'
 import SmallBox from '../Components/Landing/SmallBox'
 import NavBar from '../Components/NavBar/NavBar'
 import BoltLoader from '../../Admin/Components/BoltLoader/Boltloader'
+import FAQ from '../Components/Landing/FAQ'
 
 
 function LandingPage() {
@@ -38,11 +39,15 @@ function LandingPage() {
       {loading ? (
         <BoltLoader />
       ) : (
-        <div className='bg-lightBlue overflow-hidden'>
+        <div className='bg-lightBlue '>
           <NavBar />
           <Hero />
-          <SmallBox />
-          <BrandsGrid />
+          <div className='my-5 md:w-4/5 m-auto  space-y-5  overflow-hidden space-y-5'>
+
+            <SmallBox />
+            <BrandsGrid />
+            <FAQ />
+          </div>
           <Footer />
         </div>
       )}

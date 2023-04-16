@@ -5,8 +5,8 @@ function SmallBox() {
     const navigate = useNavigate();
     return (
 
-        <section className="bg-lightBlue">
-            <div className="bg-white container my-5 px-6 py-10 mx-auto w-3/4 ">
+        <section >
+            <div className="bg-white container  rounded-xl px-6 py-10 mx-auto  ">
                 {/* <h1 className="text-2xl font-semibold text-gray-800 capitalize lg:text-3xl">
                     Please Register <br /> {" "}
                     <span className="underline decoration-blue-500">here</span>

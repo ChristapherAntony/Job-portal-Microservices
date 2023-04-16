@@ -3,7 +3,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { blockCandidate, blockRecruiters, getRecruiters, getUsers, unblockCandidate, unblockRecruiters } from "../../../utils/Constants";
+import {  blockRecruiters, getRecruiters, unblockRecruiters } from "../../../utils/Constants";
 
 const TableRecruiters = () => {
   const navigate = useNavigate()

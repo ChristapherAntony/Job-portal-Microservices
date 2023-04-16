@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { jobPosted } from '../../utils/Constants';
 import { useNavigate } from 'react-router-dom';
 import { VIEW_APPLICATOIONS } from '../../utils/ConstantRoutes';
+
 function Jobs() {
     const [jobs, setJobs] = useState([])
     const navigate = useNavigate()
