@@ -5,8 +5,8 @@ const addSkillTest = async (req, res) => {
   try {
     req.body.total_questions = req.body.questions.length;
     // Create a new test document using the request body
-    req.body.time_per_question=parseInt(req.body.time_per_question)
-    req.body.pass_percentage=parseInt(req.body.pass_percentage)
+    req.body.time_per_question = parseInt(req.body.time_per_question)
+    req.body.pass_percentage = parseInt(req.body.pass_percentage)
     const newTest = req.body;
     console.log(newTest);
 
@@ -92,11 +92,61 @@ const deleteById = async (req, res) => {
     if (!recruiter) {
       return res.status(404).json({ errors: [{ msg: 'Recruiter not found' }] });
     }
-    
+
     // Remove the skill test with the given ID from the skill_tests array
     await recruiter.updateOne({ $pull: { skill_tests: { _id: skillTestId } } });
 
     res.status(200).json({ message: 'Skill test deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ errors: [{ msg: 'Server error' }] });
+  }
+}
+
+const getSkillTestResult = async (req, res) => {
+  try {
+    const { job_id } = req.query;
+
+    // Use the aggregate pipeline to retrieve data from the Application schema
+    const data = await Application.aggregate([
+      // Match documents where the job field matches the provided job_id
+      { $match: { job: mongoose.Types.ObjectId(job_id) } },
+      // Unwind the applications array to retrieve data for each application separately
+      { $unwind: "$applications" },
+      // Populate data from the referenced Candidate and Job schemas
+      {
+        $lookup: {
+          from: "candidates",
+          localField: "applications.candidate",
+          foreignField: "_id",
+          as: "candidate",
+        },
+      },
+      {
+        $lookup: {
+          from: "jobs",
+          localField: "job",
+          foreignField: "_id",
+          as: "job",
+        },
+      },
+      // Project only the fields you want to retrieve
+      {
+        $project: {
+          candidate_name: {
+            $concat: ["$candidate.first_name", " ", "$candidate.last_name"],
+          },
+          job_title: "$job.title",
+          application_status: "$applications.application_status",
+          skillTest_submitted_date:
+            "$applications.skillTest_submitted_date",
+          percentage_obtained: "$applications.percentage_obtained",
+          is_passed: "$applications.is_passed",
+        },
+      },
+    ]);
+
+    res.status(200).json({ data });
   } catch (error) {
     console.error(error);
     res.status(500).json({ errors: [{ msg: 'Server error' }] });
@@ -106,4 +156,5 @@ const deleteById = async (req, res) => {
 
 
 
-export { addSkillTest, getSkillTestsByRecruiter, deleteById, getSkillTestsDetails };
+
+export { addSkillTest, getSkillTestsByRecruiter, deleteById, getSkillTestsDetails, getSkillTestResult };

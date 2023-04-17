@@ -10,19 +10,20 @@ const Datatable = () => {
   const [users, setUsers] = useState([])
   const [status, setStatus] = useState('pending')
 
-  useEffect(() => {
-    getUsersList()
-  }, [status])
-
   const getUsersList = () => {
     axios.get(`${viewApplicationByStatus}/${status}`).then((response) => {
       console.log(response.data.data)
       setUsers(response.data.data)
-
     }).catch((error) => {
       console.log(error);
     })
   }
+
+  useEffect(() => {
+    getUsersList()
+  }, [status])
+
+
 
   const handleStatusChange = (event) => {
     setStatus(event.target.value)

@@ -5,7 +5,7 @@ const { Candidate } = require("../models/candidate-model");
 const { Job } = require("../models/job-model");
 const { Recruiter } = require("../models/recruiter-model");
 const moment = require('moment')
-
+const mongoose = require('mongoose');
 const { natsWrapper } = require("../nats-wrapper");
 
 module.exports = {
@@ -19,7 +19,7 @@ module.exports = {
             } else if (user.is_verified === false) {
                 return res.status(404).json({ errors: [{ msg: 'recruiter is not verified by admin! unable to perform this action' }] })
             }
-            
+
             const jobData = {
                 recruiter: req.currentUser.id,
                 job_title: req.body.job_title,
@@ -150,7 +150,6 @@ module.exports = {
     },
     rejectApplication: async (req, res) => {
         try {
-            console.log('api call');
             // check block status of user before updating job
             const user = await Recruiter.findOne({ _id: req.currentUser.id })
             if (user.is_blocked === true) {
@@ -165,7 +164,13 @@ module.exports = {
             // Update the application status to 'rejected'
             const updatedApplication = await Application.findOneAndUpdate(
                 { 'applications._id': applicationId },
-                { $set: { 'applications.$.application_status': status } },
+                {
+                    $set: {
+                        'applications.$.application_status': status,
+                        'applications.$.rejected_date': Date.now(),
+                        'applications.$.comment': req.body.comment
+                    }
+                },
                 { new: true }
             );
 
@@ -173,8 +178,44 @@ module.exports = {
                 return res.status(404).json({ errors: [{ msg: 'Application not found' }] })
             }
 
-            res.json(updatedApplication);
 
+            res.status(200).json(updatedApplication);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ errors: [{ msg: 'Server error' }] });
+        }
+    },
+    acceptApplication: async (req, res) => {
+        try {
+            // check block status of user before updating job
+            const user = await Recruiter.findOne({ _id: req.currentUser.id })
+            if (user.is_blocked === true) {
+                return res.status(404).json({ errors: [{ msg: 'user blocked unable to perform this action' }] })
+            } else if (user.is_verified === false) {
+                return res.status(404).json({ errors: [{ msg: 'recruiter is not verified by admin! unable to perform this action' }] })
+            }
+            const status = 'accepted'
+            const applicationId = req.params.id
+
+            // Update the application status to 'rejected'
+            const updatedApplication = await Application.findOneAndUpdate(
+                { 'applications._id': applicationId },
+                {
+                    $set: {
+                        'applications.$.application_status': status,
+                        'applications.$.accepted_date': Date.now(),
+                        'applications.$.comment': req.body.comment
+                    }
+                },
+                { new: true }
+            );
+
+            if (!updatedApplication) {
+                return res.status(404).json({ errors: [{ msg: 'Application not found' }] })
+            }
+
+
+            res.status(200).json(updatedApplication);
         } catch (error) {
             console.error(error);
             res.status(500).json({ errors: [{ msg: 'Server error' }] });
@@ -359,11 +400,109 @@ module.exports = {
                 return res.status(404).json({ errors: [{ msg: 'Application not found' }] })
             }
             currentApplication = application.applications[0]
-            
+
             res.status(200).json({ currentApplication })
         } catch (error) {
             console.error(error);
             res.status(500).json({ errors: [{ msg: 'Server error' }] });
         }
+    },
+    getSkillTestResult: async (req, res) => {
+        try {
+            const { job_id } = req.query;
+            const { id: recruiter_id } = req.currentUser;
+            const page = parseInt(req.query.page) || 1;
+            const pageSize = parseInt(req.query.limit) || 10;
+            const startIndex = (page - 1) * pageSize;
+            console.log(`${pageSize} and ${req.query.limit}`);
+
+
+            let applications;
+            let total;
+            if (job_id) {
+                const application = await Application.findOne({
+                    job: job_id,
+                    recruiter: recruiter_id,
+                    'applications.skillTest_submitted_date': { $exists: true }
+                })
+                    .populate({
+                        path: 'applications.candidate',
+                        model: 'Candidate',
+                        select: 'user_name'
+                    })
+                    .populate({
+                        path: 'job',
+                        model: 'Job',
+                        select: 'job_title'
+                    })
+                    .select('-applications.skill_test_URL -applications.skillTest_date -applications.skillTest_lastDate')
+                    .skip(startIndex)
+                    .limit(pageSize);
+
+
+                if (!application) {
+                    applications = []
+                    total = 0;
+                } else {
+                    applications = application.applications.map(app => ({
+                        ...app.toObject(),
+                        recruiter: application.recruiter,
+                        job: application.job
+                    }));
+                    total = application.applications.length;
+                }
+            } else {
+                const applicationsArr = await Application.find({
+                    recruiter: recruiter_id,
+                    'applications.skillTest_submitted_date': { $exists: true }
+                })
+                    .populate({
+                        path: 'applications.candidate',
+                        model: 'Candidate',
+                        select: 'user_name'
+                    })
+                    .populate({
+                        path: 'job',
+                        model: 'Job',
+                        select: 'job_title'
+                    })
+                    .select('-applications.skill_test_URL -applications.skillTest_date -applications.skillTest_lastDate')
+                    .skip(startIndex)
+                    .limit(pageSize);
+
+                applications = applicationsArr.flatMap(application =>
+                    application.applications.map(app => ({
+                        ...app.toObject(),
+                        recruiter: application.recruiter,
+                        job: application.job
+                    }))
+                );
+                total = await Application.countDocuments({
+                    recruiter: recruiter_id,
+                    'applications.skillTest_submitted_date': { $exists: true }
+                });
+            }
+
+            res.status(200).json({
+                status: 'success',
+                count: applications.length,
+                page,
+                pages: Math.ceil(total / pageSize),
+                data: applications,
+            });
+        } catch (error) {
+            if (error instanceof mongoose.Error.CastError) {
+                return res.status(500).json({ errors: [{ msg: 'Invalid  job id' }] });
+            }
+            console.error(error);
+            res.status(500).json({ errors: [{ msg: 'Server error' }] });
+        }
     }
 };
+
+
+
+
+
+
+

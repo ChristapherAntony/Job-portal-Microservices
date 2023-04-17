@@ -15,4 +15,6 @@ router.post(`/api/v1/skill-test/start-test/:applicationId`, checkAuthorization('
 router.post(`/api/v1/skill-test/submit-test/:applicationId`, checkAuthorization('candidate'),submitTest );
 
 
+
+
 export default router;

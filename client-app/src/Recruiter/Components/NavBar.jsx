@@ -167,7 +167,7 @@ function NavBar() {
 
                     <Link to={'/recruiter/jobs'} className="px-3  mx-3 text-white  rounded-md lg:mb-3 pb-2  ">Jobs & Response  </Link>
                     <Link to={''} className="px-3  mx-3 text-white  rounded-md lg:mb-3 pb-2  ">Post a Job </Link>
-                    <Link to={''} className="px-3  mx-3 text-white  rounded-md lg:mb-3 pb-2  ">Test results</Link>
+                    <Link to={'/recruiter/skill-test/results'} className="px-3  mx-3 text-white  rounded-md lg:mb-3 pb-2  ">Test results</Link>
                     <Link to={''} className="px-3  mx-3 text-white  rounded-md lg:mb-3 pb-2  ">Interviews</Link>
 
 

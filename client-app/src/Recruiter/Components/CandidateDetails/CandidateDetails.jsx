@@ -6,11 +6,14 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { APPLICATION_REJECT, APPLICATION_SKILLTEST, APPLICATION_STATUS, CANDIDATE_PROFILE, getApplicatons, skillTestList } from '../../../utils/Constants'
 import './css/styles.css'
+import ResponseWithComment from '../modals/ResponseWithComment'
 
 
 function CandidateDetails() {
 
     const { candidateId, applicationId } = useParams()
+    const [modalReject, setModalReject] = useState(false)
+
     const [candidate, setCandidate] = useState({})
     const [tests, setTests] = useState([])
     const [application, setApplication] = useState({})
@@ -85,11 +88,13 @@ function CandidateDetails() {
         })
     }
     const handleReject = () => {
-        axios.post(APPLICATION_REJECT(applicationId)).then((response) => {
-            setRefresh(true)
-        }).catch((error) => {
-            console.log(error.response.data.errors[0].msg);
-        })
+        // axios.post(APPLICATION_REJECT(applicationId)).then((response) => {
+        //     setRefresh(true)
+        // }).catch((error) => {
+        //     console.log(error.response.data.errors[0].msg);
+        // })
+        setModalReject(true)
+
     }
 
     return (
@@ -260,7 +265,7 @@ function CandidateDetails() {
                                                 </svg>
                                             </span>
                                             <h3 className="font-medium leading-tight">Applied</h3>
-                                            <p className="text-sm">{ new Date(application.application_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
+                                            <p className="text-sm">{new Date(application.application_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
                                         </li>
                                     }
 
@@ -284,7 +289,7 @@ function CandidateDetails() {
                                                 </svg>
                                             </span>
                                             <h3 className="font-medium leading-tight">Skill test given</h3>
-                                            <p className="text-sm">{ new Date(application.skillTest_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
+                                            <p className="text-sm">{new Date(application.skillTest_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
                                         </li>
 
 
@@ -329,7 +334,7 @@ function CandidateDetails() {
                                                 </svg>
                                             </span>
                                             <h3 className="font-medium leading-tight">Test Submitted</h3>
-                                            <p className="text-sm">{ new Date(application.skillTest_submitted_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
+                                            <p className="text-sm">{new Date(application.skillTest_submitted_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
                                         </li>
                                     }
                                     < br />
@@ -343,6 +348,7 @@ function CandidateDetails() {
 
                                         ) : (null)}
                                     </div>
+                                    {modalReject && <ResponseWithComment context={'reject'} id={applicationId} onClose={() => { setModalReject(false); setRefresh(true) }} />}
 
 
 

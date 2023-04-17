@@ -1,15 +1,16 @@
 const express = require('express');
-const { getJobs, getJobDetails, getPlaceKeySearch, getJobKeySearch, getCompanyKeySearch } = require('../controller/jobs-controller');
+const { getJobs,getJobsTitle, getJobDetails, getPlaceKeySearch, getJobKeySearch, getCompanyKeySearch } = require('../controller/jobs-controller');
 const { validatePost } = require('../middleware/job-validator');
 const router = express.Router();
 const { checkAuthorization } = require('../middleware/check-authorization');
-const { postJob, updateJob, getPostedJobs, getApplicationDetails, rejectApplication,getApplication, giveSkillTest } = require('../controller/for-recruiter');
+const { postJob, updateJob, getPostedJobs, getApplicationDetails, rejectApplication,getApplication, giveSkillTest, getSkillTestResult, acceptApplication } = require('../controller/for-recruiter');
 const { applyJob, viewAllApplied, getJobApplication } = require('../controller/for-candidate');
 
 
 //routes
 
 router.get('/api/v1/jobs', getJobs);
+router.get('/api/v1/jobs/title',checkAuthorization('recruiter'), getJobsTitle);
 router.get('/api/v1/jobs/details/:id', getJobDetails);
 
 //candidate related route
@@ -33,8 +34,12 @@ router.get('/api/v1/jobs/posted-details/:id', checkAuthorization('recruiter'), g
 
 
 router.post('/api/v1/jobs/application/reject/:id', checkAuthorization('recruiter'), rejectApplication)
+router.post('/api/v1/jobs/application/accept/:id', checkAuthorization('recruiter'), acceptApplication)
 router.post('/api/v1/jobs/application/skill-test', checkAuthorization('recruiter'), giveSkillTest)
 router.get('/api/v1/jobs/application/:id', checkAuthorization('recruiter'), getApplication)
+
+
+router.get(`/api/v1/jobs/skill-test/results`, checkAuthorization('recruiter'), getSkillTestResult);
 
 
 module.exports = router;   

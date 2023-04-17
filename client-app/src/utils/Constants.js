@@ -26,13 +26,13 @@ export const updateCV = '/api/v1/profile/candidate/curriculum-vitae';  //patch
 export const deleteCV = '/api/v1/profile/candidate/curriculum-vitae';  //delete
 
 
-export const experienceAdd  = `/api/v1/profile/candidate/work-experience`
+export const experienceAdd = `/api/v1/profile/candidate/work-experience`
 export const experienceDelete = (id) => `/api/v1/profile/candidate/work-experience/${id}`
 
-export const educationAdd  = '/api/v1/profile/candidate/education'
+export const educationAdd = '/api/v1/profile/candidate/education'
 export const educationDelete = (id) => `/api/v1/profile/candidate/education/${id}`
 
-export const certificationAdd  = '/api/v1/profile/candidate/course-certification'                 //post
+export const certificationAdd = '/api/v1/profile/candidate/course-certification'                 //post
 export const certificationUpdate = (id) => `/api/v1/profile/candidate/course-certification/${id}` //put
 export const certificationDelete = (id) => `/api/v1/profile/candidate/course-certification/${id}` //delete
 
@@ -41,11 +41,12 @@ export const certificationDelete = (id) => `/api/v1/profile/candidate/course-cer
 //----recruiter
 export const getRecruiterProfile = '/api/v1/profile/recruiter';
 export const quickProfileUpdateRecruiter = (id) => `/api/v1/profile/recruiter/${id}`;
-export const CANDIDATE_PROFILE=(id) => `/api/v1/profile/recruiter/candidate/${id}`;
-export const APPLICATION_REJECT=(id) => `/api/v1/jobs/application/reject/${id}`;
-export const APPLICATION_SKILLTEST=(applicationId,testId) => `/api/v1/jobs/application/skill-test?applicationId=${applicationId}&testId=${testId}`;
+export const CANDIDATE_PROFILE = (id) => `/api/v1/profile/recruiter/candidate/${id}`;
+export const APPLICATION_REJECT = (id) => `/api/v1/jobs/application/reject/${id}`;
+export const APPLICATION_ACCEPT = (id) => `/api/v1/jobs/application/accept/${id}`;
+export const APPLICATION_SKILLTEST = (applicationId, testId) => `/api/v1/jobs/application/skill-test?applicationId=${applicationId}&testId=${testId}`;
 
-export const APPLICATION_STATUS=(id) => `/api/v1/jobs/application/${id}`;
+export const APPLICATION_STATUS = (id) => `/api/v1/jobs/application/${id}`;
 
 // Admin servies
 export const getUsers = '/api/v1/admin/candidates';
@@ -63,35 +64,41 @@ export const recruiterVerifyUrl = (id, action) => `/api/v1/admin/recruiter-verif
 // Jobs services
 export const postJob = '/api/v1/jobs';                    //post all
 export const jobPosted = '/api/v1/jobs/posted';           //get all
-export const updateJob =(id)=> `/api/v1/jobs/${id}`       //put
-export const jobDetails =(id)=> `/api/v1/jobs/details/${id}`;     //get all
-export const applyJob = (id)=> `/api/v1/jobs/apply/${id}`                    //post 
-
-export const getApplicatons = (id)=> `/api/v1/jobs/posted-details/${id}`   //get
-
-
-export const appliedjobsList = '/api/v1/jobs/applied';   
-
-export const getJobApplication=(jobId) => `/api/v1/jobs/applied/${jobId}/details`;
+export const updateJob = (id) => `/api/v1/jobs/${id}`       //put
+export const jobDetails = (id) => `/api/v1/jobs/details/${id}`;     //get all
+export const applyJob = (id) => `/api/v1/jobs/apply/${id}`                    //post 
+export const getJobTitleForRecruiter =`/api/v1/jobs/title`
 
 
-export const jobKeySearch =(key)=>`/api/v1/jobs/jobkey?key=${key}`
-export const placeKeySearch =(key)=>`/api/v1/jobs/placekey?key=${key}`
-export const companyKeySearch =(key)=>`/api/v1/jobs/companykey?key=${key}`
+export const getApplicatons = (id) => `/api/v1/jobs/posted-details/${id}`   //get
+
+
+export const appliedjobsList = '/api/v1/jobs/applied';
+
+export const getJobApplication = (jobId) => `/api/v1/jobs/applied/${jobId}/details`;
+
+
+export const jobKeySearch = (key) => `/api/v1/jobs/jobkey?key=${key}`
+export const placeKeySearch = (key) => `/api/v1/jobs/placekey?key=${key}`
+export const companyKeySearch = (key) => `/api/v1/jobs/companykey?key=${key}`
 // export const searchJobs =(jobKey,locationKey)=>`/api/v1/jobs/placekey?jobKey=${jobKey}`
 
 
 //skill test
 
-export const addNewTest=`/api/v1/skill-test/add`
-export const skillTestList=`/api/v1/skill-test/list`
-export const skillTestDetails=(id)=>`/api/v1/skill-test/list/details/${id}`
-export const deleteTest=(id)=>`/api/v1/skill-test/${id}`
+export const addNewTest = `/api/v1/skill-test/add`
+export const skillTestList = `/api/v1/skill-test/list`
+export const skillTestDetails = (id) => `/api/v1/skill-test/list/details/${id}`
+export const deleteTest = (id) => `/api/v1/skill-test/${id}`
 
-export const TAKE_SKILL_TEST=(applicationId)=>`/api/v1/skill-test/test-questions/${applicationId}`
+export const TAKE_SKILL_TEST = (applicationId) => `/api/v1/skill-test/test-questions/${applicationId}`
 
-export const START_SKILL_TEST=(applicationId)=>`/api/v1/skill-test/start-test/${applicationId}`
-export const SUBMIT_TEST=(applicationId)=>`/api/v1/skill-test/submit-test/${applicationId}`
+export const START_SKILL_TEST = (applicationId) => `/api/v1/skill-test/start-test/${applicationId}`
+export const SUBMIT_TEST = (applicationId) => `/api/v1/skill-test/submit-test/${applicationId}`
+
+export const SKILL_TEST_RESULT = (job_id) => `/api/v1/jobs/skill-test/results?job_id=${job_id}`
+
+
 /*=========REACT ROUTES============ */
 
 

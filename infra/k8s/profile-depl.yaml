@@ -51,6 +51,11 @@ spec:
                 secretKeyRef:
                   name: careerconnect-jwt-secret
                   key: JWT_KEY
+          resources:
+            limits:
+              memory: "512Mi"
+            requests:
+              memory: "256Mi"
 # jwt environment from kubernetees secret obj
 ---
 apiVersion: v1
