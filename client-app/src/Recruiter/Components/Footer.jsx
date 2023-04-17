@@ -8,7 +8,7 @@ import Logo from "./Logo/Logo";
 function Footer() {
   return (
 
-    <footer className="bg-white dark:bg-lightDarkBlue">
+    <footer className="bg-white dark:bg-lightDarkBlue ">
       <div className="container p-6 mx-auto">
         <div className="lg:flex">
           <div className="w-full -mx-6 lg:w-2/5">

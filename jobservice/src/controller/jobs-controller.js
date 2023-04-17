@@ -87,8 +87,18 @@ module.exports = {
             });
             job.hasApplied = hasApplied ? true : false; // Add the `hasApplied` field to the job object
 
-            
+
             res.status(200).json(job);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ errors: [{ msg: 'Server error' }] });
+        }
+    },
+    getJobsTitle: async (req, res) => {
+        try {
+            const jobs = await Job.find({ recruiter: req.currentUser.id })
+                .select('job_title');
+            res.status(200).json(jobs);
         } catch (error) {
             console.error(error);
             res.status(500).json({ errors: [{ msg: 'Server error' }] });

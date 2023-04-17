@@ -6,10 +6,10 @@ import SkillTestResult from '../Components/SkillTestResults/SkillTestResult'
 
 function SkillTestResultPage() {
   return (
-    <div>
-        <NavBar/>
-        <SkillTestResult/>
-        <Footer/>
+    <div >
+      <NavBar />
+      <SkillTestResult />
+      <Footer />
     </div>
   )
 }

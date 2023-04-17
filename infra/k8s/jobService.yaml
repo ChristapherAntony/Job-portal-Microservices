@@ -41,6 +41,11 @@ spec:
                 secretKeyRef:
                   name: careerconnect-gmail-secret
                   key: GMAIL_PASSWORD
+          resources:
+            limits:
+              memory: "512Mi"
+            requests:
+              memory: "256Mi"
 # jwt environment from kubernetees secret obj
 ---
 apiVersion: v1

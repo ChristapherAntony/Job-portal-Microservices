@@ -1,8 +1,5 @@
 import React from 'react'
 
-
-
-
 function Line() {
     return (
         <li className="w-full h-3.5 bg-gray-200 rounded-md " />
