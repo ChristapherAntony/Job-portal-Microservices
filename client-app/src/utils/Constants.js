@@ -43,6 +43,7 @@ export const getRecruiterProfile = '/api/v1/profile/recruiter';
 export const quickProfileUpdateRecruiter = (id) => `/api/v1/profile/recruiter/${id}`;
 export const CANDIDATE_PROFILE = (id) => `/api/v1/profile/recruiter/candidate/${id}`;
 export const APPLICATION_REJECT = (id) => `/api/v1/jobs/application/reject/${id}`;
+export const APPLICATION_ACCEPT = (id) => `/api/v1/jobs/application/accept/${id}`;
 export const APPLICATION_SKILLTEST = (applicationId, testId) => `/api/v1/jobs/application/skill-test?applicationId=${applicationId}&testId=${testId}`;
 
 export const APPLICATION_STATUS = (id) => `/api/v1/jobs/application/${id}`;

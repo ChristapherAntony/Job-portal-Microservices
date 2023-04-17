@@ -6,10 +6,11 @@ import TableSkeleton from '../../../Candidate/Components/Skeleton/TableSkeleton'
 import { event } from 'jquery';
 import Pagination from '../../../Candidate/Components/Pagination/Pagination';
 import TablePagination from '../../../Candidate/Components/Pagination/TablePagination';
+import { useSelector } from 'react-redux';
 
 function SkillTestResult() {
     const [loading, SetLoading] = useState(false)
-
+    const refreshStatus = useSelector(state => state.componentrefresh)
     const [job_id, setJob_id] = useState('')
     const [titles, setTitles] = useState([])
     const [results, setResults] = useState([])
@@ -50,7 +51,7 @@ function SkillTestResult() {
     useEffect(() => {
         getTestResults('')
         getJobTitle()
-    }, [page])
+    }, [page,refreshStatus])
 
     return (
         <section className="container  h-screen  md:w-5/6 px-4 mx-auto">
@@ -67,7 +68,7 @@ function SkillTestResult() {
                     ))}
                 </select>
             </div>
-          
+
             {loading ? (
                 <TableSkeleton rows={10} />
             ) : (
@@ -101,7 +102,7 @@ function SkillTestResult() {
                                                         <span>Role</span>
                                                     </button>
                                                 </th>
-                                                <th
+                                                {/* <th
                                                     scope="col"
                                                     className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 "
                                                 >
@@ -109,7 +110,7 @@ function SkillTestResult() {
                                                         <span>Status</span>
 
                                                     </button>
-                                                </th>
+                                                </th> */}
 
                                                 <th
                                                     scope="col"

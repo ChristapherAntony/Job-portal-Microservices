@@ -3,7 +3,7 @@ const { getJobs,getJobsTitle, getJobDetails, getPlaceKeySearch, getJobKeySearch,
 const { validatePost } = require('../middleware/job-validator');
 const router = express.Router();
 const { checkAuthorization } = require('../middleware/check-authorization');
-const { postJob, updateJob, getPostedJobs, getApplicationDetails, rejectApplication,getApplication, giveSkillTest, getSkillTestResult } = require('../controller/for-recruiter');
+const { postJob, updateJob, getPostedJobs, getApplicationDetails, rejectApplication,getApplication, giveSkillTest, getSkillTestResult, acceptApplication } = require('../controller/for-recruiter');
 const { applyJob, viewAllApplied, getJobApplication } = require('../controller/for-candidate');
 
 
@@ -34,6 +34,7 @@ router.get('/api/v1/jobs/posted-details/:id', checkAuthorization('recruiter'), g
 
 
 router.post('/api/v1/jobs/application/reject/:id', checkAuthorization('recruiter'), rejectApplication)
+router.post('/api/v1/jobs/application/accept/:id', checkAuthorization('recruiter'), acceptApplication)
 router.post('/api/v1/jobs/application/skill-test', checkAuthorization('recruiter'), giveSkillTest)
 router.get('/api/v1/jobs/application/:id', checkAuthorization('recruiter'), getApplication)
 

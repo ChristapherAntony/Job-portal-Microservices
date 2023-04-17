@@ -150,7 +150,6 @@ module.exports = {
     },
     rejectApplication: async (req, res) => {
         try {
-            console.log('api call');
             // check block status of user before updating job
             const user = await Recruiter.findOne({ _id: req.currentUser.id })
             if (user.is_blocked === true) {
@@ -165,7 +164,13 @@ module.exports = {
             // Update the application status to 'rejected'
             const updatedApplication = await Application.findOneAndUpdate(
                 { 'applications._id': applicationId },
-                { $set: { 'applications.$.application_status': status } },
+                {
+                    $set: {
+                        'applications.$.application_status': status,
+                        'applications.$.rejected_date': Date.now(),
+                        'applications.$.comment': req.body.comment
+                    }
+                },
                 { new: true }
             );
 
@@ -173,8 +178,44 @@ module.exports = {
                 return res.status(404).json({ errors: [{ msg: 'Application not found' }] })
             }
 
-            res.json(updatedApplication);
 
+            res.status(200).json(updatedApplication);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ errors: [{ msg: 'Server error' }] });
+        }
+    },
+    acceptApplication: async (req, res) => {
+        try {
+            // check block status of user before updating job
+            const user = await Recruiter.findOne({ _id: req.currentUser.id })
+            if (user.is_blocked === true) {
+                return res.status(404).json({ errors: [{ msg: 'user blocked unable to perform this action' }] })
+            } else if (user.is_verified === false) {
+                return res.status(404).json({ errors: [{ msg: 'recruiter is not verified by admin! unable to perform this action' }] })
+            }
+            const status = 'accepted'
+            const applicationId = req.params.id
+
+            // Update the application status to 'rejected'
+            const updatedApplication = await Application.findOneAndUpdate(
+                { 'applications._id': applicationId },
+                {
+                    $set: {
+                        'applications.$.application_status': status,
+                        'applications.$.accepted_date': Date.now(),
+                        'applications.$.comment': req.body.comment
+                    }
+                },
+                { new: true }
+            );
+
+            if (!updatedApplication) {
+                return res.status(404).json({ errors: [{ msg: 'Application not found' }] })
+            }
+
+
+            res.status(200).json(updatedApplication);
         } catch (error) {
             console.error(error);
             res.status(500).json({ errors: [{ msg: 'Server error' }] });
@@ -441,7 +482,7 @@ module.exports = {
                     'applications.skillTest_submitted_date': { $exists: true }
                 });
             }
-            console.log(applications);
+
             res.status(200).json({
                 status: 'success',
                 count: applications.length,

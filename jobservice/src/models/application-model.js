@@ -49,8 +49,14 @@ const ApplicationSchema = new mongoose.Schema({
         is_passed: {
             type: Boolean,
         },
+        rejected_date: {
+            type: Date,
+        },
         accepted_date: {
             type: Date,
+        },
+        comment: {
+            type: String,
         },
     }]
 });
