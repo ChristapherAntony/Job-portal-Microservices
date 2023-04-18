@@ -106,7 +106,7 @@ module.exports = {
                     }
                 }
             ]);
-
+   
             if (application.length === 0 || application[0].applications.length === 0) {
                 return res.status(404).json({ errors: [{ msg: 'Application not found' }] });
             }
