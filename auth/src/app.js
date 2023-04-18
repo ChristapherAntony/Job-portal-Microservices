@@ -44,7 +44,6 @@ app.use((err, req, res, next) => {
 
 // Start server
 const start = async () => {
-  console.log('Starting up ✳️✳️✳️');
   connectDB();
   connectNATS();
   app.listen(3000, () => {console.log('Auth service listening on port 3000... ✅')});

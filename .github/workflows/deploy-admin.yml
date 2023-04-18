@@ -1,0 +1,26 @@
+name: deploy-admin
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'admin/**'
+      
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: cd admin && docker build -t christapherantony/admin .
+      - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      - run: docker push christapherantony/admin
+      - uses: digitalocean/action-doctl@v2
+        with: 
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - run: doctl kubernetes cluster kubeconfig save careerconnect 
+      - run: kubectl rollout restart deployment admin-depl
+  
