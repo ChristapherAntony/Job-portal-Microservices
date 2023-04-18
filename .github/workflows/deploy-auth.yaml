@@ -3,10 +3,9 @@ name: deploy-auth
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - 'auth/**'
-      - 'common/**'
 
 jobs:
   build:
