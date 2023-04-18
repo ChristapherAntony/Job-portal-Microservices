@@ -12,7 +12,7 @@ spec:
       labels:
         app: auth
     spec:
-      containers:
+      containers: 
         - name: auth
           image: christapherantony/auth
           env:
