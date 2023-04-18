@@ -20,12 +20,12 @@ module.exports = {
             if (employmentType) {
                 filters.employment_type = employmentType;
             }
-            let jobs = await Job.find(filters)
+            let jobs = await Job.find(filters)   
                 .populate({
                     path: 'recruiter',
                     select: '-_id user_name email phone_number current_position company_name company_logo company_state company_country company_website company_email location company_description hasApplied'
                 });
-            // Iterate through each job and add an `applied` field indicating if the current user has applied for the job
+            // Iterate through each job and add an `applied` field indicating if the current user has applied for the job sa
 
             for (let job of jobs) {
                 const hasApplied = await Application.exists({
