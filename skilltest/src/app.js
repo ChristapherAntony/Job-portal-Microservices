@@ -18,7 +18,7 @@ app.use(cookieSession({ signed: false, secure: true }));
 app.use(xss());
 
 app.use(authorize);
-
+ 
 app.use(candidateRoutes);
 app.use(recruiterRoutes);
 
