@@ -94,7 +94,7 @@ module.exports = {
                 {
                     $match: { job: new mongoose.Types.ObjectId(jobId) }
                 },
-                {
+                { 
                     $project: {
                         applications: {
                             $filter: {
