@@ -36,11 +36,6 @@ spec:
                 secretKeyRef:
                   name: careerconnect-jwt-secret
                   key: JWT_KEY
-          resources:
-            limits:
-              memory: "512Mi"
-            requests:
-              memory: "256Mi"
 ---
 apiVersion: v1
 kind: Service
