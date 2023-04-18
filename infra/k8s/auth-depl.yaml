@@ -46,11 +46,6 @@ spec:
                 secretKeyRef:
                   name: careerconnect-admin-secret
                   key: ADMIN_PASSWORD
-          resources:
-            limits:
-              memory: "512Mi"
-            requests:
-              memory: "256Mi"
 # jwt environment from kubernetees secret obj
 ---
 apiVersion: v1
