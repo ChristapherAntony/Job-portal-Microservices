@@ -6,7 +6,7 @@ const xss = require('xss-clean');
 const cors=require('cors')
 const adminRoutes = require('./routes/admin-routes');
 const authorize = require('@careerconnect/common').authorize;
- 
+  
 
 const app = express();
 app.use(cors());

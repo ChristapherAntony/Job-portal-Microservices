@@ -8,7 +8,7 @@ const CandidateRoutes = lazy(() => import('./Routes/CandidateRoutes'));
 const AdminRoutes = lazy(() => import('./Routes/AdminRoutes'));
 const RecruiterRoutes = lazy(() => import('./Routes/RecruiterRoutes'));
 const LandingPage = lazy(() => import('./Candidate/Pages/index').then(module => ({ default: module.LandingPage })));
-
+ 
 function App() {
   return (
     <div className="App">

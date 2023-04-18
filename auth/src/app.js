@@ -27,7 +27,7 @@ app.use((err, req, res, next) => {
     return res.status(400).send({ message: 'Invalid JSON syntax.' });
   }
   next(err);
-});
+}); 
 
 app.use((err, req, res, next) => {
   if (err instanceof NotFoundError) {
