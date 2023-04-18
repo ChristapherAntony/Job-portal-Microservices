@@ -18,4 +18,9 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       - run: docker push christapherantony/auth
+      - uses: digitalocean/action-doctl@v2
+        with: 
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - run: doctl kubernetes cluster kubeconfig save 39945a1d-8350-4d99-adf2-fd75c452831f
+      - run: kubectl rollout restart deployment auth-depl
   
