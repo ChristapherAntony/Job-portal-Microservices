@@ -85,6 +85,7 @@ module.exports = {
             req.session = {
                 jwt: userJwt,
             };
+            console.log('signed with jwt ',userJwt);
 
             res.status(200).send(existingUser);
 
@@ -151,9 +152,9 @@ module.exports = {
     },
 
     current: async (req, res) => {
-        console.log('api call -----');
+        console.log('api call in current user -----');
         console.log(req.currentUser);
-        console.log(req.currentUser.id);
+        
         try {
 
             //check for user authorized
