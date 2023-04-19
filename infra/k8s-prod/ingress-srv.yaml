@@ -7,7 +7,7 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   rules:
-    - host: www.careerconnect.cloud
+    - host: careerconnect.cloud
       http:
         paths:
           - path: /api/v1/admin/?(.*)
