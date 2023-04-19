@@ -151,6 +151,9 @@ module.exports = {
     },
 
     current: async (req, res) => {
+        console.log('api call -----');
+        console.log(req.currentUser);
+        console.log(req.currentUser.id);
         try {
 
             //check for user authorized
