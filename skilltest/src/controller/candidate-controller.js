@@ -1,8 +1,6 @@
 import natsWrapper from '../nats-wrapper.js';
 import SkillTestCompletedPublisher from "../events/publisher/skillTest-completed-publisher.js";
-
 import Recruiter from '../models/recruiter.js';
-import { SkillTest } from '../models/skill-test.js';
 import { TestApplication } from '../models/test-application.js';
 
 
@@ -10,9 +8,7 @@ import { TestApplication } from '../models/test-application.js';
 const startTest = async (req, res) => {
   try {
     const { applicationId } = req.params
-    console.log(applicationId, '---applicationId');
     const testApplication = await TestApplication.findOne({ candidate_application_id: applicationId })
-    console.log(testApplication, 'this is test application------------------');
 
     //reject the attempt to take test if he is already tried to attempted
     if (testApplication.skillTest_started_date ) {
@@ -63,16 +59,9 @@ const startTest = async (req, res) => {
 
 const getSkillTest = async (req, res) => {
   try {
-    console.log('api call');
     const { applicationId } = req.params
-    console.log(applicationId, '---applicationId give test');
-
     const testApplication = await TestApplication.findOne({ candidate_application_id: applicationId })
-    console.log(testApplication);
-
     const { skill_test_id, recruiter_id } = testApplication
-
-
     // Find the recruiter associated with the current user
     const recruiter = await Recruiter.findOne({ _id: recruiter_id });
     if (!recruiter) {

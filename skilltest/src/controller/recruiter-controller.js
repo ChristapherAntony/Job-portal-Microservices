@@ -1,5 +1,4 @@
 import Recruiter from '../models/recruiter.js';
-import { SkillTest } from '../models/skill-test.js';
 
 const addSkillTest = async (req, res) => {
   try {
@@ -8,24 +7,20 @@ const addSkillTest = async (req, res) => {
     req.body.time_per_question = parseInt(req.body.time_per_question)
     req.body.pass_percentage = parseInt(req.body.pass_percentage)
     const newTest = req.body;
-    console.log(newTest);
+
 
     // Find the recruiter associated with the current user
     const recruiter = await Recruiter.findOne({ _id: req.currentUser.id });
-
     if (!recruiter) {
       return res.status(404).json({ errors: [{ msg: 'Recruiter not found' }] });
     }
-    console.log(newTest);
-
-
+   
     // Add the new test to the existing list of tests for the recruiter
     recruiter.skill_tests.push(newTest);
 
     // Validate the updated recruiter document against the schema
     const validationResult = recruiter.validateSync();
     if (validationResult) {
-      console.log(validationResult);
       return res.status(400).json({ errors: validationResult.errors });
     }
 
@@ -60,7 +55,6 @@ const getSkillTestsByRecruiter = async (req, res) => {
   }
 }
 const getSkillTestsDetails = async (req, res) => {
-  console.log("details" + process.env.HOSTNAME);
   try {
     const skillTestId = req.params.id;
 

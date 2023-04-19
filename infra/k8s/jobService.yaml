@@ -41,6 +41,11 @@ spec:
                 secretKeyRef:
                   name: careerconnect-gmail-secret
                   key: GMAIL_PASSWORD
+            - name: BASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: careerconnect-base-url
+                  key: BASE_URL
 # jwt environment from kubernetees secret obj
 ---
 apiVersion: v1
