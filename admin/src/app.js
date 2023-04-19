@@ -2,17 +2,18 @@ const express = require('express');
 const cookieSession = require('cookie-session')
 const { connectDB } = require('./config/db-connection');
 const { connectNATS } = require('./config/nats-connection');
-const xss = require('xss-clean'); 
-const cors=require('cors')
+const xss = require('xss-clean');
+const cors = require('cors')
 const adminRoutes = require('./routes/admin-routes');
 const authorize = require('@careerconnect/common').authorize;
-  
+
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.set('trust proxy', true);  
-app.use(cookieSession({ signed: false, secure: true }))
+app.set('trust proxy', true);
+app.use(cookieSession({ signed: false, secure: false }))
+
 app.use(xss()); //  xss-clean 
 app.use(authorize); // jwt verifying middleware
 
@@ -36,7 +37,7 @@ app.use((err, req, res, next) => {
 app.use((err, req, res, next) => {
   res.status(500).send({ message: 'Internal server error.' });
 });
- 
+
 
 // Start server
 const start = async () => {

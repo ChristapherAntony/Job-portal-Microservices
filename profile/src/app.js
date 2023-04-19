@@ -15,7 +15,7 @@ const app = express();
 app.use(cors());
 app.set('trust proxy', true);  //https 
 app.use(express.json());
-app.use(cookieSession({ signed: false, secure: true }))
+app.use(cookieSession({ signed: false, secure: false }))
 app.use(xss()); //  xss-clean 
 
 app.use(authorize);

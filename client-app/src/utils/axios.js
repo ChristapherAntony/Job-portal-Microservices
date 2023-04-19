@@ -3,8 +3,12 @@ import { baseUrl } from './Constants';
 
 
 const instance = axios.create({
-    baseURL: baseUrl,
- 
-  });
+  baseURL: baseUrl,
+  headers: req.headers
 
- export default instance 
+});
+
+export default instance
+
+
+// baseURL: 'http://www.ticketing-app-prod.xyz/'
