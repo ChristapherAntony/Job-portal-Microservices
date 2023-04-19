@@ -106,20 +106,11 @@ module.exports = {
                     }
                 }
             ]);   
-   
+            
             if (application.length === 0 || application[0].applications.length === 0) {
                 return res.status(404).json({ errors: [{ msg: 'Application not found' }] });
             }
-
             const candidateApplication = application[0].applications[0];
-            // candidateApplication.application_date = moment(candidateApplication.application_date).format('DD-MMM-YYYY');
-            // candidateApplication.skillTest_date = moment(candidateApplication.skillTest_date).format('DD-MMM-YYYY');
-            // candidateApplication.skillTest_lastDate = moment(candidateApplication.skillTest_lastDate).format('DD-MMM-YYYY');
-            // candidateApplication.skillTest_submitted_date = moment(candidateApplication.skillTest_submitted_date).format('DD-MMM-YYYY');
-            // candidateApplication.accepted_date = moment(candidateApplication.accepted_date).format('DD-MMM-YYYY');
-
-            console.log(candidateApplication);
-
             res.status(200).json(candidateApplication);
         } catch (error) {
             console.error(error);

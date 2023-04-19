@@ -159,7 +159,6 @@ module.exports = {
             }
             const status = 'rejected'
             const applicationId = req.params.id
-            console.log(applicationId);
 
             // Update the application status to 'rejected'
             const updatedApplication = await Application.findOneAndUpdate(
@@ -245,13 +244,11 @@ module.exports = {
                 if (app._id.toString() === applicationId) {
                     app.skillTest_date = Date.now();
                     app.skillTest_lastDate = Date.now() + (5 * 24 * 60 * 60 * 1000); // add 5 days in milliseconds;
-                    app.skill_test_id = testId,
-                        app.skill_test_URL = `https://careerconnect.dev/candidate/take-test/${applicationId}`
+                    app.skill_test_id = testId
                 }
-            });
+            })
             await application.save();
-
-            const url = `https://careerconnect.dev/candidate/take-test/${applicationId}`
+            const url = `${process.env.BASE_URL}/candidate/take-test/${applicationId}`
             // https://careerconnect.dev/candidate/take-test?applicationId=4324324324&testId=3242343243
 
             //send email to candidate regarding skill test
@@ -414,9 +411,6 @@ module.exports = {
             const page = parseInt(req.query.page) || 1;
             const pageSize = parseInt(req.query.limit) || 10;
             const startIndex = (page - 1) * pageSize;
-            console.log(`${pageSize} and ${req.query.limit}`);
-
-
             let applications;
             let total;
             if (job_id) {
