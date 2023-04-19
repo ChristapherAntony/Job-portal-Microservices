@@ -12,7 +12,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.set('trust proxy', true);
-app.use(cookieSession({ signed: false, secure: false }))
+app.use(cookieSession({ signed: false, secure: true }))
 
 app.use(xss()); //  xss-clean 
 app.use(authorize); // jwt verifying middleware
