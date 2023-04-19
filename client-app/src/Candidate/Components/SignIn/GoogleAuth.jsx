@@ -60,7 +60,7 @@ function GoogleAuth() {
     };
     return (
         <div>
-            <GoogleOAuthProvider clientId="100181781575-1s4h77ken84jliac3ejc87a292amokfh.apps.googleusercontent.com">
+            <GoogleOAuthProvider clientId="973595601916-qmp609gqbvcg66f6pgi6hsfk64dr7jqa.apps.googleusercontent.com">
                 <GoogleLogin
                     onSuccess={handleLoginSuccess}
                     onError={handleLoginFailure}
