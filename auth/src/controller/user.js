@@ -156,17 +156,18 @@ module.exports = {
         if (!req.session?.jwt) {
             console.log('dont have jwt token❌❌❌❌❌');
         }
-        try {
-            console.log('have jwt token✅✅✅✅✅✅');
-            const payload = jwt.verify(req.session.jwt, process.env.JWT_KEY)
-            console.log(payload);
-        } catch (error) {
-            console.log('i m from catch');
-            console.log(error);
+        if (req.session?.jwt) {
+            try {
+                console.log('have jwt token✅✅✅✅✅✅');
+                const payload = jwt.verify(req.session.jwt, process.env.JWT_KEY)
+                console.log(payload);
+            } catch (error) {
+                console.log('i m from catch');
+                console.log(error);
+            }
         }
 
-
-
+        
         console.log(req.currentUser);
         console.log(process.env.JWT_KEY);
 
