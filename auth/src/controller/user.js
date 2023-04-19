@@ -85,7 +85,7 @@ module.exports = {
             req.session = {
                 jwt: userJwt,
             };
-            console.log('signed with jwt ',userJwt);
+            console.log('signed with jwt ', userJwt);
 
             res.status(200).send(existingUser);
 
@@ -153,8 +153,23 @@ module.exports = {
 
     current: async (req, res) => {
         console.log('api call in current user -----');
+        if (!req.session?.jwt) {
+            console.log('dont have jwt token❌❌❌❌❌');
+        }
+        try {
+            console.log('have jwt token✅✅✅✅✅✅');
+            const payload = jwt.verify(req.session.jwt, process.env.JWT_KEY)
+            console.log(payload);
+        } catch (error) {
+            console.log('i m from catch');
+            console.log(error);
+        }
+
+
+
         console.log(req.currentUser);
-        
+        console.log(process.env.JWT_KEY);
+
         try {
 
             //check for user authorized
@@ -193,7 +208,7 @@ module.exports = {
             // Hash the OTP with bcrypt
             const otp = await bcrypt.hash(otpGenerated.toString(), 10);
             console.log(existingUser);
-            
+
             const mailOptions = {
                 from: 'christapher316@gmail.com',
                 to: email,
