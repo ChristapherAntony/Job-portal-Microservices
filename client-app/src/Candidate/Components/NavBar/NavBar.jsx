@@ -8,20 +8,12 @@ import React, { useEffect, useState } from 'react'
 import { currentUser, signOut } from '../../../utils/Constants';
 import { APPLIED_JOBS } from '../../../utils/ConstantRoutes';
 
-
-
-
-
-
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-
-
 function NavBar() {
     const navigate = useNavigate();
-
     const [user, setUser] = useState(true)
     const [userImage, setUserImage] = useState(true)
     const [userName, setUsername] = useState('')

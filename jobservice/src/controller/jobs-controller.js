@@ -9,8 +9,9 @@ module.exports = {
     getJobs: async (req, res) => {
         try {
             const { jobKey, locationKey, companyKey, employmentType } = req.query;
-            console.log(jobKey, locationKey, companyKey);
+            console.log(employmentType);
             const filters = {};
+
             if (jobKey) {
                 filters.job_title = new RegExp(jobKey, 'i');
             }
@@ -18,13 +19,17 @@ module.exports = {
                 filters.location = new RegExp(locationKey, 'i');
             }
             if (employmentType) {
-                filters.employment_type = employmentType;
+                filters.employment_type = new RegExp(employmentType, 'i');
             }
-            let jobs = await Job.find(filters)   
+
+            console.log(filters);
+
+            let jobs = await Job.find(filters)
                 .populate({
                     path: 'recruiter',
                     select: '-_id user_name email phone_number current_position company_name company_logo company_state company_country company_website company_email location company_description hasApplied'
                 });
+
             // Iterate through each job and add an `applied` field indicating if the current user has applied for the job sa
 
             for (let job of jobs) {
@@ -35,9 +40,13 @@ module.exports = {
                 job.hasApplied = hasApplied ? true : false; // Add the `hasApplied` field to the job object
             }
             let filteredJobs = jobs;
+
             if (companyKey) {
-                filteredJobs = jobs.filter(job => job.z.company_name.match(new RegExp(companyKey, 'i')));
+                console.log(companyKey);
+                filteredJobs = jobs.filter(job => job.recruiter.company_name.match(new RegExp(companyKey, 'i')));
             }
+
+
             const page = parseInt(req.query.page) || 1;
             let pageSize = parseInt(req.query.limit) || 4;
             const skip = (page - 1) * pageSize;
@@ -107,7 +116,7 @@ module.exports = {
     getJobKeySearch: async (req, res) => {
         try {
             const key = req.query.key;
-            let jobTitles
+            let jobTitles=new Set();
             if (key.length == 0 || key === " ") {
                 jobTitles = []
             } else {
@@ -120,27 +129,27 @@ module.exports = {
         } catch (error) {
             console.error(error);
             res.status(500).json({ errors: [{ msg: 'Server error' }] });
-        }
+        } 
     },
     getPlaceKeySearch: async (req, res) => {
         try {
             const key = req.query.key;
-            let jobLocation
+            let jobLocation = new Set();
             if (key.length == 0 || key === " ") {
                 jobLocation = []
             } else {
                 const jobs = await Job.find({ location: { $regex: key, $options: 'i' } });
-                jobLocation = jobs.map(job => job.location);
+                jobs.forEach(job => jobLocation.add(job.location));
             }
-
-
-            res.status(200).json({ jobLocation });
+            res.status(200).json({ jobLocation: [...jobLocation] });
         } catch (error) {
             console.error(error);
             res.status(500).json({ errors: [{ msg: 'Server error' }] });
         }
     },
+    
     getCompanyKeySearch: async (req, res) => {
+        console.log(req.query.key);
         try {
             const key = req.query.key;
             let companyNames = [];
