@@ -49,12 +49,12 @@ spec:
             - name: GOOGLEOAUTH_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: careerconnect-google-OAuth
+                  name: careerconnect-google-oauth
                   key: CLIENT_SECRET
             - name: GOOGLEOAUTH_CLIENT_ID
               valueFrom:
                 secretKeyRef:
-                  name: careerconnect-google-OAuth
+                  name: careerconnect-google-oauth
                   key: CLIENT_ID
 # jwt environment from kubernetees secret obj
 ---
