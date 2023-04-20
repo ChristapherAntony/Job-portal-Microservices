@@ -46,6 +46,16 @@ spec:
                 secretKeyRef:
                   name: careerconnect-admin-secret
                   key: ADMIN_PASSWORD
+            - name: GOOGLEOAUTH_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: careerconnect-google-OAuth
+                  key: CLIENT_SECRET
+            - name: GOOGLEOAUTH_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: careerconnect-google-OAuth
+                  key: CLIENT_ID
 # jwt environment from kubernetees secret obj
 ---
 apiVersion: v1
