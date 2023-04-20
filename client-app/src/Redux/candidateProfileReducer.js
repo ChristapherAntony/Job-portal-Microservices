@@ -6,7 +6,6 @@ const candidateprofileSlice = createSlice({
     reducers: {
         changeCandidateProfile: (state, action) => {
             return action.payload
-
         }
     }
 })

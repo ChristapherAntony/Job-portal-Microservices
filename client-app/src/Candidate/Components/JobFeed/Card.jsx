@@ -117,11 +117,11 @@ function Card({ data, handleRefresh }) {
                     </span>
                 </div>
                 {data.hasApplied ? (
-                    <p className='text-blue-600'>Applied</p>
+                    <p className='text-blue-600 '>Applied</p>
                 ) : (
                     <div onClick={() => handleApply(data._id)}
 
-                        className="cursor-pointer btn btn-sm rounded-md bg-blue-600 hover:bg-blue-700 border-blue-600 hover:border-blue-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto"
+                        className="cursor-pointer btn btn-sm text-sm px-2 py-1 rounded-md bg-blue-600 hover:bg-blue-700 border-blue-600 hover:border-blue-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto"
                     >
                         Apply Now
                     </div>

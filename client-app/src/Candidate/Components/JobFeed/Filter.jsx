@@ -204,7 +204,7 @@ function Filter() {
                             <button
                                 type="button"
                                 onClick={handleSearch}
-                                className="btn bg-blue-600 hover:bg-blue-700 border-blue-600 hover:border-blue-700 text-white rounded-md w-full"
+                                className="btn bg-blue-600 py-1 hover:bg-blue-700 border-blue-600 hover:border-blue-700 text-white rounded-md w-full"
 
                             >Apply Filter</button>
                         </div>
