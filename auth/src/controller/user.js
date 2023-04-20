@@ -4,15 +4,9 @@ const { OAuth2Client } = require('google-auth-library');
 const jwt = require('jsonwebtoken')
 const { UserCreatedPublisher } = require('../events/publisher/user-created-publisher')
 const { natsWrapper } = require('../nats-wrapper');
-const { sendOTP } = require('../middleware/otp');
 const { OTP } = require("../models/otp");
 const { transporter } = require('../config/nodeMailer');
-const { samplePublisher } = require('../events/publisher/sample');
 const { v4: uuidv4 } = require('uuid');
-
-
-
-
 
 module.exports = {
     signup: async (req, res) => {
@@ -85,8 +79,6 @@ module.exports = {
             req.session = {
                 jwt: userJwt,
             };
-            console.log('signed with jwt ', userJwt);
-
             res.status(200).send(existingUser);
 
         } catch (error) {
@@ -97,8 +89,8 @@ module.exports = {
     googleSignIn: async (req, res) => {
         try {
             const { token, role } = req.body;
-            const CLIENT_ID = '100181781575-1s4h77ken84jliac3ejc87a292amokfh.apps.googleusercontent.com'
-            const CLIENT_SECRET = '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'
+            const CLIENT_ID = process.env.GOOGLEOAUTH_CLIENT_ID
+            const CLIENT_SECRET = process.env.GOOGLEOAUTH_CLIENT_SECRET
             const client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET);
             // Verify the Google token
             const ticket = await client.verifyIdToken({
@@ -130,9 +122,6 @@ module.exports = {
                 })
 
             }
-
-
-
             // Generate JWT
             const userJwt = jwt.sign(
                 { id: user._id, email: user.email, role: user.role },
