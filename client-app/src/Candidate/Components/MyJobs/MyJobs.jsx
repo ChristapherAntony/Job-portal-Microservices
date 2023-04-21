@@ -88,7 +88,7 @@ function MyJobs() {
                                             <Link
                                                
                                                 to={`/candidate/job-details/${data.job._id}`}
-                                                className="btn rounded-md bg-blue-600 hover:bg-blue-700 border-blue-600 hover:border-blue-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto"
+                                                className="btn rounded-md bg-blue-600 hover:bg-blue-700 border-blue-600 hover:border-blue-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full p-2 text-sm md:w-auto"
                                             >
                                                 View Details
                                             </Link>
@@ -128,11 +128,6 @@ function MyJobs() {
                             }
                         </>
                     )}
-
-
-
-
- 
                     <Pagination page={page} pages={pages} changePage={setPage} />
                 </div >
 

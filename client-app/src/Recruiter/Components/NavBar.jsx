@@ -1,18 +1,9 @@
-
-
-
 import { Link, useNavigate } from 'react-router-dom'
 import Logo from './Logo/Logo'
-
 import React, { useEffect, useState } from 'react'
 import { currentUser, signOut } from '../../utils/Constants';
 import axios from  'axios'
 import { VIEW_SKILLTEST_TABLE} from '../../utils/ConstantRoutes';
-
-{/* <div className='right'>
-                <button style={{ cursor: 'pointer' }} onClick={() => navigate('/candidate/signin')}  className='btn'>Register</button>
-                <button style={{ cursor: 'pointer' }} onClick={() => navigate('/candidate/signin')} className='btn'>Sign In</button>
-            </div> */}
 
 
 function NavBar() {
@@ -103,7 +94,7 @@ function NavBar() {
                             <>
                                 <div className="flex flex-col -mx-6 lg:flex-row lg:items-center lg:mx-8">
                                     <Link to={'/recruiter'} className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0  hover:bg-gray-100 ">Home </Link>
-                                    <Link to={'#'} className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0  hover:bg-gray-100 ">Hire</Link>
+                                    <Link to={'/recruiter/jobs'} className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0  hover:bg-gray-100 ">Hire</Link>
                                     <Link to={VIEW_SKILLTEST_TABLE} className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0  hover:bg-gray-100 ">Skill test</Link>
                                     <button onClick={logout} className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0  hover:bg-gray-100 ">Logout</button>
                                     {/* <a href="#" className="px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0  hover:bg-gray-100 ">Experts</a> */}
@@ -143,7 +134,7 @@ function NavBar() {
                                             />
                                         </div>
                                         <h3 className="mx-2 text-gray-700  lg:hidden">
-                                            Khatab wedaa
+                                         {/* recruiter name */}
                                         </h3>
                                     </button>
                                 </div>
@@ -166,13 +157,9 @@ function NavBar() {
                 <div className=" hidden lg:block pl-20  bg-lightDarkBlue shadow px-6  mx-auto">
 
                     <Link to={'/recruiter/jobs'} className="px-3  mx-3 text-white  rounded-md lg:mb-3 pb-2  ">Jobs & Response  </Link>
-                    <Link to={''} className="px-3  mx-3 text-white  rounded-md lg:mb-3 pb-2  ">Post a Job </Link>
+                    <Link to={'/recruiter/post-job'} className="px-3  mx-3 text-white  rounded-md lg:mb-3 pb-2  ">Post a Job </Link>
                     <Link to={'/recruiter/skill-test/results'} className="px-3  mx-3 text-white  rounded-md lg:mb-3 pb-2  ">Test results</Link>
-                    <Link to={''} className="px-3  mx-3 text-white  rounded-md lg:mb-3 pb-2  ">Interviews</Link>
-
-
-
-
+                    {/* <Link to={''} className="px-3  mx-3 text-white  rounded-md lg:mb-3 pb-2  ">Interviews</Link> */}
                 </div>
             ) : (
                 null
