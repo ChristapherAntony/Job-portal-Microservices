@@ -1,6 +1,14 @@
 # Job-portal-Microservices
 >A job portal named [careerconnect](https://www.careerconnect.cloud/) built with the MERN stack (MongoDB, Express, React, Node.js).
-
+## Table of Contents
+* [Features](#features)
+* [Architecture](#architecture)
+* [App Connection](#app-connection)
+* [Database Design](#database-design)
+* [Technologies Used](#technologies-used)
+* [Getting Started](#getting-started)
+* [Contact](#contact)
+* [Screenshots](#screenshots)
 
 ## Features
 -  Employers can post jobs, review resumes, and can add skill test to find the best talents.
@@ -18,7 +26,7 @@
 It is following a Microservice Architecture which is stateless with an asynchronous message queue system that is setup using NATS streaming. 
 The whole project divided into 5 services 
 
-### Application Features and Microservices List:
+#### Microservices
 
 - Auth service - Authenticating users (admin, candidate, recruiter) using JWT.
 - Profiles service  - To manage profile details of both candidate and recruiters.
