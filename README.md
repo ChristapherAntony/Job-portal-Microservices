@@ -2,10 +2,11 @@
 >A job portal named [careerconnect](https://www.careerconnect.cloud/) built with the MERN stack (MongoDB, Express, React, Node.js).
 >
 
-Live -[click here](https://www.careerconnect.cloud/)  
-Figma Desigin - [click here](https://www.figma.com/file/2qGttcqZTeC5znQgxXIZER/Job-Portal?node-id=0-1)  
-Data base design- [click here](https://github.com/ChristapherAntony/Job-portal-Microservices/files/11363871/careerConnect.Db.Design.pdf)  
-Api Documentation - click here    
+👉 Live -[_click here_](https://www.careerconnect.cloud/)  
+👉 Figma Desigin - [_click here_](https://www.figma.com/file/2qGttcqZTeC5znQgxXIZER/Job-Portal?node-id=0-1)  
+👉 Modules - [_click here_](https://drive.google.com/file/d/1JKKdjMyw63J_1qlvnSk__48MYux6zKBo/view?usp=sharing)  
+👉 Data base design- [_click here_](https://github.com/ChristapherAntony/Job-portal-Microservices/files/11363871/careerConnect.Db.Design.pdf)  
+👉 Api Documentation - _click here_    
 
 
 ## Table of Contents
