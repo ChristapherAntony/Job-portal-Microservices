@@ -1,9 +1,12 @@
 # Job-portal-Microservices
 >A job portal named [careerconnect](https://www.careerconnect.cloud/) built with the MERN stack (MongoDB, Express, React, Node.js).
 >
-##### Live - click here
-##### Api Documentation - click here
-##### Data base design- click here
+
+Live -[click here](https://www.careerconnect.cloud/)  
+Figma Desigin - [click here](https://www.figma.com/file/2qGttcqZTeC5znQgxXIZER/Job-Portal?node-id=0-1)  
+Data base design- [click here](https://github.com/ChristapherAntony/Job-portal-Microservices/files/11363871/careerConnect.Db.Design.pdf)  
+Api Documentation - click here    
+
 
 ## Table of Contents
 * [Features](#features)
@@ -32,20 +35,20 @@
 
 ## Technologies Used
 
-|   Stack      | Technology Used|
-|     :---:    |     :---:      |  
-| Frontend     | React, Redux, Tailwind CSS     | 
-| Backend      | Node js, Express js      |  
-| Authentication      |JSON Web Token JWT     |     
-| Database     | Mongo DB       |
-| Version control     |  Git  |
-|Image storage     |  Cloudinary  |
-| Architecture     | Microservices    |
-| Messaging/Queue     | NATS streaming |
-| Containerization and Orchestration    | Docker and Kubernetes     | 
-| Deployed     | Digital Ocean Kubernetes Clusters   |
-| CD     | GitHub-actions   |
-| Monitoring Deployment | Prometheus &  Graphana|
+|   Stack                                | Technology Used                    |
+|     :---:                              |     :---:                          |  
+| Frontend                               | React, Redux, Tailwind CSS         | 
+| Backend                                | Node js, Express js                |  
+| Authentication                         |JSON Web Token JWT                  |     
+| Database                               | Mongo DB                           |
+| Version control                        |  Git                               |
+|Image storage                           |  Cloudinary                        |
+| Architecture                           | Microservices                      |
+| Messaging/Queue                        | NATS streaming                     |
+| Containerization and Orchestration     | Docker and Kubernetes              | 
+| Deployed                               | Digital Ocean Kubernetes Clusters  |
+| CD                                     | GitHub-actions                     |
+| Monitoring Deployment                  | Prometheus &  Graphana             
 
 
 
