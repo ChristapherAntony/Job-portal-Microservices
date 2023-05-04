@@ -13,7 +13,6 @@ const candidateSchema = new mongoose.Schema({
     },
     phone_number: {
         type: Number,
-        unique: true,
     },
     is_blocked: {
         type: Boolean,
