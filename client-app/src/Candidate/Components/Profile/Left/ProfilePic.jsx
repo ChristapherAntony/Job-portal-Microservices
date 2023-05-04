@@ -161,7 +161,7 @@ function ProfilePic() {
           <img
             className="w-24 h-24 mb-3 rounded-full shadow-lg"
             src={profile.profile_image}
-            alt="Bonnie image"
+            alt="profile image"
           />
           <h5 className="mb-1 text-xl font-medium text-gray-900">
             {profile.user_name}
