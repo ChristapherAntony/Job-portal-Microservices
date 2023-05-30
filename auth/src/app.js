@@ -7,7 +7,7 @@ const authenticationRoutes = require('./routes/authentication');
 const { connectNATS } = require('./config/nats-connection');
 const authorize = require('@careerconnect/common').authorize;
 
-const app = express();
+const app = express(); 
 app.set('trust proxy', true);  //https 
 app.use(cors());
 app.use(express.json());

@@ -11,7 +11,7 @@ const recruiterRoutes = require('./routes/recruiter');
 
 const app = express();
 
-
+ 
 app.use(cors());
 app.set('trust proxy', true);  //https 
 app.use(express.json());
