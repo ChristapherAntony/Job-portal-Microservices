@@ -10,12 +10,14 @@ function AdminRoutes() {
             <Route path='/' element={<Login />} />
 
             <Route element={<RequireAuth allowedRole={'admin'} />}>
+
                 <Route path='home' element={<Home />} />
                 <Route path='candidates' element={<Candidates />} />
                 <Route path='recruiters' element={<Recruiters />} />
                 <Route path='applications' element={<RecruiterApplication />} />
                 <Route path='application/:candidateId/:applicationId' element={<ApplicationDetails />} />
                 <Route path='*' element={<NotFoundPage />} />
+                
             </Route>
             
         </Routes>
