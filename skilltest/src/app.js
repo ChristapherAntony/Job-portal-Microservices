@@ -33,7 +33,7 @@ app.use((err, req, res, next) => {
   console.log(err);
   if (err instanceof NotFoundError) {
     return res.status(404).send({ message: 'Page not found.' });
-  } 
+  }  
   next(err);
 });
 app.use((err, req, res, next) => {
