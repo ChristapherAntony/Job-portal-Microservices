@@ -1,11 +1,6 @@
 import React from 'react'
 
-
-
-
 function Card() {
-
-
     return (
         <div className="group relative overflow-hidden bg-white shadow hover:shadow-md  hover:-mt-2 rounded-md transition-all duration-500 h-fit">
             <div role="status" className=" box p-5 space-y-2.5 animate-pulse max-w-lg">

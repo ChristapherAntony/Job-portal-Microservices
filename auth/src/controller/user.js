@@ -62,7 +62,7 @@ module.exports = {
             // find user by email
             const existingUser = await User.findOne({ email });
             if (!existingUser) return res.status(404).json({ errors: [{ msg: 'Invalid credentials' }] });
-
+ 
             if (existingUser.is_blocked === true) return res.status(404).json({ errors: [{ msg: 'Unable to signin user is blocked ' }] });
 
             // password check

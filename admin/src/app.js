@@ -24,7 +24,7 @@ app.use((err, req, res, next) => {
   if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
     return res.status(400).send({ message: 'Invalid JSON syntax.' });
   }
-  next(err);
+  next(err); 
 });
 
 app.use((err, req, res, next) => {

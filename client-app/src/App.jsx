@@ -10,7 +10,7 @@ const RecruiterRoutes = lazy(() => import('./Routes/RecruiterRoutes'));
 const LandingPage = lazy(() => import('./Candidate/Pages/index').then(module => ({ default: module.LandingPage })));
   
 function App() {
-  return (
+  return ( 
     <div className="App">
       <BrowserRouter>
         <Routes>
